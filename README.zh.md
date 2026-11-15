@@ -189,6 +189,7 @@ inkfolio/
 - [x] 静态搜索、真分页
 - [x] 构建时生成 OG 图
 - [x] GEO / SEO 层——`sitemap.xml`、`robots.txt`、`llms.txt`、JSON-LD、canonical 与 hreflang
+- [x] About 页写在 YAML 里，支持 Markdown
 - [x] 图标可通过配置替换（Font Awesome 或阿里 Iconfont 的 symbol 脚本）
 - [x] 页脚显示本地时间与天气
 - [x] 繁体中文路由与字典

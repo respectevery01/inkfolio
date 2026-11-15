@@ -271,3 +271,17 @@ export const icons = ((parsed as any).icons ?? { mode: 'fontawesome', iconfont: 
   mode: 'fontawesome' | 'iconfont';
   iconfont?: { jsUrl?: string; prefix?: string };
 };
+
+/** Resolve a config string that may be plain or keyed by language. */
+export function pickI18n(value: any, lang: Lang): string {
+  if (value == null) return '';
+  if (typeof value === 'string') return value;
+  return value[lang] ?? value.zh ?? value.en ?? '';
+}
+
+export const about = ((parsed as any).about ?? {}) as {
+  intro?: any;
+  expertise?: { icon?: string; title?: any; text?: any }[];
+  stack?: { icon?: string; label?: any; note?: any }[];
+  journey?: { icon?: string; version?: string; when?: string; what?: any }[];
+};

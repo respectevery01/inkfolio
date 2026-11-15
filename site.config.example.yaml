@@ -282,3 +282,27 @@ i18n:
   defaultLanguage: en # en | zh | zh-hant
   languages: [en, zh, zh-hant]
   detectBrowserLanguage: false # true = first visit follows Accept-Language
+
+# About page — see docs/configuration/about.md. Strings are plain or
+# { en, zh, zh-hant }; intro accepts paragraphs and lists, item text is inline.
+about:
+  intro:
+    en: |
+      **Your name** — what you do, in a sentence.
+
+      A second paragraph. [Links](https://your-domain.com) and `code` work.
+    zh: |
+      **你的名字**——一句话说清你做什么。
+
+      第二段。[链接](https://your-domain.com)和 `code` 都能用。
+  expertise:
+    - icon: search
+      title: { en: What you do, zh: 你擅长什么 }
+      text: { en: One line of detail, zh: 一行细节说明 }
+  stack:
+    - { icon: globe, label: Astro, note: { en: site framework, zh: 站点框架 } }
+  journey:
+    - icon: tag
+      version: v1.0.0
+      when: 2026-11
+      what: { en: First release, zh: 首个版本 }

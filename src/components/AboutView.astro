@@ -1,7 +1,8 @@
 ---
 import Base from '../layouts/Base.astro';
 import Icon from './Icon.astro';
-import { site, social, type Lang } from '../lib/config';
+import { site, social, about, pickI18n, type Lang } from '../lib/config';
+import { md, mdInline } from '../lib/md';
 
 interface Props {
   lang: Lang;
@@ -10,73 +11,23 @@ const { lang } = Astro.props;
 const zh = lang !== 'en';
 const altHref = zh ? '/about/' : '/zh/about/';
 
-// Demo copy. Replace with your own — every string below is plain text.
-const expertise = zh
-  ? [
-      { icon: 'search', k: 'SEO 工程', v: '只用免费数据源的搜索管线：GSC、Bing、SERP 结构评分。技术审计和 GEO。' },
-      { icon: 'bot', k: 'AI agent', v: '几条产品线，一个人。agent 负责写、审、部署，我定方向和验收。' },
-      { icon: 'box', k: '静态站', v: 'Astro 加 Cloudflare，零服务器、零数据库、零 webfont。' },
-    ]
-  : [
-      {
-        icon: 'search',
-        k: 'SEO engineering',
-        v: 'Search pipelines built on free data only — GSC, Bing, SERP structure scoring. Technical audits and GEO.',
-      },
-      {
-        icon: 'bot',
-        k: 'AI agents',
-        v: 'Several product lines, one person. Agents draft, audit and deploy; I set direction and verify.',
-      },
-      { icon: 'box', k: 'Static sites', v: 'Astro on Cloudflare. No server, no database, no web fonts.' },
-    ];
-
-const stack = [
-  { icon: 'globe', label: 'Astro', note: 'site framework' },
-  { icon: 'box', label: 'Cloudflare', note: 'Pages + Workers' },
-  { icon: 'search', label: 'Python', note: 'tooling' },
-  { icon: 'bot', label: 'TypeScript', note: 'UI' },
-];
-
-// Release notes. Newest first — this is the "journey" section.
-const changelog = [
-  {
-    icon: 'tag',
-    v: 'v1.0.0',
-    when: '2026-11',
-    what: {
-      en: 'First public release: bilingual pages, config-driven everything, activity log, MCP page, Font Awesome icons.',
-      zh: '首个公开版本：双语页面、全部配置化、活跃度页、MCP 页、Font Awesome 图标。',
-    },
-  },
-  {
-    icon: 'code',
-    v: 'v0.3.0',
-    when: '2026-11',
-    what: {
-      en: 'Nav directory and friends list moved into YAML; icons by filename, no Astro edits.',
-      zh: '导航目录和友链搬进 YAML；图标按文件名引用，不用改 Astro。',
-    },
-  },
-  {
-    icon: 'flask',
-    v: 'v0.2.0',
-    when: '2026-11',
-    what: {
-      en: 'Analytics (Umami / GA4 / Clarity) and SEO defaults moved into one config block.',
-      zh: '统计（Umami / GA4 / Clarity）和 SEO 默认值收进同一个配置块。',
-    },
-  },
-  {
-    icon: 'box',
-    v: 'v0.1.0',
-    when: '2026-10',
-    what: {
-      en: 'Editorial base: warm paper, one accent, system fonts, light and dark.',
-      zh: '编辑风底座：暖纸白、一个强调色、系统字体、亮暗双主题。',
-    },
-  },
-];
+const aboutIntro = md(pickI18n(about.intro, lang));
+const expertise = (about.expertise ?? []).map((e: any) => ({
+  icon: e.icon ?? 'box',
+  k: pickI18n(e.title, lang),
+  v: mdInline(pickI18n(e.text, lang)),
+}));
+const stack = (about.stack ?? []).map((x: any) => ({
+  icon: x.icon ?? 'box',
+  label: pickI18n(x.label, lang),
+  note: pickI18n(x.note, lang),
+}));
+const changelog = (about.journey ?? []).map((c: any) => ({
+  icon: c.icon ?? 'tag',
+  v: c.version,
+  when: c.when,
+  what: mdInline(pickI18n(c.what, lang)),
+}));
 
 const socials = social.map((item: any) => ({
   ...item,
@@ -96,24 +47,7 @@ const socials = social.map((item: any) => ({
           </figure>
         )}
         <div class="bio">
-          <div class="prose">
-            <p>
-              <strong>{zh ? site.nameZh : site.name}</strong>
-              {zh
-                ? ' 是一个开源主题的示例站：编辑风排版、暖纸白、一个强调色、系统字体，没有前端框架。'
-                : ' is the demo site for an open-source theme: editorial layout, warm paper, one accent colour, system fonts, no front-end framework.'}
-            </p>
-            <p>
-              {zh
-                ? '整站由一份 YAML 配置驱动——站名、导航、配色、横幅、统计、SEO 全在里面。写作只用 Markdown。'
-                : 'The whole site is driven by one YAML file — name, navigation, colours, banner, analytics, SEO. Writing happens in Markdown.'}
-            </p>
-            <p>
-              {zh
-                ? '这里的所有内容都是示例，用来演示结构；换成你自己的文字即可。'
-                : 'Everything here is sample content, there to show the structure. Replace it with your own.'}
-            </p>
-          </div>
+          <div class="prose" set:html={aboutIntro}></div>
           <ul class="bio-social">
             {socials.map((item: any) => (
               <li>
@@ -141,7 +75,7 @@ const socials = social.map((item: any) => ({
               </span>
               <div>
                 <b>{e.k}</b>
-                <p>{e.v}</p>
+                <p set:html={e.v}></p>
               </div>
             </li>
           ))}
@@ -183,7 +117,7 @@ const socials = social.map((item: any) => ({
                 <p class="tl-when">
                   {c.v} · {c.when}
                 </p>
-                <p class="tl-desc">{zh ? c.what.zh : c.what.en}</p>
+                <p class="tl-desc" set:html={c.what}></p>
               </div>
             </li>
           ))}

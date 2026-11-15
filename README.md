@@ -189,6 +189,7 @@ The output is static, so any host works. On Cloudflare Pages: build command `npm
 - [x] Static search, real pagination
 - [x] Build-time OG images
 - [x] GEO / SEO layer — `sitemap.xml`, `robots.txt`, `llms.txt`, JSON-LD, canonical and hreflang
+- [x] About page written in YAML, Markdown included
 - [x] Icon set replaceable through configuration (Font Awesome or an Alibaba Iconfont symbol script)
 - [x] Local time and weather in the footer
 - [x] Traditional Chinese routes and dictionary
