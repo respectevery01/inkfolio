@@ -80,15 +80,15 @@ const altHref = alt && alt !== path ? alt : null;
     </div>
 
     {altHref && (
-      <a
-        class="icon-btn lang-toggle"
-        href={altHref}
-        hreflang={zh ? 'en' : 'zh-CN'}
-        aria-label={zh ? 'English' : '中文'}
-        title={zh ? 'English' : '中文'}
-      >
-        <span class="lang-label">{zh ? 'EN' : '中'}</span>
-      </a>
+      <details class="lang-menu">
+        <summary class="icon-btn lang-toggle" aria-label={zh ? '切换语言' : 'Language'} title={zh ? '切换语言' : 'Language'}>
+          <span class="lang-label">{zh ? '中' : 'EN'}</span>
+          <svg width="10" height="10" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <ul class="lang-list">
+          <li><a href={altHref} hreflang={zh ? 'en' : 'zh-Hans'} lang={zh ? 'en' : 'zh-Hans'}>{zh ? 'English' : '简体中文'}</a></li>
+        </ul>
+      </details>
     )}
     <a
       class="icon-btn search-btn"
@@ -211,6 +211,15 @@ const altHref = alt && alt !== path ? alt : null;
       display: none;
     }
   }
+  .lang-menu { position: relative; }
+  .lang-menu summary { list-style: none; cursor: pointer; }
+  .lang-menu summary::-webkit-details-marker { display: none; }
+  .lang-toggle svg { opacity: .6; }
+  .lang-list { position: absolute; right: 0; top: calc(100% + 8px); min-width: 148px; z-index: 60;
+    margin: 0; padding: 6px; list-style: none; background: var(--bg); border: 1px solid var(--line);
+    border-radius: 12px; box-shadow: 0 12px 32px rgb(0 0 0 / .12); }
+  .lang-list a { display: block; padding: 8px 10px; border-radius: 8px; font-size: 14px; color: var(--ink); }
+  .lang-list a:hover, .lang-list a:focus-visible { background: var(--chip); }
 </style>
 <script is:inline>
   (function () {
