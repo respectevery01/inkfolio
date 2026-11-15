@@ -16,6 +16,7 @@
   <a href="#project-structure">Structure</a> ·
   <a href="#commands">Commands</a> ·
   <a href="#configuration">Configuration</a> ·
+  <a href="#roadmap">Roadmap</a> ·
   <a href="#contributing">Contributing</a> ·
   <a href="#license">License</a>
 </p>
@@ -170,6 +171,31 @@ Posts accept `title`, `description`, `date`, `updated`, `tags`, `draft`, `toc` a
 ## Deployment
 
 The output is static, so any host works. On Cloudflare Pages: build command `npm run build`, output directory `dist`, Node 20+. For a demo or preview, set `SITE_URL` in the build environment; for production, put your domain in `site.config.yaml`.
+
+## Roadmap
+
+Inkfolio is built from a site that runs in production, and that site runs ahead of the theme on purpose: whatever is not part of the theme yet is listed here rather than half-built. Nothing in this list is a promise of a date.
+
+**Next — parity with the author's own site, where these pages already run**
+
+- **Moments** — a short-notes timeline at `/moments`, one line per day, no titles, no covers. First version reads a plain JSON/YAML file so it stays static; a feed importer can come later.
+- **Channel** — a read-only mirror of a Telegram channel as a list of posts, so the site and the channel stop being two separate publications. Static export today; a fetch step only if it can stay optional.
+- **Location and weather** — the author's own site shows local time and current conditions; the theme has neither. Wanted shape: a small footer or header widget, provider behind an environment key, requests proxied server-side so no key ever reaches the browser, and the widget disappears cleanly when no key is configured.
+
+**Under consideration**
+
+- A `roadmap`-labelled issue tracker flow, so this section is generated rather than hand-maintained
+- More than two content languages — blocked on honest translation rather than on code
+- A share-card generator for posts that is not Playwright (the current OG step needs a browser in the build)
+
+**Deliberately not planned**
+
+- A CMS or Git-based admin panel. The contract is YAML plus Markdown; adding a backend breaks it.
+- Comments, ratings and any embed that loads third-party JavaScript at runtime
+- Analytics that ignore consent, or a second always-on tracker beside Umami
+- Features that only work with a paid service key baked into the build
+
+If you want something on this list to move, open an issue describing the publishing workflow it unblocks. Priority follows real use, not vote counts.
 
 ## Contributing
 
