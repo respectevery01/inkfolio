@@ -15,7 +15,7 @@ site:
   authorZh: Inkfolio
   greeting: Hey, I'm Inkfolio.        # home hero headline
   greetingZh: 嗨，我是 Inkfolio。
-  avatar: /avatar.jpg                # shown on the home hero, About and the friends list
+  avatar: /avatar.png                # shown on the home hero and About (friends list has its own avatar)
   email: hello@example.com           # optional, only used in the footer if set
   telegram: ""                       # e.g. https://t.me/yourchannel — shown on the newsletter page
   contactEndpoint: ""                # optional POST URL for the contact form (Formspree, Worker…). Empty = mailto:
@@ -36,17 +36,7 @@ nav:
     href: /research/
   - label: Writing
     labelZh: 写作
-    items:
-      - label: Posts
-        labelZh: 文章
-        href: /posts/
-        sub: Long pieces and notes
-        subZh: 长文与随手记
-      - label: Notes
-        labelZh: 随手记
-        href: /notes/
-        sub: One thought, no outline
-        subZh: 一个想法，不列提纲
+    href: /posts/
   - label: Projects
     labelZh: 项目
     href: /projects/
@@ -96,7 +86,6 @@ footerColumns:
     links:
       - { label: Weekly, labelZh: 周更, href: /weekly/ }
       - { label: Posts, labelZh: 文章, href: /posts/ }
-      - { label: Notes, labelZh: 随手记, href: /notes/ }
       - { label: Research, labelZh: 研究, href: /research/ }
       - { label: RSS, labelZh: RSS, href: /rss.xml }
   - title: Build
