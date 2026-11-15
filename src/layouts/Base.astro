@@ -25,6 +25,9 @@ interface Props {
 }
 
 const { title, description, lang = 'en', alt, article, noindex = false, maxWidth, ogImage: ogImageProp } = Astro.props;
+const i18nCfg = ((site as any).i18n ?? {}) as { enabled?: boolean; detectBrowserLanguage?: boolean; defaultLanguage?: string };
+const defaultLang = i18nCfg.defaultLanguage ?? 'en';
+const i18nDisabledForLang = i18nCfg.enabled === false && lang !== defaultLang;
 
 let pageTitle = titleFor(title, lang);
 const isHomeTitle = title === site.name || pageTitle === site.name;
