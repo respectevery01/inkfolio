@@ -1,230 +1,156 @@
 # Inkfolio
 
-给写作者与独立开发者的编辑风 Astro 博客主题。暖纸白、近黑正文、一个强调色、波浪下划线、零 webfont、不带前端框架。
+[English](README.md) · [简体中文](README.zh.md)
 
-[English](./README.md) · 中文
+[![Astro 7](https://img.shields.io/badge/Astro-7-BC52EE?style=for-the-badge&logo=astro&logoColor=white)](https://astro.build)
+[![License: GPL-3.0](https://img.shields.io/badge/License-GPL--3.0-2F3741?style=for-the-badge)](./LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/respectevery01/inkfolio?style=for-the-badge&color=ff6b01)](https://github.com/respectevery01/inkfolio/stargazers)
 
-在线演示：https://inkfolio.jask.dev
+Inkfolio 是一套给「一个人写、一个人发」的人用的 Astro 主题：文章、文档区、周刊、发布日志，再加一页把真正在用的工具列出来。暖纸底、近黑字、单一强调色、本地打包的 Font Awesome，没有前端框架。
 
-![Inkfolio 首页](./docs/screenshot-home.png)
+你多半会想改的东西——导航、页脚、友链、工具页、促销条、统计、同意书、MCP 页——全在 YAML 里。理想情况下，你不用打开任何一个 `.astro` 文件就能把站跑起来。
 
-## 为什么又一个博客主题
+- 在线演示：[inkfolio.jask.dev](https://inkfolio.jask.dev)
+- 文档：[inkfolio.jask.dev/zh/docs](https://inkfolio.jask.dev/zh/docs/)
 
-Astro 的博客主题大多两极化：要么是套着博客外壳的 SaaS 落地页，要么是完全没有主张的脚手架。Inkfolio 反过来——看起来像一页杂志，只有五个真实页面，所有开关收在一个 YAML 文件里。
+## 功能
 
-- **默认可双语**：英文在 `/`，中文在 `/zh/`，`hreflang` 正确，每种语言一份 RSS。文章按文件名配对；没有对应译文的文章直接不显示切换按钮，而不是把读者送到 404。
-- **配置驱动**：站名、标语、导航、社交链接、强调色、页脚小字、顶部横幅，全在 `site.config.yaml`。常规改动不用打开任何组件。
-- **一次设置两种主题**：亮色与暗色，默认跟随系统，按访客记忆，且在首次绘制前应用，不会闪。
-- **靠减法变快**：纯静态、零 webfont、无统计脚本、无 cookie 弹窗、无前端框架。全站脚本就是约 40 行内联 JS：主题切换、移动菜单、横幅。
-- **能读**：正文 632px、行高 1.75，表格和代码块有正经样式；不加动画，天然尊重「减少动态效果」的系统设置。
-- **没有后端也能搜索和分页**：Pagefind 在构建后给全站建索引；文章列表是真的静态分页，爬虫看到的是真实页面。
-- **每篇文章一张社交卡**：`scripts/build-og.mjs` 生成 1200×630 图；文件缺失的页面自动回落默认图。
-- **会自我说明的代码块**：文件名标签（`​```yaml title="site.config.yaml"`）、行高亮（`// [!code highlight]`）、diff（`// [!code ++]` / `// [!code --]`）。
+**排版优先**
 
-## 快速开始
+- 有阅读度量、行距充足，用留白和字号做节奏，而不是靠卡片堆盒子
+- 明暗双主题由 CSS 变量驱动，跟随 `prefers-color-scheme`，也记住手动选择
+- 内容型模板齐备：首页、关于、文章、周刊、研究、文档、日志、友链、联系、项目、404
+- 橙色波浪下划线与悬停态在触屏和 Safari 上同样有效
 
-需要 Node.js 20 或更新版本（Astro 7）。已满足官方 Astro 主题目录的收录前提。
+**双语，不靠翻译层**
+
+- 一个内容两份文件：`posts/hello.md` 与 `posts-zh/hello.md` 配对，docs、weekly、research 同一规则
+- 只有另一语言文件真实存在时，语言切换器才渲染——没有死链，也没有「敬请期待」
+- 只对真实存在的双语页输出 `hreflang`，中文独占页不会声称自己有英文版
+- UI 文案、日期、阅读时长、标签、搜索结果都跟随当前页面语言
+
+**面向搜索引擎与 AI agent**
+
+- 每页独立的 `<title>`、描述、canonical、Open Graph 与 Twitter 元数据
+- JSON-LD：站点、作者、文章
+- 构建时生成 `sitemap.xml`、`rss.xml`，并提供 `robots.txt`
+- 每页一张 1200×630 OG 图，构建时用 Playwright 渲染（`npm run og`），不依赖外部截图服务
+- 纯静态、可完整抓取的 HTML——重要内容不依赖 JavaScript
+
+**搜索与导航离线可用**
+
+- 构建时用 [Pagefind](https://pagefind.app/) 建静态索引，搜索是索引而非第三方服务
+- 分页是真分页，不是无限滚动
+- 文档区自动生成侧边栏，页内目录、callout、代码块复制按钮齐备
+- frontmatter 写 `toc: false` 即去掉侧边目录，正文收成单栏
+
+**那些常被跳过的页面**
+
+- `/log`——一个活跃度格子加一份手写更新日志。格子来自**公开**仓库的提交，由 `npm run log` 生成，刻意不用 token
+- `/nav`——真正在用的工具，按用途分组，图标是你自己的文件
+- `/friends`——一页一卡，真实头像，不做徽章墙
+- `/mcp`——默认不出现，配置里开启才会渲染
+- `/search`——静态搜索，按页面语言过滤结果
+
+**隐私与同意处理得当**
+
+- GA4 与 Microsoft Clarity 只有同意之后才加载；Umami 不写 cookie，常驻
+- 促销条可关闭，也可以在配置里一行删掉，不留隐藏 HTML 残留
+- 运行时不再从第三方 CDN 拉字体、图标或统计脚本
+
+**配置驱动，而不是改代码**
+
+- `site.config.yaml` 管站点信息、导航（含下拉）、CTA、社交链接、页脚分栏、促销条、主题、统计、同意文案、SEO 默认值、MCP 页、页脚插画
+- `src/data/*.yaml` 管友链、工具、项目、手写日志条目
+- `npm run build` 依次执行 `astro check && astro build && pagefind`
+
+## 本地运行
+
+需要 **Node 20+**（推荐 22）；Astro 7 已锁在 `package.json` 里。
 
 ```bash
+git clone https://github.com/respectevery01/inkfolio.git my-site
+cd my-site
 npm install
-npm run dev      # http://localhost:4321
-npm run build    # 类型检查 + 构建 + 搜索索引
+npm run dev          # http://localhost:4321
 ```
 
-`npm run build` 按顺序做三件事：`astro check`（有类型错误直接失败）、`astro build`、`pagefind`（静态搜索索引写进 `dist/pagefind`）。
-
-| 脚本 | 作用 |
-| --- | --- |
-| `npm run dev` | 开发服务器 |
-| `npm run build` | 检查、构建、建索引 |
-| `npm run preview` | 预览 `dist/` |
-| `node scripts/build-og.mjs` | 每篇文章一张 1200×630 OG 图（需要 Playwright） |
-| `npm run log` | 从**公开** GitHub 数据刷新活跃度（不用 token） |
-| `npm run lint` / `npm run format` | ESLint / Prettier |
-
-然后打开 `site.config.yaml`，至少改这三行：
-
-```yaml
-site:
-  url: https://your-domain.com
-  name: 你的站名
-  author: 你的名字
-```
-
-部署：Cloudflare Pages、Netlify、Vercel 都行。构建命令 `npm run build`，输出目录 `dist`，没有别的配置。
-
-## 关于顶部横幅
-
-主题自带一条横幅：
-
-> 本站的 SEO 用 ZensInk 跑 — [去看看](https://zens.ink)
-
-这是它持续维护的方式，同时也是**一行就能关掉**的东西，不用改代码：
-
-```yaml
-promoBanner:
-  enabled: false
-```
-
-访客也可以自己关（`dismissible: true`），选择会被记住。想换文案、把链接指向你自己的项目都行——它就是个普通配置项。完整说明见 `src/content/posts-zh/turn-off-the-banner.md`。
-
-## 包含哪些页面
-
-| 页面               | 路径                              |
-| ------------------ | --------------------------------- |
-| 首页（各栏目最新） | `/` 与 `/zh/`                     |
-| 文章索引 / 正文    | `/posts/`、`/posts/<slug>/`       |
-| 周更系列           | `/weekly/`、`/weekly/<slug>/`     |
-| 研究               | `/research/`、`/research/<slug>/` |
-| 项目               | `/projects/`                      |
-| 活跃度（热力图）   | `/log/`                           |
-| 工具箱             | `/nav/`                           |
-| 友链               | `/friends/`                       |
-| 联系               | `/contact/`                       |
-| 订阅               | `/newsletter/`                    |
-| 关于               | `/about/`                         |
-| RSS                | `/rss.xml` 与 `/zh/rss.xml`       |
-| 404                | `/404.html`                       |
-| sitemap / robots   | 由 `site.url` 生成                |
-
-以上每一页都有 `/zh/` 版本，并用 `hreflang` 互指。
-
-内容都是 Markdown 和 YAML：
-
-```
-src/content/posts/         英文文章
-src/content/posts-zh/      中文文章（同名自动配对）
-src/content/weekly/        周更（frontmatter 带期号）
-src/content/research/      长篇调查
-src/content/pages/         about.md / about-zh.md
-src/data/projects.yaml     项目列表
-src/data/tools.yaml        工具箱，按分类分组
-src/data/friends.yaml      友链
-src/data/log.json          活跃度数据（一天一条）
-```
-
-主题自带六篇文章即文档：上手、每个配置项、横幅、写文章、改外观、统计与 SEO。
-
-## 怎么改
-
-- **强调色**：`site.config.yaml` 的 `theme.accent`。
-- **默认亮/暗**：`theme.defaultMode: auto | light | dark`。
-- **导航**：`nav` 列表；`labelZh` 可选，不写就不出现在中文站。
-- **字体与间距**：`src/styles/global.css` 顶部的 CSS 变量。
-- **页脚**：`footer.note` 与 `social` 列表。
-
-## 图标、统计与 SEO
-
-图标全部来自 [Font Awesome Free](https://fontawesome.com)，本地打包，不走 CDN、不需要 kit token。
-
-- 界面图标：`<Icon name="sun" />`、`<Icon name="chevron-down" />`、`<Icon name="arrow-right" />`——默认 solid，品牌图标自动识别（`github`、`bluesky`、`ethereum` 等）。
-- `/nav` 页用独立的图标文件。把一个 SVG 放进 `public/icons/`，然后在 `src/data/tools.yaml` 里写文件名：
-
-```yaml
-- name: Astro
-  url: https://astro.build
-  icon: astro # 对应 public/icons/astro.svg
-```
-
-加一条链接不需要改任何 Astro 文件。目前自带：`jask`、`astro`、`fontawesome`、`github`；不写 `icon` 就用首字母。
-
-## 文档
-
-主题自带 `/docs/`（中文 `/zh/docs/`）：侧边栏由目录结构自动生成、右侧本页目录、上下篇、GitHub 风格提示框、每个代码块带复制按钮。加一页就是往 `src/content/docs/<分区>/` 里放一个 Markdown，侧边栏自己会多一项。
-
-```
-src/content/docs/getting-started/installation.md
-src/content/docs/configuration/mcp.md
-src/content/docs-zh/…   （同样的 id，中文）
-```
-
-## 回到顶部与 cookie 同意
-
-- 滚动超过 600px 出现回到顶部按钮（尊重 prefers-reduced-motion），和同意卡片同时出现时会自动上移避开。
-- 同意卡片是右下角浮动样式。`consent.enabled: false` 就关掉。GA4 和 Clarity 在访客点接受之前不会加载；Umami 不写 cookie，始终加载。
-
-`/privacy/` 隐私页是同意文案默认指向的地方，改 `src/content/pages/privacy.md`（和 `-zh`）。
-
-## 页脚
-
-三栏来自 `site.config.yaml` 的 `footerColumns`——加一栏或加一条链接都不用改代码。底部一行是版权、作者链接和你的小字：
-
-```yaml
-footer:
-  copyrightName: Inkfolio
-  authorUrl: https://jask.dev
-  authorLabel: jask.dev
-```
-
-三栏上方那张宽图是两个文件，一个主题一张：
-
-- `public/footer/footer-light.webp`
-- `public/footer/footer-dark.webp`
-- 尺寸 **1600 × 529**，WebP，透明或纸色背景，能和页面融为一体
-
-直接替换这两个文件、文件名不变就行，别的都不用动。想换名字就改 `footer.artLight` / `footer.artDark`。两个都设成 `""` 就不要这张图了。
-
-## MCP 页面
-
-这个示例站是开着的。把 `mcp.enabled` 改成 false，`/mcp/` 页面会变成 `noindex`，导航入口也会被过滤掉。
-
-```yaml
-mcp:
-  enabled: true
-  endpoint: https://mcp.your-domain.com/mcp
-  name: Your MCP
-  sources:
-    - host: your-site.com
-      items: 42
-      desc: { en: Articles and notes, zh: 文章与笔记 }
-  tools:
-    - name: search
-      args: query, source?
-      desc: { en: Keyword search across all sources., zh: 跨源关键词搜索。 }
-```
-
-不用改代码：页面会自己渲染端点、三种客户端的接法、工具列表和内容源列表。它只给已经在跑的 MCP 服务写说明页——主题是静态的，不托管服务。演示构建可以设 `MCP_ENABLED=true` 临时打开，不用改 YAML。
-
-## 活跃度
-
-`/log/` 读的是 `src/data/log.json`，用真实 GitHub 提交刷新：
+演示站通过环境变量传入自己的域名，所以直接 `npm run build` 会保留 `example.com`，直到你把 `site.config.yaml` 里的 `site.url` 改掉：
 
 ```bash
-GITHUB_TOKEN=ghp_xxx node scripts/fetch-log.mjs
+SITE_URL="https://your-domain.com" npm run build
 ```
 
-仓库列表在脚本顶部的 `REPOS` 里，一行一个 `owner/name`。脚本写最近 365 天的按日计数，外加每个仓库的提交数和最后提交日期。失败时保留旧文件，网络抽风不会搞坏部署。
+## 目录结构
 
-## 统计与 SEO
-
-三家统计默认全关，不开 `enabled: true` 并填 id 就不会注入任何脚本。
-
-```yaml
-analytics:
-  umami:
-    enabled: true
-    scriptUrl: https://analytics.your-domain.com/script.js
-    websiteId: 1a2b3c4d-...
-  googleAnalytics:
-    enabled: false
-    measurementId: G-XXXXXXXXXX
-  clarity:
-    enabled: false
-    projectId: abcdefghij
+```text
+inkfolio/
+├── site.config.yaml          # 导航、页脚、主题、统计、MCP、促销条
+├── src/
+│   ├── content/
+│   │   ├── posts/            # 英文文章（中文放 posts-zh/）
+│   │   ├── docs/             # 文档章节（docs-zh/）
+│   │   ├── weekly/           # 周刊（weekly-zh/）
+│   │   ├── research/         # 长文（research-zh/）
+│   │   └── pages/            # 关于、联系、隐私、友链文案
+│   ├── data/                 # friends.yaml、tools.yaml、projects.yaml、log-notes.yaml
+│   ├── layouts/Base.astro    # head、SEO、JSON-LD、导航、页脚、同意条
+│   ├── components/           # 23 个组件（卡片、目录、搜索、热力图、弹窗）
+│   ├── pages/                # 41 条路由，英文在 /，中文在 /zh/
+│   ├── i18n/ui.ts            # 双语 UI 文案
+│   └── styles/               # token、全局 CSS、正文排版
+├── public/                   # 图标、页脚插画、OG 兜底图
+└── scripts/                  # 构建 + Pagefind、OG 渲染、活跃度抓取
 ```
 
-SEO 默认值在 `seo` 一节：`titleTemplate`、`defaultDescription`、`ogImage`（1200×630）、`twitterHandle`、`keywords`、`structuredData`（WebSite + BlogPosting 的 JSON-LD，日期取自 frontmatter）。每页自己的标题和描述来自各自的 Markdown。
+## 命令
 
-## 许可证
+均在项目根目录执行：
 
-GPL-3.0-or-later。说人话：
+| 命令                | 作用                                                       |
+| :------------------ | :--------------------------------------------------------- |
+| `npm install`       | 安装依赖                                                   |
+| `npm run dev`       | 启动开发服务器 `localhost:4321`                            |
+| `npm run build`     | 类型检查、构建、跑 Pagefind 索引并写进产物                  |
+| `npm run preview`   | 本地预览构建结果                                           |
+| `npm run og`        | 用 Playwright 为每个页面渲染一张 1200×630 OG 图             |
+| `npm run log`       | 从**公开**仓库提交重建活跃度格子（不用 token）              |
+| `npm run pagefind`  | 对已有产物重跑 Pagefind 索引                                |
+| `npm run lint`      | ESLint                                                     |
+| `npm run format`    | Prettier，写入模式                                          |
+| `npm run astro ...` | 任意 Astro CLI 命令，例如 `npm run astro check`             |
 
-- 自己用，包括商业站点，免费。
-- 想怎么改都行。
-- 二次分发——不管是发主题、发分支，还是打包成模板卖——衍生作品必须继续用 GPL-3.0。不能拿这个主题改个名当闭源产品卖。
+## 配置
 
-如果这个条件对你的用法太严，开个 issue 问一声，作者挺好说话。
+| 文件                      | 控制内容                                                                              |
+| :------------------------ | :------------------------------------------------------------------------------------ |
+| `site.config.yaml`        | 站点名与地址、导航与下拉、CTA、社交链接、页脚分栏、促销条、主题、统计、同意文案、SEO 默认值、MCP 页、页脚插画 |
+| `src/data/friends.yaml`   | 友链：名称、地址、描述、头像                                                          |
+| `src/data/tools.yaml`     | `/nav` 页：分组、工具名、图标文件名                                                   |
+| `src/data/projects.yaml`  | 项目页                                                                                |
+| `src/data/log-notes.yaml` | 热力图下方的手写更新日志                                                              |
+| `src/i18n/ui.ts`          | 全部 UI 文案，双语                                                                    |
+
+### Frontmatter
+
+文章支持 `title`、`description`、`date`、`updated`、`tags`、`draft`、`toc`、`lang`。文档在此基础上多 `order`，用于自动侧边栏排序；章节由目录分组。周刊与研究各有自己的系列字段。中文文件 frontmatter 与英文一致，只是所在目录不同。
+
+### 活跃度格子怎么来的
+
+`npm run log` 读取 `scripts/fetch-log.mjs` 顶部列出的公开仓库提交，写出 `src/data/log.json`。故意不用 token：写进构建脚本的 personal access token 能读你授权过的所有私有仓库，漏一次就是全暴露。私有仓库的产出因此不出现在页面上——这是取舍，不是要绕过的限制。
+
+## 部署
+
+产物是纯静态，任何托管都能放。Cloudflare Pages：构建命令 `npm run build`，输出目录 `dist`，Node 20+。演示/预览环境用环境变量传 `SITE_URL`；正式站把域名写进 `site.config.yaml`。
+
+## 参与
+
+问题与 PR 都欢迎：[respectevery01/inkfolio](https://github.com/respectevery01/inkfolio)。请让 PR 保持聚焦，提交前跑一遍 `npm run lint`。涉及布局或视觉风格的改动，先开 issue 对齐方向再动手。
 
 ## 致谢
 
-用 [Astro](https://astro.build) 构建。设计令牌与布局为本主题原创。无埋点、无第三方脚本。
+这套主题的结构受两个值得从头读到尾的项目影响：[AstroPaper](https://github.com/satnaing/astro-paper) 提供了干净、可配置的 Astro 博客基线；[FixIt](https://github.com/hugo-fixit/FixIt) 示范了主题功能面该怎么划分、文档该怎么老实写。视觉设计是 Inkfolio 自己的。
+
+## 许可
+
+[GPL-3.0](./LICENSE)。

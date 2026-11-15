@@ -1,230 +1,156 @@
 # Inkfolio
 
-An editorial Astro theme for writers and indie builders. Warm paper, near-black text, one accent colour, wavy underlines, no web fonts, no client-side framework.
+[English](README.md) · [简体中文](README.zh.md)
 
-English · [中文](./README.zh.md)
+[![Astro 7](https://img.shields.io/badge/Astro-7-BC52EE?style=for-the-badge&logo=astro&logoColor=white)](https://astro.build)
+[![License: GPL-3.0](https://img.shields.io/badge/License-GPL--3.0-2F3741?style=for-the-badge)](./LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/respectevery01/inkfolio?style=for-the-badge&color=ff6b01)](https://github.com/respectevery01/inkfolio/stargazers)
 
-Live demo: https://inkfolio.jask.dev
+Inkfolio is an editorial Astro theme for people who write and ship things alone: posts, a docs section, a weekly series, notes on what shipped, and one page that lists the tools actually used. Warm paper, near-black text, a single accent colour, locally bundled Font Awesome, and no client-side framework.
 
-![Inkfolio home page](./docs/screenshot-home.png)
+Everything you are likely to change — navigation, footer, friends, tools, the promo banner, analytics, consent, the MCP page — lives in YAML. You should be able to run this theme without opening an `.astro` file.
 
-## Why another blog theme
+- Live demo: [inkfolio.jask.dev](https://inkfolio.jask.dev)
+- Docs: [inkfolio.jask.dev/docs](https://inkfolio.jask.dev/docs/)
 
-Most Astro blog themes are either a SaaS landing page wearing a blog hat, or a starter with no opinions. Inkfolio is the opposite: it looks like a magazine page, ships five real pages, and keeps every knob in one YAML file.
+## Features
 
-- **Bilingual by default** — English at `/`, Chinese at `/zh/`, correct `hreflang`, per-language RSS. Posts pair by filename; unpaired posts simply hide the switcher instead of sending readers to a 404.
-- **Config-driven** — site name, tagline, nav, social links, accent colour, footer note and the top banner all live in `site.config.yaml`. No component editing for the normal cases.
-- **Two themes, one value** — light and dark, following the system by default, remembered per visitor, applied before first paint so there is no flash.
-- **Fast by subtraction** — static HTML, no web fonts, no analytics, no cookie banner, no JavaScript framework. The only scripts are ~40 lines of inline JS for the theme toggle, the mobile menu and the banner.
-- **Readable** — 632px measure, 1.75 line height, real tables and code blocks styled, `prefers-reduced-motion` respected by omission of animation.
-- **Search and pagination without a backend** — Pagefind indexes the built site; the posts list is statically paginated, so crawlers see real pages.
-- **Per-post social cards** — `scripts/build-og.mjs` renders one 1200×630 image per article; pages fall back to the default image when a file is missing.
-- **Code blocks that explain themselves** — filename labels (`​```yaml title="site.config.yaml"`), line highlights (`// [!code highlight]`) and diffs (`// [!code ++]` / `// [!code --]`).
+**Editorial by default**
 
-## Quick start
+- Typographic layout with reading measure, generous leading, and section rhythm built from spacing rather than card boxes
+- Light and dark mode from CSS custom properties, respecting `prefers-color-scheme` and a stored choice
+- Content-first templates: hero, about, posts, weekly, research, docs, log, friends, contact, projects, 404
+- Wavy accent underlines and hover states that also work on touch and Safari
 
-Requires Node.js 20 or newer (Astro 7). The theme is listed-ready for the official Astro directory.
+**Bilingual without a translation layer**
+
+- Two files, one post: `posts/hello.md` pairs with `posts-zh/hello.md`, same pattern for docs, weekly and research
+- The language switcher only renders when the other-language file actually exists — no dead links, no “coming soon”
+- `hreflang` is emitted only for real pairs, so a Chinese-only page never claims an English twin
+- UI strings, dates, reading time, labels and search results follow the page language
+
+**Built for search engines and agents**
+
+- Per-page `<title>`, description, canonical, Open Graph and Twitter metadata
+- JSON-LD for the site, the author and articles
+- `sitemap.xml`, `rss.xml` and `robots.txt` generated or served from the build
+- Per-page OG images rendered with Playwright at build time (`npm run og`), no external image service
+- Static, fully crawlable HTML — nothing important requires JavaScript
+
+**Search and navigation that work offline**
+
+- [Pagefind](https://pagefind.app/) indexing in the build step, so search is a static index rather than a service
+- Pagination rendered as real pages, not infinite scroll
+- Docs section with an auto-generated sidebar, per-page table of contents, callouts, and copy buttons on code blocks
+- `toc: false` in frontmatter drops the sidebar TOC and collapses the body to one column
+
+**The small pages that usually get skipped**
+
+- `/log` — one activity grid plus a hand-written changelog. The grid is built from **public** GitHub commits by `npm run log`, deliberately without a token
+- `/nav` — the tools actually used, grouped by job, with icons resolved from files you control
+- `/friends` — one card per site, real avatar, no badge wall
+- `/mcp` — an MCP page that appears only when enabled in config
+- `/search` — static search with a language filter matching the page
+
+**Privacy and consent handled properly**
+
+- GA4 and Microsoft Clarity load only after consent; Umami loads without cookies and is always on
+- A dismissible promo banner you can remove with one config line, leaving no hidden HTML behind
+- No fonts, icons or analytics fetched from a third-party CDN at runtime
+
+**Config, not code**
+
+- `site.config.yaml` drives site metadata, navigation (including dropdowns), CTA, social links, footer columns, promo banner, theme, analytics, consent copy, SEO defaults, MCP and the footer art
+- `src/data/*.yaml` drives friends, tools, projects and the hand-written log entries
+- `npm run build` runs `astro check && astro build && pagefind`
+
+## Running locally
+
+Requires **Node 20+** (Node 22 recommended) and Astro 7, which is already pinned in `package.json`.
 
 ```bash
+git clone https://github.com/respectevery01/inkfolio.git my-site
+cd my-site
 npm install
-npm run dev      # http://localhost:4321
-npm run build    # type-check + build + search index
+npm run dev          # http://localhost:4321
 ```
 
-`npm run build` runs three things in order: `astro check` (type errors fail the build), `astro build`, and `pagefind` (static search index into `dist/pagefind`).
-
-| Script | What it does |
-| --- | --- |
-| `npm run dev` | dev server |
-| `npm run build` | check, build, index |
-| `npm run preview` | serve `dist/` |
-| `node scripts/build-og.mjs` | one 1200×630 OG image per post (needs Playwright) |
-| `npm run log` | refresh the activity heatmap from **public** GitHub data (no token) |
-| `npm run lint` / `npm run format` | ESLint / Prettier |
-
-Then open `site.config.yaml` and set at least:
-
-```yaml
-site:
-  url: https://your-domain.com
-  name: Your Site
-  author: Your Name
-```
-
-Deploy: Cloudflare Pages, Netlify or Vercel. Build command `npm run build`, output directory `dist`. Nothing else to configure.
-
-## The banner
-
-The theme ships with one banner at the top:
-
-> This site's SEO runs on ZensInk — [Take a look](https://zens.ink)
-
-It is how the theme gets maintained. It is also **one line to remove**, no code involved:
-
-```yaml
-promoBanner:
-  enabled: false
-```
-
-Visitors can also dismiss it themselves (`dismissible: true`), and their choice is remembered. Change the text or point the link at your own project if you prefer — it is a plain config value. See `src/content/posts/turn-off-the-banner.md` for the full walkthrough.
-
-## What is included
-
-| Page                          | Path                              |
-| ----------------------------- | --------------------------------- |
-| Home (latest across sections) | `/` and `/zh/`                    |
-| Posts index / article         | `/posts/`, `/posts/<slug>/`       |
-| Weekly series                 | `/weekly/`, `/weekly/<slug>/`     |
-| Research                      | `/research/`, `/research/<slug>/` |
-| Projects                      | `/projects/`                      |
-| Activity log (heatmap)        | `/log/`                           |
-| Tool shelf                    | `/nav/`                           |
-| Friends                       | `/friends/`                       |
-| Contact                       | `/contact/`                       |
-| Newsletter                    | `/newsletter/`                    |
-| About                         | `/about/`                         |
-| RSS                           | `/rss.xml` and `/zh/rss.xml`      |
-| 404                           | `/404.html`                       |
-| Sitemap + robots              | generated from `site.url`         |
-
-Every page above also exists under `/zh/`, with `hreflang` linking the pair.
-
-Content lives in Markdown:
-
-```
-src/content/posts/         English posts
-src/content/posts-zh/      Chinese posts (same filenames pair automatically)
-src/content/weekly/        weekly series (issue number in frontmatter)
-src/content/research/      long-form investigations
-src/content/pages/         about.md / about-zh.md
-src/data/projects.yaml     projects list
-src/data/tools.yaml        tool shelf, grouped by category
-src/data/friends.yaml      blogroll
-src/data/log.json          activity data (one entry per day)
-```
-
-The posts that ship with the theme are documentation: setup, every config key, the banner, writing, changing the look, and analytics + SEO.
-
-## Customising
-
-- **Accent colour** — `theme.accent` in `site.config.yaml`.
-- **Default light/dark** — `theme.defaultMode: auto | light | dark`.
-- **Navigation** — the `nav` list; `labelZh` is optional and hides that item on the Chinese site when omitted.
-- **Typography and spacing** — CSS variables at the top of `src/styles/global.css`.
-- **Footer** — `footer.note` plus the `social` list.
-
-## Icons, analytics and SEO
-
-Icons are [Font Awesome Free](https://fontawesome.com), bundled locally — no CDN request, no kit token.
-
-- UI glyphs: `<Icon name="sun" />`, `<Icon name="chevron-down" />`, `<Icon name="arrow-right" />` — solid icons by default, brand icons resolve automatically (`github`, `bluesky`, `ethereum`…).
-- The `/nav` page uses its own icon files. Drop an SVG into `public/icons/` and reference it by filename in `src/data/tools.yaml`:
-
-```yaml
-- name: Astro
-  url: https://astro.build
-  icon: astro # public/icons/astro.svg
-```
-
-No Astro file needs editing to add a link. Shipped icons: `jask`, `astro`, `fontawesome`, `github`; leave `icon` out and the first letter is used.
-
-## Docs
-
-The theme ships a documentation section at `/docs/` (and `/zh/docs/`): sidebar built from the folder tree, on-page table of contents, previous/next links, GitHub-style callouts and copy buttons on every code block. Adding a page is adding a Markdown file under `src/content/docs/<section>/` — the sidebar picks it up.
-
-```
-src/content/docs/getting-started/installation.md
-src/content/docs/configuration/mcp.md
-src/content/docs-zh/…   (same ids, Chinese)
-```
-
-## Back to top and cookie consent
-
-- A back-to-top button appears after 600px of scrolling (respects `prefers-reduced-motion`), floating above the consent card when both are on screen.
-- The consent card is the bottom-right floating style. `consent.enabled: false` removes it. GA4 and Clarity do not load until the visitor accepts; Umami is cookieless and always loads.
-
-The privacy page at `/privacy/` is the default target of the consent link — edit `src/content/pages/privacy.md` (and `-zh`).
-
-## Footer
-
-Three columns come from `footerColumns` in `site.config.yaml` — add a column or a link without touching code. The bottom line carries the copyright, the author link and your note:
-
-```yaml
-footer:
-  copyrightName: Inkfolio
-  authorUrl: https://jask.dev
-  authorLabel: jask.dev
-```
-
-The wide illustration above the columns is two files, one per theme:
-
-- `public/footer/footer-light.webp`
-- `public/footer/footer-dark.webp`
-- **1600 × 529**, WebP, transparent or paper-coloured background so it blends with the page
-
-Replace those two files and keep the names — nothing else to change. Different names? Point `footer.artLight` / `footer.artDark` at them. Set both to `""` to drop the illustration entirely.
-
-## MCP page
-
-Ships on in this demo. Set `mcp.enabled: false` and the `/mcp/` page becomes `noindex` while the navigation entry is filtered out.
-
-```yaml
-mcp:
-  enabled: true
-  endpoint: https://mcp.your-domain.com/mcp
-  name: Your MCP
-  sources:
-    - host: your-site.com
-      items: 42
-      desc: { en: Articles and notes, zh: 文章与笔记 }
-  tools:
-    - name: search
-      args: query, source?
-      desc: { en: Keyword search across all sources., zh: 跨源关键词搜索。 }
-```
-
-No code changes: the page renders the endpoint, connection steps for Claude Code / Cursor / Claude Desktop, your tools and your sources. It documents an MCP server you already run — the theme is static and does not host one. Demo builds can force it on with `MCP_ENABLED=true` without editing the YAML.
-
-## Activity log
-
-`/log/` reads `src/data/log.json`. Refresh it from real GitHub commits:
+The demo build passes its own URL through an environment variable, so a plain `npm run build` keeps `example.com` as the site URL until you set `site.url` in `site.config.yaml`:
 
 ```bash
-GITHUB_TOKEN=ghp_xxx node scripts/fetch-log.mjs
+SITE_URL="https://your-domain.com" npm run build
 ```
 
-Repositories are listed at the top of that script (`REPOS`), one `owner/name` per line. It writes per-day counts for the last 365 days, plus per-repo totals and the last commit date. Failures keep the existing file, so a flaky network never breaks a deploy.
+## Project structure
 
-## Analytics and SEO
-
-All analytics are **off by default** — no script is injected unless you enable it and supply an id.
-
-```yaml
-analytics:
-  umami:
-    enabled: true
-    scriptUrl: https://analytics.your-domain.com/script.js
-    websiteId: 1a2b3c4d-...
-  googleAnalytics:
-    enabled: false
-    measurementId: G-XXXXXXXXXX
-  clarity:
-    enabled: false
-    projectId: abcdefghij
+```text
+inkfolio/
+├── site.config.yaml          # navigation, footer, theme, analytics, MCP, promo banner
+├── src/
+│   ├── content/
+│   │   ├── posts/            # English posts          (posts-zh/ for Chinese)
+│   │   ├── docs/             # docs chapters         (docs-zh/)
+│   │   ├── weekly/           # weekly series         (weekly-zh/)
+│   │   ├── research/         # longer pieces         (research-zh/)
+│   │   └── pages/            # about, contact, privacy, friends copy
+│   ├── data/                 # friends.yaml, tools.yaml, projects.yaml, log-notes.yaml
+│   ├── layouts/Base.astro    # head, SEO, JSON-LD, nav, footer, consent
+│   ├── components/           # 23 components (cards, TOC, search, heatmap, dialogs)
+│   ├── pages/                # 41 routes, English at /, Chinese at /zh/
+│   ├── i18n/ui.ts            # UI strings, both languages
+│   └── styles/               # tokens, global CSS, prose rules
+├── public/                   # icons, footer art, OG fallbacks
+└── scripts/                  # build with Pagefind, OG rendering, activity log
 ```
 
-SEO defaults live in the `seo` block: `titleTemplate`, `defaultDescription`, `ogImage` (1200×630), `twitterHandle`, `keywords`, and `structuredData` (WebSite + BlogPosting JSON-LD with real dates from frontmatter). Per-page titles and descriptions come from each Markdown file.
+## Commands
 
-## Licence
+All commands run from the project root:
 
-GPL-3.0-or-later. In plain words:
+| Command                | Action                                                                 |
+| :--------------------- | :--------------------------------------------------------------------- |
+| `npm install`          | Install dependencies                                                   |
+| `npm run dev`          | Start the dev server at `localhost:4321`                               |
+| `npm run build`        | Type-check, build the site, run Pagefind indexing into the output      |
+| `npm run preview`      | Preview the built site locally before deploying                        |
+| `npm run og`           | Render one 1200×630 OG image per page with Playwright                  |
+| `npm run log`          | Rebuild the activity heatmap from **public** GitHub commits (no token) |
+| `npm run pagefind`     | Re-run Pagefind indexing on an existing build                          |
+| `npm run lint`         | ESLint                                                                 |
+| `npm run format`       | Prettier, write mode                                                   |
+| `npm run astro ...`    | Any Astro CLI command, e.g. `npm run astro check`                      |
 
-- Use it for your own site, including commercial sites, at no cost.
-- Modify it as much as you like.
-- If you redistribute it — as a theme, a fork, or a template you resell — the derivative must stay under GPL-3.0. You cannot take this theme, rename it and sell it as a closed-source product.
+## Configuration
 
-If that is too strict for your use case, open an issue and ask; the author is reasonable.
+| File                            | Controls                                                                                  |
+| :------------------------------ | :---------------------------------------------------------------------------------------- |
+| `site.config.yaml`              | Site name and URL, navigation and dropdowns, CTA, socials, footer columns, promo banner, theme, analytics, consent copy, SEO defaults, MCP page, footer art |
+| `src/data/friends.yaml`         | Friend links: name, URL, description, avatar                                              |
+| `src/data/tools.yaml`           | The `/nav` page: sections, tool names, icon file names                                    |
+| `src/data/projects.yaml`        | The projects page                                                                         |
+| `src/data/log-notes.yaml`       | Hand-written changelog entries shown under the heatmap                                     |
+| `src/i18n/ui.ts`                | Every UI string, both languages                                                           |
 
-## Credits
+### Frontmatter
 
-Built with [Astro](https://astro.build). Design tokens and layout are original to this theme. No tracking, no third-party scripts.
+Posts accept `title`, `description`, `date`, `updated`, `tags`, `draft`, `toc` and `lang`. Docs use the same shape plus `order`, which sorts the auto-generated sidebar; folders group chapters. Weekly and research entries add their series metadata. Chinese files mirror the same frontmatter; only the directory differs.
+
+### The activity grid
+
+`npm run log` reads commits from the public repositories listed at the top of `scripts/fetch-log.mjs` and writes `src/data/log.json`. It uses no token on purpose: a personal access token in a build script can read every private repository it was granted, so a single leak becomes a full exposure. Private work simply stays off the page — that is the trade, not a limitation to work around.
+
+## Deployment
+
+The output is static, so any host works. On Cloudflare Pages: build command `npm run build`, output directory `dist`, Node 20+. For a demo or preview, set `SITE_URL` in the build environment; for production, put your domain in `site.config.yaml`.
+
+## Contributing
+
+Issues and pull requests are welcome at [respectevery01/inkfolio](https://github.com/respectevery01/inkfolio). Please keep pull requests focused and run `npm run lint` before opening one. For changes to layout or visual style, open an issue first so we can agree on the direction.
+
+## Acknowledgements
+
+The structure of this theme was shaped by two projects worth reading end to end: [AstroPaper](https://github.com/satnaing/astro-paper) for a clean, configurable Astro blog baseline, and [FixIt](https://github.com/hugo-fixit/FixIt) for how to organise a theme's feature surface and document it honestly. The design itself is Inkfolio's own.
+
+## License
+
+[GPL-3.0](./LICENSE).
