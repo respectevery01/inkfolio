@@ -12,7 +12,7 @@ description: Posts, the weekly series and research all work the same way — Mar
 | Weekly | `src/content/weekly/` | `/weekly/<slug>/` |
 | Research | `src/content/research/` | `/research/<slug>/` |
 
-All three take the same frontmatter (`title`, `description`, `date`, `tags`, `draft`), plus one field each: `issue` for weekly, `type` for research.
+All three take the same frontmatter (`title`, `description`, `date`, `tags`, `draft`), plus one field each: `issue` for weekly, `type` for research. Posts also take `updated` (prints a second date) and `toc` (default `true`; set `false` to drop the sticky table of contents on that article).
 
 ## How translations pair
 

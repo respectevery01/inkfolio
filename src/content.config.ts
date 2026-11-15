@@ -14,6 +14,8 @@ const postSchema = ({ defaultLang }: { defaultLang?: 'en' | 'zh' } = {}) =>
     updated: z.coerce.date().optional(),
     tags: z.array(z.string()).default([]),
     draft: z.boolean().default(false),
+    /** show the sticky table of contents on wide screens (on by default) */
+    toc: z.boolean().default(true),
     lang: z.enum(['en', 'zh']).default(defaultLang ?? 'en'),
   });
 

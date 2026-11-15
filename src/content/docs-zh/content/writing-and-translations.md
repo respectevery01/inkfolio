@@ -12,7 +12,7 @@ description: 文章、周更、研究三类内容写法一样：Markdown 进，�
 | 周更 | `src/content/weekly/` | `/weekly/<slug>/` |
 | 研究 | `src/content/research/` | `/research/<slug>/` |
 
-三者 frontmatter 相同（`title`、`description`、`date`、`tags`、`draft`），只多一个字段：周更用 `issue`，研究用 `type`。
+三者 frontmatter 相同（`title`、`description`、`date`、`tags`、`draft`），只多一个字段：周更用 `issue`，研究用 `type`。文章还多两个：`updated`（多印一个更新日期）和 `toc`（默认 `true`，设 `false` 这篇文章就不出右侧目录）。
 
 ## 翻译怎么配对
 
