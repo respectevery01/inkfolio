@@ -1,5 +1,5 @@
 ---
-title: 活跃度
+title: 活跃度日志
 order: 5
 description: /log 那张提交热力图。真实 GitHub 数据，一个脚本刷新。
 ---

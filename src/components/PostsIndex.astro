@@ -44,6 +44,8 @@ for (let n = 1; n <= totalPages; n++) {
     </p>
   </section>
 
+  <h2 class="pf-sr">{zh ? '全部文章' : 'All posts'}</h2>
+
   <ul class="pf-list">
     {entries.map((entry: any) => (
       <li class="pf-row">
@@ -159,4 +161,6 @@ for (let n = 1; n <= totalPages; n++) {
     color: var(--faint);
     padding: 0 4px;
   }
+.pf-sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 </style>
