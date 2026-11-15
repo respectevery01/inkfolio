@@ -84,6 +84,9 @@ main a.sbtn:hover {
   text-decoration-line: none;
 }
 /* inline links inside running text keep the underline at rest */
+main .docs-prose a,
+main .docs-main a,
+.docs-prose a,
 main .prose a,
 main .moments a,
 main .intro a,
@@ -2290,3 +2293,13 @@ main.page > * {
 .prose .diagram, .prose .chart, .prose .mermaid, .docs-prose .diagram, .docs-prose .mermaid {
   display: block; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
 .prose figcaption { font-size: 13px; color: var(--muted); margin-top: 8px; }
+
+/* Current location, in docs and in the language menu, wears the same wavy accent as body links */
+.docs-side a[aria-current='page'],
+.lang-list a.is-current {
+  text-decoration-line: underline;
+  text-decoration-style: wavy;
+  text-decoration-color: var(--u);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 4px;
+}
