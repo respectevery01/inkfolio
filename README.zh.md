@@ -93,6 +93,14 @@ Inkfolio 是一套给「一个人写、一个人发」的人用的编辑风 Astr
 - `src/data/*.yaml` 管友链、工具、项目、手写日志条目
 - `npm run build` 依次执行 `astro check && astro build && pagefind`
 
+**那些常被跳过的发布细节**
+
+- 每篇文章可选封面（`cover`、`coverAlt`），列表与文章页分别由 `covers.list` / `covers.article` 控制
+- 置顶（`pinned: 1..n`）排在日期之前，封面整宽，标题左侧一枚橙色图钉
+- 代码块带标题栏（文件名或语言）与复制按钮
+- 三种语言：英文 `/`、简体 `/zh/`、繁体 `/zh-Hant/`，`i18n` 可开关、可设默认、可自动识别
+- 页脚本地时间与天气，可按访客定位或固定到某个地址
+
 ## 本地运行
 
 需要 **Node 20+**（推荐 22）；Astro 7 已锁在 `package.json` 里。
@@ -182,7 +190,7 @@ inkfolio/
 - [x] 构建时生成 OG 图
 - [x] GEO / SEO 层——`sitemap.xml`、`robots.txt`、`llms.txt`、JSON-LD、canonical 与 hreflang
 - [x] 页脚显示本地时间与天气
-- [ ] 更多内容语言——UI 文案现在是一份字典，加语言要先把这些键抽出来，切换器也要改成下拉
+- [x] 繁体中文路由与字典
 - [ ] 动态（Moments）——`/moments` 的短记时间线
 - [ ] 频道（Channel）——Telegram 频道的只读镜像
 

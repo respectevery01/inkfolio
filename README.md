@@ -93,6 +93,14 @@ Everything you are likely to change — navigation, footer, friends, tools, the 
 - `src/data/*.yaml` drives friends, tools, projects and the hand-written log entries
 - `npm run build` runs `astro check && astro build && pagefind`
 
+**Publishing details that usually get skipped**
+
+- Optional covers per post (`cover`, `coverAlt`), shown on the archive and the article independently via `covers.list` / `covers.article`
+- Pinned posts (`pinned: 1..n`) sort ahead of the date order, get a full-width cover and an accent thumbtack beside the title
+- Code blocks with a header bar (filename or language) and a copy button
+- Three languages: English at `/`, Simplified at `/zh/`, Traditional at `/zh-Hant/`, with `i18n` switches for enable, default and detection
+- Footer clock and weather, per visitor or fixed to one address
+
 ## Running locally
 
 Requires **Node 20+** (Node 22 recommended) and Astro 7, which is already pinned in `package.json`.
@@ -182,7 +190,7 @@ The output is static, so any host works. On Cloudflare Pages: build command `npm
 - [x] Build-time OG images
 - [x] GEO / SEO layer — `sitemap.xml`, `robots.txt`, `llms.txt`, JSON-LD, canonical and hreflang
 - [x] Local time and weather in the footer
-- [ ] More content languages — the UI strings are one dictionary; adding a language needs those keys extracted and the switcher turned into a dropdown
+- [x] Traditional Chinese routes and dictionary
 - [ ] Moments — a short-notes timeline at `/moments`
 - [ ] Channel — a read-only mirror of a Telegram channel
 
