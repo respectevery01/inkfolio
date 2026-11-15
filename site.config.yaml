@@ -244,3 +244,19 @@ footer:
   # names, same size — and nothing else needs to change. Set art to "" to drop it.
   artLight: /footer/footer-light.webp
   artDark: /footer/footer-dark.webp
+
+# -----------------------------------------------------------------------------
+# Local time and weather in the footer. Disabled by default; give it a latitude,
+# longitude and timezone to turn it on. `endpoint` is optional: point it at your
+# own proxy if you would rather keep a private provider behind a server. With no
+# endpoint the widget calls Open-Meteo, which needs no API key.
+# -----------------------------------------------------------------------------
+weather:
+  enabled: true
+  label: Shanghai
+  labelZh: 上海
+  latitude: 31.2304
+  longitude: 121.4737
+  timezone: Asia/Shanghai
+  units: celsius # celsius | fahrenheit
+  endpoint: ''

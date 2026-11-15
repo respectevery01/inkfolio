@@ -31,7 +31,9 @@ export interface BannerConfig {
   linkTextZh?: string;
 }
 
-const parsed = parse(raw);
+const parsed = parse(raw) as Record<string, any>;
+
+export const weather = (parsed.weather ?? {}) as Record<string, any>;
 
 export const site = {
   name: parsed.site.name as string,
