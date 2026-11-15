@@ -115,6 +115,25 @@ src/data/log.json          活跃度数据（一天一条）
 
 加一条链接不需要改任何 Astro 文件。目前自带：`jask`、`astro`、`fontawesome`、`github`；不写 `icon` 就用首字母。
 
+## 页脚
+
+三栏来自 `site.config.yaml` 的 `footerColumns`——加一栏或加一条链接都不用改代码。底部一行是版权、作者链接和你的小字：
+
+```yaml
+footer:
+  copyrightName: Inkfolio
+  authorUrl: https://jask.dev
+  authorLabel: jask.dev
+```
+
+三栏上方那张宽图是两个文件，一个主题一张：
+
+- `public/footer/footer-light.webp`
+- `public/footer/footer-dark.webp`
+- 尺寸 **1600 × 529**，WebP，透明或纸色背景，能和页面融为一体
+
+直接替换这两个文件、文件名不变就行，别的都不用动。想换名字就改 `footer.artLight` / `footer.artDark`。两个都设成 `""` 就不要这张图了。
+
 ## MCP 页面
 
 这个示例站是开着的。把 `mcp.enabled` 改成 false，`/mcp/` 页面会变成 `noindex`，导航入口也会被过滤掉。

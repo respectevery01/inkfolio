@@ -99,6 +99,7 @@ footerColumns:
       - { label: Projects, labelZh: 项目, href: /projects/ }
       - { label: Activity, labelZh: 活跃度, href: /log/ }
       - { label: Nav, labelZh: 导航, href: /nav/ }
+      - { label: MCP, labelZh: MCP, href: /mcp/ }
   - title: Me
     titleZh: 我
     links:
@@ -215,3 +216,8 @@ footer:
   copyrightName: Inkfolio             # shown after © + the current year
   authorUrl: https://jask.dev          # the author line links back here
   authorLabel: jask.dev
+  # Wide illustration above the footer columns. 1600×529 WebP, two files so the
+  # drawing can differ per theme. Replace the files in public/footer/ — same
+  # names, same size — and nothing else needs to change. Set art to "" to drop it.
+  artLight: /footer/footer-light.webp
+  artDark: /footer/footer-dark.webp

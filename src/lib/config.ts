@@ -106,6 +106,8 @@ export const footer = {
   copyrightName: (parsed.footer?.copyrightName as string) ?? site.name,
   authorUrl: (parsed.footer?.authorUrl as string) ?? '',
   authorLabel: (parsed.footer?.authorLabel as string) ?? '',
+  artLight: (parsed.footer?.artLight as string) ?? '',
+  artDark: (parsed.footer?.artDark as string) ?? '',
 };
 
 export const analytics = {

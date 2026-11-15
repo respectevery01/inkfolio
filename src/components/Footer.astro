@@ -1,5 +1,5 @@
 ---
-import { footer, footerColumns, site, social, type Lang } from '../lib/config';
+import { footer, footerColumns, mcp, site, social, type Lang } from '../lib/config';
 
 interface Props {
   lang: Lang;
@@ -16,11 +16,24 @@ const cur = (href: string) => {
 const note = zh ? footer.noteZh : footer.note;
 const year = new Date().getFullYear();
 const socials = social.map((item) => ({ ...item, href: to(item.href), external: item.href.startsWith('http') }));
+
+// The MCP page can be switched off in site.config.yaml; its footer link follows.
+const columns = footerColumns.map((col) => ({
+  ...col,
+  links: col.links.filter((link) => mcp.enabled || link.href !== '/mcp/'),
+}));
+const art = footer.artLight || footer.artDark ? { light: footer.artLight, dark: footer.artDark || footer.artLight } : null;
 ---
 <footer class="foot" data-chrome-s="footer">
+  {art && (
+    <div class="foot-art" aria-hidden="true">
+      <img class="art-light" src={art.light} alt="" width="1600" height="529" loading="lazy" decoding="async" />
+      {art.dark !== art.light && <img class="art-dark" src={art.dark} alt="" width="1600" height="529" loading="lazy" decoding="async" />}
+    </div>
+  )}
   <div class="foot-inner">
     <div class="foot-cols">
-      {footerColumns.map((col) => (
+      {columns.map((col) => (
         <nav>
           <p class="foot-h">{zh ? col.titleZh : col.title}</p>
           <ul>

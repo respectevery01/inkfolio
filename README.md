@@ -115,6 +115,25 @@ Icons are [Font Awesome Free](https://fontawesome.com), bundled locally — no C
 
 No Astro file needs editing to add a link. Shipped icons: `jask`, `astro`, `fontawesome`, `github`; leave `icon` out and the first letter is used.
 
+## Footer
+
+Three columns come from `footerColumns` in `site.config.yaml` — add a column or a link without touching code. The bottom line carries the copyright, the author link and your note:
+
+```yaml
+footer:
+  copyrightName: Inkfolio
+  authorUrl: https://jask.dev
+  authorLabel: jask.dev
+```
+
+The wide illustration above the columns is two files, one per theme:
+
+- `public/footer/footer-light.webp`
+- `public/footer/footer-dark.webp`
+- **1600 × 529**, WebP, transparent or paper-coloured background so it blends with the page
+
+Replace those two files and keep the names — nothing else to change. Different names? Point `footer.artLight` / `footer.artDark` at them. Set both to `""` to drop the illustration entirely.
+
 ## MCP page
 
 Ships on in this demo. Set `mcp.enabled: false` and the `/mcp/` page becomes `noindex` while the navigation entry is filtered out.
