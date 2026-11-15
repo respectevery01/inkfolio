@@ -16,6 +16,7 @@
   <a href="#目录结构">目录结构</a> ·
   <a href="#命令">命令</a> ·
   <a href="#配置">配置</a> ·
+  <a href="#参与">参与</a> ·
   <a href="#许可">许可</a>
 </p>
 
@@ -172,11 +173,7 @@ inkfolio/
 
 ## 参与
 
-问题与 PR 都欢迎：[respectevery01/inkfolio](https://github.com/respectevery01/inkfolio)。请让 PR 保持聚焦，提交前跑一遍 `npm run lint`。涉及布局或视觉风格的改动，先开 issue 对齐方向再动手。
-
-## 致谢
-
-这套主题的结构受两个值得从头读到尾的项目影响：[AstroPaper](https://github.com/satnaing/astro-paper) 提供了干净、可配置的 Astro 博客基线；[FixIt](https://github.com/hugo-fixit/FixIt) 示范了主题功能面该怎么划分、文档该怎么老实写。视觉设计是 Inkfolio 自己的。
+先读 [CONTRIBUTING.zh.md](CONTRIBUTING.zh.md)：本地环境、PR 前置检查、以及让主题保持「配置驱动、不用框架」的那些约定都在里面。一句话版本——动视觉先开 issue，一个 PR 只做一件事，提交前跑 `npm run lint && npm run build`。
 
 ## 许可
 

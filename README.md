@@ -16,6 +16,7 @@
   <a href="#project-structure">Structure</a> ·
   <a href="#commands">Commands</a> ·
   <a href="#configuration">Configuration</a> ·
+  <a href="#contributing">Contributing</a> ·
   <a href="#license">License</a>
 </p>
 
@@ -172,11 +173,7 @@ The output is static, so any host works. On Cloudflare Pages: build command `npm
 
 ## Contributing
 
-Issues and pull requests are welcome at [respectevery01/inkfolio](https://github.com/respectevery01/inkfolio). Please keep pull requests focused and run `npm run lint` before opening one. For changes to layout or visual style, open an issue first so we can agree on the direction.
-
-## Acknowledgements
-
-The structure of this theme was shaped by two projects worth reading end to end: [AstroPaper](https://github.com/satnaing/astro-paper) for a clean, configurable Astro blog baseline, and [FixIt](https://github.com/hugo-fixit/FixIt) for how to organise a theme's feature surface and document it honestly. The design itself is Inkfolio's own.
+Read [CONTRIBUTING.md](CONTRIBUTING.md) first — it covers setup, the pre-PR checks, and the house rules that keep the theme config-driven and framework-free. Short version: open an issue before redesigning anything visual, keep one concern per pull request, and run `npm run lint && npm run build`.
 
 ## License
 
