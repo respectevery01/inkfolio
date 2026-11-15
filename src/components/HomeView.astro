@@ -1,7 +1,8 @@
 ---
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
-import { site, langPath, type Lang } from '../lib/config';
+import Icon from './Icon.astro';
+import { site, social, langPath, type Lang } from '../lib/config';
 import { projects } from '../lib/data';
 import { t } from '../i18n/ui';
 
@@ -21,18 +22,33 @@ const weekly = (await getCollection(weeklyCollection as any)).filter((e: any) =>
 const research = (await getCollection(researchCollection as any)).filter((e: any) => !e.data.draft).sort(byDate);
 
 const fmt = (d: Date) => new Date(d).toLocaleDateString(lang === 'zh' ? 'zh-CN' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
-const tagline = lang === 'zh' ? site.taglineZh : site.tagline;
+const greeting = (lang === 'zh' ? site.greetingZh : site.greeting) || (lang === 'zh' ? `嗨，我是 ${site.nameZh}。` : `Hey, I'm ${site.name}.`);
+const socials = social.map((item) => ({ ...item, href: item.href.startsWith('http') || item.href.startsWith('mailto:') ? item.href : lang === 'zh' ? `/zh${item.href}` : item.href }));
 const altHref = lang === 'zh' ? '/' : '/zh/';
 const liveProjects = projects.filter((p) => p.status !== 'archived').slice(0, 2);
 ---
 <Base title={lang === 'zh' ? site.nameZh : site.name} lang={lang} alt={altHref}>
   <section class="home-hero">
     <div>
-      <h1>{tagline}</h1>
+      <h1>{greeting}</h1>
       <div class="intro prose">
         <p>{lang === 'zh' ? site.descriptionZh : site.description}</p>
       </div>
+      <ul class="social">
+        {socials.map((item) => (
+          <li>
+            <a class="soc" href={item.href} rel="noopener me">
+              <Icon name={item.icon} />{item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
     </div>
+    {site.avatar && (
+      <figure class="portrait">
+        <img src={site.avatar} alt={lang === 'zh' ? site.nameZh : site.name} width="208" height="208" />
+      </figure>
+    )}
   </section>
 
   <section class="sec">

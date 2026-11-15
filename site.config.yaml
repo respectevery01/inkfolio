@@ -13,6 +13,9 @@ site:
   url: https://example.com           # your domain, no trailing slash (used for canonical + RSS)
   author: Inkfolio                   # shows on every article
   authorZh: Inkfolio
+  greeting: Hey, I'm Inkfolio.        # home hero headline
+  greetingZh: 嗨，我是 Inkfolio。
+  avatar: /avatar.png                # 336×336, shown on the home hero and About
   email: hello@example.com           # optional, only used in the footer if set
   defaultLanguage: en                # en → / is English, zh pages at /zh/
   showLanguageSwitcher: true         # set to false for a single-language site
@@ -56,8 +59,8 @@ nav:
         href: /log/
         sub: One square per day
         subZh: 一格一天
-      - label: Tool shelf
-        labelZh: 工具箱
+      - label: Nav
+        labelZh: 导航
         href: /nav/
         sub: Bookmarks I reopen
         subZh: 会反复打开的书签
@@ -79,6 +82,10 @@ navCta:
 social:
   - label: GitHub
     href: https://github.com/yourname
+    icon: github
+  - label: Email
+    href: mailto:hello@example.com
+    icon: email
 
 # Footer columns. Three columns, same layout as the original site.
 footerColumns:
@@ -95,7 +102,7 @@ footerColumns:
     links:
       - { label: Projects, labelZh: 项目, href: /projects/ }
       - { label: Activity, labelZh: 活跃度, href: /log/ }
-      - { label: Tool shelf, labelZh: 工具箱, href: /nav/ }
+      - { label: Nav, labelZh: 导航, href: /nav/ }
   - title: Me
     titleZh: 我
     links:

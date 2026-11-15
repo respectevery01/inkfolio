@@ -1,32 +1,133 @@
 ---
-import { getEntry, render } from 'astro:content';
 import Base from '../layouts/Base.astro';
-import { langPath, type Lang } from '../lib/config';
-import { t } from '../i18n/ui';
+import Icon from './Icon.astro';
+import { site, social, type Lang } from '../lib/config';
 
 interface Props {
   lang: Lang;
 }
 const { lang } = Astro.props;
+const zh = lang === 'zh';
+const altHref = zh ? '/about/' : '/zh/about/';
 
-const entry = await getEntry('pages', lang === 'zh' ? 'about-zh' : 'about');
-if (!entry) throw new Error(`Missing about page content for "${lang}" (src/content/pages/about${lang === 'zh' ? '-zh' : ''}.md)`);
-const { Content } = await render(entry);
-const altHref = lang === 'zh' ? '/about/' : '/zh/about/';
+// Demo copy. Replace with your own — every string below is plain text.
+const expertise = zh
+  ? [
+      { icon: 'search', k: 'SEO 工程', v: '只用免费数据源的搜索管线：GSC、Bing、SERP 结构评分。技术审计和 GEO。' },
+      { icon: 'bot', k: 'AI agent', v: '几条产品线，一个人。agent 负责写、审、部署，我定方向和验收。' },
+      { icon: 'box', k: '静态站', v: 'Astro 加 Cloudflare，零服务器、零数据库、零 webfont。' },
+    ]
+  : [
+      { icon: 'search', k: 'SEO engineering', v: 'Search pipelines built on free data only — GSC, Bing, SERP structure scoring. Technical audits and GEO.' },
+      { icon: 'bot', k: 'AI agents', v: 'Several product lines, one person. Agents draft, audit and deploy; I set direction and verify.' },
+      { icon: 'box', k: 'Static sites', v: 'Astro on Cloudflare. No server, no database, no web fonts.' },
+    ];
+
+const stack = [
+  { icon: 'globe', label: 'Astro', note: 'site framework' },
+  { icon: 'box', label: 'Cloudflare', note: 'Pages + Workers' },
+  { icon: 'search', label: 'Python', note: 'tooling' },
+  { icon: 'bot', label: 'TypeScript', note: 'UI' },
+];
+
+const journey = zh
+  ? [
+      { icon: 'flask', when: '2026 — 至今', org: 'Inkfolio', role: '作者', desc: '这个主题：先给自己用，然后开源。' },
+      { icon: 'globe', when: '2025', org: '模板与工具', role: '独立开发', desc: '把重复的建站工作收成一套模板和脚本。' },
+      { icon: 'ethereum', when: '2021', org: '', role: '入场', desc: '第一次链上转账，也就此开始研究骗局。' },
+      { icon: 'box', when: '更早', org: '', role: '基础', desc: '物流管理出身，懂提单、HS 编码和清关。' },
+    ]
+  : [
+      { icon: 'flask', when: '2026 — now', org: 'Inkfolio', role: 'Author', desc: 'This theme. Built for my own site first, opened up after.' },
+      { icon: 'globe', when: '2025', org: 'Templates and tools', role: 'Independent', desc: 'Turned the repeated parts of shipping sites into templates and scripts.' },
+      { icon: 'ethereum', when: '2021', org: '', role: 'Started', desc: 'First on-chain transfer — and the first scam I tried to trace.' },
+      { icon: 'box', when: 'Earlier', org: '', role: 'Foundation', desc: 'Logistics degree: bills of lading, HS codes, customs.' },
+    ];
+
+const socials = social.map((item) => ({ ...item, href: item.href.startsWith('http') || item.href.startsWith('mailto:') ? item.href : zh ? `/zh${item.href}` : item.href }));
 ---
-<Base title={entry.data.title} description={entry.data.description} lang={lang} alt={altHref}>
+<Base title={zh ? '关于' : 'About'} lang={lang} alt={altHref}>
   <article>
-    <header class="post-head">
-      <h1>{entry.data.title}</h1>
-      {entry.data.description && <p class="post-lede">{entry.data.description}</p>}
-    </header>
-    <div class="post-body">
-      <div class="post-main prose">
-        <Content />
+    <section class="hero" style="padding-top:56px">
+      <h1>{zh ? `关于 ${site.nameZh}` : `About ${site.name}`}</h1>
+      <div class="intro-row">
+        {site.avatar && (
+          <figure class="por">
+            <img src={site.avatar} alt={zh ? site.nameZh : site.name} width="336" height="336" />
+          </figure>
+        )}
+        <div class="bio">
+          <div class="prose">
+            <p>
+              <strong>{zh ? site.nameZh : site.name}</strong>{zh
+                ? ' 是一个开源主题的示例站：编辑风排版、暖纸白、一个强调色、系统字体，没有前端框架。'
+                : ' is the demo site for an open-source theme: editorial layout, warm paper, one accent colour, system fonts, no front-end framework.'}
+            </p>
+            <p>
+              {zh
+                ? '整站由一份 YAML 配置驱动——站名、导航、配色、横幅、统计、SEO 全在里面。写作只用 Markdown。'
+                : 'The whole site is driven by one YAML file — name, navigation, colours, banner, analytics, SEO. Writing happens in Markdown.'}
+            </p>
+            <p>
+              {zh
+                ? '这里的所有内容都是示例，用来演示结构；换成你自己的文字即可。'
+                : 'Everything here is sample content, there to show the structure. Replace it with your own.'}
+            </p>
+          </div>
+          <ul class="bio-social">
+            {socials.map((item) => (
+              <li><a class="soc" href={item.href} rel="noopener me"><Icon name={item.icon} size={16} />{item.label}</a></li>
+            ))}
+          </ul>
+        </div>
       </div>
-    </div>
-    <div class="post-end">
-      <a class="backlink" href={langPath('/', lang)}>← {t(lang, 'home')}</a>
-    </div>
+    </section>
+
+    <section class="sec" id="expertise">
+      <div class="sec-head"><h2>{zh ? '擅长' : 'Expertise'}</h2></div>
+      <div class="sec-body">
+        <ul class="exp">
+          {expertise.map((e) => (
+            <li>
+              <span class="exp-ic"><Icon name={e.icon} size={16} /></span>
+              <div><b>{e.k}</b><p>{e.v}</p></div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <section class="sec" id="stack">
+      <div class="sec-head"><h2>{zh ? '技术栈' : 'Stack'}</h2></div>
+      <div class="sec-body">
+        <ul class="tech">
+          {stack.map((x) => (
+            <li>
+              <Icon name={x.icon} size={20} />
+              <div><b>{x.label}</b><small>{x.note}</small></div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <section class="sec" id="journey">
+      <div class="sec-head"><h2>{zh ? '一路走来' : 'The journey so far'}</h2></div>
+      <div class="sec-body">
+        <ol class="timeline">
+          {journey.map((j) => (
+            <li>
+              <span class="tl-ic"><Icon name={j.icon} size={j.icon === 'ethereum' ? 28 : 16} /></span>
+              <div class="tl-tx">
+                <p class="tl-when">{j.when}{j.org && <> · {j.org}</>} · {j.role}</p>
+                <p class="tl-desc">{j.desc}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <p style="margin-top:60px"><a class="backlink" href={zh ? '/zh/' : '/'}>← {zh ? '回首页' : 'Back home'}</a></p>
   </article>
 </Base>

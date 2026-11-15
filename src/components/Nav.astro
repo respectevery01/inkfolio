@@ -99,9 +99,6 @@ const altHref = alt && alt !== path ? alt : null;
         )
       )}
       {navCta.href && <li><a href={to(navCta.href)} class="m-cta">{zh ? navCta.labelZh : navCta.label}</a></li>}
-      {altHref && (
-        <li class="m-sub"><a href={altHref}>{zh ? 'English' : '中文'}</a></li>
-      )}
     </ul>
   </div>
 </nav>

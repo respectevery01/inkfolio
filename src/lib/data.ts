@@ -1,7 +1,6 @@
 import { parse } from 'yaml';
 import projectsRaw from '../data/projects.yaml?raw';
 import friendsRaw from '../data/friends.yaml?raw';
-import toolsRaw from '../data/tools.yaml?raw';
 import logRaw from '../data/log.json';
 
 export interface Project {
@@ -21,22 +20,8 @@ export interface Friend {
   avatar?: string;
 }
 
-export interface ToolItem {
-  name: string;
-  url: string;
-  desc: string;
-  descZh?: string;
-}
-
-export interface ToolCategory {
-  category: string;
-  categoryZh?: string;
-  items: ToolItem[];
-}
-
 export const projects = parse(projectsRaw) as Project[];
 export const friends = parse(friendsRaw) as Friend[];
-export const tools = parse(toolsRaw) as ToolCategory[];
 
 export interface LogDay {
   date: string;

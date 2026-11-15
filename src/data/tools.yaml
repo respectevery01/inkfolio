@@ -1,34 +1,54 @@
-# Example tool shelf. Group your bookmarks here instead of a browser folder.
-- category: Writing
-  categoryZh: 写作
-  items:
-    - name: Example Editor
-      url: https://example.com/editor
-      desc: A distraction-free Markdown editor.
-      descZh: 专注写作的 Markdown 编辑器。
+# The /nav directory — tools grouped by what they are for.
+# Each category needs an id (anchor), an English and Chinese name, and a note.
+# `own: true` marks something you built yourself.
+- id: search
+  en: Search & SEO
+  zh: 搜索与 SEO
+  note:
+    en: Where rankings and indexing actually get checked.
+    zh: 排名和收录到底看哪里。
+  links:
+    - name: Google Search Console
+      url: https://search.google.com/search-console
+      note: { en: Queries, indexing, sitemaps, zh: 查询、收录、站点地图 }
+    - name: Bing Webmaster Tools
+      url: https://www.bing.com/webmasters
+      note: { en: Bing indexing and queries, zh: Bing 收录与搜索词 }
+    - name: Google Trends
+      url: https://trends.google.com
+      note: { en: Demand before tools index it, zh: 工具还没收录时看需求 }
+    - name: Example Rank Tool
+      url: https://example.com/rank
+      note: { en: A placeholder for your own pick, zh: 换成你自己常用的 }
+      own: true
+
+- id: build
+  en: Build & deploy
+  zh: 开发与部署
+  note:
+    en: The parts that turn a folder into a site.
+    zh: 把一个文件夹变成一个站的东西。
+  links:
+    - name: Astro
+      url: https://astro.build
+      note: { en: The framework this theme uses, zh: 这个主题用的框架 }
+    - name: Cloudflare Pages
+      url: https://pages.cloudflare.com
+      note: { en: Static hosting with preview builds, zh: 带预览构建的静态托管 }
+    - name: GitHub
+      url: https://github.com
+      note: { en: Where the code lives, zh: 代码放的地方 }
+
+- id: everyday
+  en: Everyday
+  zh: 日常
+  note:
+    en: Not tools exactly, but they get opened daily.
+    zh: 严格说不算工具，但每天都会打开。
+  links:
     - name: Example Notes
       url: https://example.com/notes
-      desc: Plain-text notes with backlinks.
-      descZh: 带反向链接的纯文本笔记。
-- category: Building
-  categoryZh: 开发
-  items:
-    - name: Example Host
-      url: https://example.com/host
-      desc: Static hosting with preview deployments.
-      descZh: 支持预览部署的静态托管。
+      note: { en: Plain-text notes with backlinks, zh: 带反向链接的纯文本笔记 }
     - name: Example Analytics
       url: https://example.com/analytics
-      desc: Cookie-free page view analytics.
-      descZh: 无 cookie 的页面统计。
-    - name: Example Domain Search
-      url: https://example.com/domains
-      desc: Checks availability across registrars.
-      descZh: 跨注册商查域名可用性。
-- category: Reading
-  categoryZh: 阅读
-  items:
-    - name: Example Digest
-      url: https://example.com/digest
-      desc: A weekly reading list with no growth-hacking advice.
-      descZh: 每周阅读清单，不谈增长。
+      note: { en: Cookie-free page views, zh: 无 cookie 的页面统计 }

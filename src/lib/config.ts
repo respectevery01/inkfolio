@@ -43,6 +43,9 @@ export const site = {
   url: (import.meta.env.SITE || (parsed.site.url as string)).replace(/\/$/, ''),
   author: (parsed.site.author as string) ?? '',
   authorZh: (parsed.site.authorZh as string) ?? parsed.site.author ?? '',
+  greeting: (parsed.site.greeting as string) ?? '',
+  greetingZh: (parsed.site.greetingZh as string) ?? parsed.site.greeting ?? '',
+  avatar: (parsed.site.avatar as string) ?? '',
   email: (parsed.site.email as string) ?? '',
   defaultLanguage: ((parsed.site.defaultLanguage as string) ?? 'en') as Lang,
   showLanguageSwitcher: parsed.site.showLanguageSwitcher !== false,
@@ -67,9 +70,10 @@ export const navCta = {
   href: (parsed.navCta?.href as string) ?? '',
 };
 
-export const social = ((parsed.social ?? []) as { label: string; href: string }[]).map((item) => ({
+export const social = ((parsed.social ?? []) as { label: string; href: string; icon?: string }[]).map((item) => ({
   label: item.label,
   href: item.href,
+  icon: item.icon ?? 'link',
 }));
 
 export const footerColumns: FooterColumn[] = ((parsed.footerColumns ?? []) as FooterColumn[]).map((col) => ({
