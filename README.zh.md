@@ -1,17 +1,44 @@
-# Inkfolio
+<p align="center">
+  <img src="assets/readme/hero.svg" width="1200" height="420" alt="Inkfolio：一套编辑风的 Astro 主题。文章、文档、周刊、研究、日志、工具页与搜索，暖纸底加一点橙。" />
+</p>
 
-[English](README.md) · [简体中文](README.zh.md)
+<h1 align="center">Inkfolio</h1>
 
-[![Astro 7](https://img.shields.io/badge/Astro-7-BC52EE?style=for-the-badge&logo=astro&logoColor=white)](https://astro.build)
-[![License: GPL-3.0](https://img.shields.io/badge/License-GPL--3.0-2F3741?style=for-the-badge)](./LICENSE)
-[![GitHub stars](https://img.shields.io/github/stars/respectevery01/inkfolio?style=for-the-badge&color=ff6b01)](https://github.com/respectevery01/inkfolio/stargazers)
+<p align="center">
+  <b>给「一个人写、一个人发」的人用的编辑风 Astro 主题。</b><br />
+  文章、文档、周刊、发布日志——双语、配置驱动、不用前端框架。
+</p>
 
-Inkfolio 是一套给「一个人写、一个人发」的人用的 Astro 主题：文章、文档区、周刊、发布日志，再加一页把真正在用的工具列出来。暖纸底、近黑字、单一强调色、本地打包的 Font Awesome，没有前端框架。
+<p align="center">
+  <a href="https://inkfolio.jask.dev/zh/">在线演示</a> ·
+  <a href="https://inkfolio.jask.dev/zh/docs/">文档</a> ·
+  <a href="#功能">功能</a> ·
+  <a href="#目录结构">目录结构</a> ·
+  <a href="#命令">命令</a> ·
+  <a href="#配置">配置</a> ·
+  <a href="#许可">许可</a>
+</p>
+
+<p align="center">
+  <a href="https://astro.build"><img src="https://img.shields.io/badge/Astro-7-BC52EE?logo=astro&logoColor=white" alt="Astro 7" /></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-GPL--3.0-2F3741" alt="License: GPL-3.0" /></a>
+  <a href="https://github.com/respectevery01/inkfolio/stargazers"><img src="https://img.shields.io/github/stars/respectevery01/inkfolio?color=ff6b01" alt="GitHub stars" /></a>
+  <img src="https://img.shields.io/badge/PRs-welcome-ff6b01" alt="欢迎 PR" />
+  <a href="https://inkfolio.jask.dev/"><img src="https://img.shields.io/badge/i18n-EN%20%2B%20ZH-141413" alt="双语：英文与中文" /></a>
+</p>
+
+<p align="center">
+  <a href="README.md">English</a> · <a href="README.zh.md">简体中文</a>
+</p>
+
+<p align="center">
+  <img src="assets/readme/preview-light.webp" width="49%" alt="Inkfolio 首页浅色模式：暖纸底、近黑衬线标题、橙色强调" />
+  <img src="assets/readme/preview-dark.webp" width="49%" alt="Inkfolio 首页深色模式：近黑底、暖白文字、同样的橙色强调" />
+</p>
+
+Inkfolio 是一套给「一个人写、一个人发」的人用的编辑风 Astro 主题：文章、文档区、周刊、发布日志，再加一页把真正在用的工具列出来。暖纸底、近黑字、单一强调色、本地打包的 Font Awesome，没有前端框架。
 
 你多半会想改的东西——导航、页脚、友链、工具页、促销条、统计、同意书、MCP 页——全在 YAML 里。理想情况下，你不用打开任何一个 `.astro` 文件就能把站跑起来。
-
-- 在线演示：[inkfolio.jask.dev](https://inkfolio.jask.dev)
-- 文档：[inkfolio.jask.dev/zh/docs](https://inkfolio.jask.dev/zh/docs/)
 
 ## 功能
 

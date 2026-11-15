@@ -1,17 +1,44 @@
-# Inkfolio
+<p align="center">
+  <img src="assets/readme/hero.svg" width="1200" height="420" alt="Inkfolio: an editorial Astro theme. Posts, docs, weekly, research, log, nav and search on warm paper with one orange accent." />
+</p>
 
-[English](README.md) · [简体中文](README.zh.md)
+<h1 align="center">Inkfolio</h1>
 
-[![Astro 7](https://img.shields.io/badge/Astro-7-BC52EE?style=for-the-badge&logo=astro&logoColor=white)](https://astro.build)
-[![License: GPL-3.0](https://img.shields.io/badge/License-GPL--3.0-2F3741?style=for-the-badge)](./LICENSE)
-[![GitHub stars](https://img.shields.io/github/stars/respectevery01/inkfolio?style=for-the-badge&color=ff6b01)](https://github.com/respectevery01/inkfolio/stargazers)
+<p align="center">
+  <b>An editorial Astro theme for people who write and ship alone.</b><br />
+  Posts, docs, a weekly series and a ship log — bilingual, config-driven, no client-side framework.
+</p>
+
+<p align="center">
+  <a href="https://inkfolio.jask.dev">Live demo</a> ·
+  <a href="https://inkfolio.jask.dev/docs/">Docs</a> ·
+  <a href="#features">Features</a> ·
+  <a href="#project-structure">Structure</a> ·
+  <a href="#commands">Commands</a> ·
+  <a href="#configuration">Configuration</a> ·
+  <a href="#license">License</a>
+</p>
+
+<p align="center">
+  <a href="https://astro.build"><img src="https://img.shields.io/badge/Astro-7-BC52EE?logo=astro&logoColor=white" alt="Astro 7" /></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-GPL--3.0-2F3741" alt="License: GPL-3.0" /></a>
+  <a href="https://github.com/respectevery01/inkfolio/stargazers"><img src="https://img.shields.io/github/stars/respectevery01/inkfolio?color=ff6b01" alt="GitHub stars" /></a>
+  <img src="https://img.shields.io/badge/PRs-welcome-ff6b01" alt="PRs welcome" />
+  <a href="https://inkfolio.jask.dev/zh/"><img src="https://img.shields.io/badge/i18n-EN%20%2B%20ZH-141413" alt="Bilingual: English and Chinese" /></a>
+</p>
+
+<p align="center">
+  <a href="README.md">English</a> · <a href="README.zh.md">简体中文</a>
+</p>
+
+<p align="center">
+  <img src="assets/readme/preview-light.webp" width="49%" alt="Inkfolio homepage in light mode: warm paper, near-black serif headline, orange accent" />
+  <img src="assets/readme/preview-dark.webp" width="49%" alt="Inkfolio homepage in dark mode: near-black surface, warm off-white text, same orange accent" />
+</p>
 
 Inkfolio is an editorial Astro theme for people who write and ship things alone: posts, a docs section, a weekly series, notes on what shipped, and one page that lists the tools actually used. Warm paper, near-black text, a single accent colour, locally bundled Font Awesome, and no client-side framework.
 
 Everything you are likely to change — navigation, footer, friends, tools, the promo banner, analytics, consent, the MCP page — lives in YAML. You should be able to run this theme without opening an `.astro` file.
-
-- Live demo: [inkfolio.jask.dev](https://inkfolio.jask.dev)
-- Docs: [inkfolio.jask.dev/docs](https://inkfolio.jask.dev/docs/)
 
 ## Features
 
