@@ -28,7 +28,7 @@ export const site = {
   taglineZh: (parsed.site.taglineZh as string) ?? parsed.site.tagline ?? '',
   description: (parsed.site.description as string) ?? '',
   descriptionZh: (parsed.site.descriptionZh as string) ?? parsed.site.description ?? '',
-  url: (parsed.site.url as string).replace(/\/$/, ''),
+  url: (import.meta.env.SITE || (parsed.site.url as string)).replace(/\/$/, ''),
   author: (parsed.site.author as string) ?? '',
   authorZh: (parsed.site.authorZh as string) ?? parsed.site.author ?? '',
   email: (parsed.site.email as string) ?? '',
