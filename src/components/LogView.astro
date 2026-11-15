@@ -65,8 +65,6 @@ let streak = 0;
 const streakStart = new Date(today);
 if (!((days[iso(streakStart)] ?? 0) > 0)) streakStart.setUTCDate(streakStart.getUTCDate() - 1);
 for (let d = streakStart; (days[iso(d)] ?? 0) > 0; d.setUTCDate(d.getUTCDate() - 1)) streak++;
-
-const activeDays = log.days.filter((d: any) => d.count > 0).length;
 const aria = zh
   ? `${cols.length} 周内共 ${total} 次提交，当前连续 ${streak} 天`
   : `${total} commits across ${cols.length} weeks, current streak ${streak} days`;
@@ -127,14 +125,14 @@ const aria = zh
           <i data-l="4"></i>
           {zh ? '多' : 'More'}
         </span>
-        <span class="act-note">{zh ? '数据来自提交记录' : 'From the commit history'}</span>
+        <span class="act-note">{zh ? '来自公开仓库的提交记录' : 'From public commit history'}</span>
       </div>
     </section>
 
     <section class="sec" style="padding-top:56px">
       <div class="sec-head">
-        <h2>{zh ? '记录' : 'Notes'}</h2>
-        <span class="meta">{zh ? '手动更新' : 'written by hand'}</span>
+        <h2>{zh ? '更新日志' : 'Changelog'}</h2>
+        <span class="meta">{zh ? '手动记录' : 'written by hand'}</span>
       </div>
       <div class="sec-body">
         <ol class="log-notes">
@@ -148,32 +146,6 @@ const aria = zh
             </li>
           ))}
         </ol>
-      </div>
-    </section>
-
-    <section class="sec" style="padding-top:56px">
-      <div class="sec-head">
-        <h2>{zh ? '仓库' : 'Repositories'}</h2>
-        <span class="meta">
-          {activeDays} {zh ? '天有记录' : 'active days'}
-        </span>
-      </div>
-      <div class="sec-body">
-        <ul class="rows">
-          {(log.repoStats ?? log.repos.map((name: any) => ({ name, commits: 0, last: null }))).map((repo: any) => (
-            <li>
-              <div>
-                <a href={`https://github.com/${repo.name}`} target="_blank" rel="noopener" class="repo-name">
-                  {repo.name}
-                </a>
-              </div>
-              <span class="meta">
-                {repo.commits} {zh ? '次提交' : 'commits'}
-                {repo.last ? ` · ${repo.last}` : ''}
-              </span>
-            </li>
-          ))}
-        </ul>
       </div>
     </section>
 
