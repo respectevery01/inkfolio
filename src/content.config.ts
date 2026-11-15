@@ -35,4 +35,44 @@ const pages = defineCollection({
   }),
 });
 
-export const collections = { posts, postsZh, pages };
+/** Long-form investigations. Same shape as posts plus a `type` badge. */
+const researchSchema = z.object({
+  title: z.string(),
+  description: z.string().default(''),
+  date: z.coerce.date(),
+  type: z.string().default('Note'),
+  tags: z.array(z.string()).default([]),
+  draft: z.boolean().default(false),
+});
+
+const research = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/research' }),
+  schema: researchSchema,
+});
+
+const researchZh = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/research-zh' }),
+  schema: researchSchema,
+});
+
+/** A weekly series: same as posts with an issue number for the “№ 12” label. */
+const weeklySchema = z.object({
+  title: z.string(),
+  description: z.string().default(''),
+  date: z.coerce.date(),
+  issue: z.number(),
+  tags: z.array(z.string()).default([]),
+  draft: z.boolean().default(false),
+});
+
+const weekly = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/weekly' }),
+  schema: weeklySchema,
+});
+
+const weeklyZh = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/weekly-zh' }),
+  schema: weeklySchema,
+});
+
+export const collections = { posts, postsZh, pages, research, researchZh, weekly, weeklyZh };

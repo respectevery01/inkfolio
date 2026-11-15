@@ -1,0 +1,37 @@
+---
+import Base from '../layouts/Base.astro';
+import { tools } from '../lib/data';
+import { t } from '../i18n/ui';
+import type { Lang } from '../lib/config';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const altHref = lang === 'zh' ? '/nav/' : '/zh/nav/';
+---
+<Base title={t(lang, 'tools')} lang={lang} alt={altHref}>
+  <section class="post-head">
+    <h1>{t(lang, 'tools')}</h1>
+    <p class="post-lede">{t(lang, 'toolsLede')}</p>
+  </section>
+
+  <section class="sec-body" style="max-width: 720px; margin-top: 32px;">
+    {tools.map((group) => (
+      <div class="tool-group">
+        <h2 class="tool-cat">{lang === 'zh' ? group.categoryZh ?? group.category : group.category}</h2>
+        <ul class="rows">
+          {group.items.map((item) => (
+            <li>
+              <div>
+                <a href={item.url} target="_blank" rel="noopener">{item.name}</a>
+                <p class="tagline">{lang === 'zh' ? item.descZh ?? item.desc : item.desc}</p>
+              </div>
+              <span class="meta">{new URL(item.url).host.replace(/^www\./, '')}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </section>
+</Base>

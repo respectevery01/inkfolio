@@ -5,26 +5,39 @@
 
 site:
   name: Inkfolio                     # shows in the nav and the browser tab
-  nameZh: 墨集                        # Chinese name (used on /zh/ pages)
-  tagline: Notes on building things alone
-  taglineZh: 一个人做东西的记录
-  description: An editorial blog theme for writers and indie builders. Bilingual, fast, and config-driven.
-  descriptionZh: 给写作者与独立开发者的编辑风博客主题。双语、快、全部由配置文件驱动。
+  nameZh: Inkfolio                   # Chinese name (used on /zh/ pages)
+  tagline: Write it down, ship it, then write down what happened
+  taglineZh: 写下来，做出来，再写下发生了什么
+  description: The demo site for Inkfolio — an editorial Astro theme with posts, research, a weekly series, projects, an activity log and a tool shelf.
+  descriptionZh: Inkfolio 的示例站——一个编辑风的 Astro 主题，带文章、研究、周更、项目、活跃度图和一个工具箱。
   url: https://example.com           # your domain, no trailing slash (used for canonical + RSS)
-  author: Your Name                  # shows on every article
-  authorZh: 你的名字
-  email: you@example.com             # optional, only used in the footer if set
+  author: Inkfolio                   # shows on every article
+  authorZh: Inkfolio
+  email: hello@example.com           # optional, only used in the footer if set
   defaultLanguage: en                # en → / is English, zh pages at /zh/
   showLanguageSwitcher: true         # set to false for a single-language site
 
 # -----------------------------------------------------------------------------
 # Top navigation. Add or remove lines freely. labelZh is optional — if a page
 # has no Chinese version, drop the labelZh line and it stays hidden on /zh/.
+# Extra pages that do not fit in the bar can live in the footer instead.
 # -----------------------------------------------------------------------------
 nav:
   - label: Posts
     labelZh: 文章
     href: /posts/
+  - label: Weekly
+    labelZh: 周更
+    href: /weekly/
+  - label: Research
+    labelZh: 研究
+    href: /research/
+  - label: Projects
+    labelZh: 项目
+    href: /projects/
+  - label: Log
+    labelZh: 活跃
+    href: /log/
   - label: About
     labelZh: 关于
     href: /about/
@@ -44,7 +57,6 @@ social:
 #   dismissible      → true lets visitors close it; their choice is remembered
 #   text / textZh    → the sentence we show
 #   link / linkText  → the one link we show next to it
-# Edit the text, point it somewhere else, or turn it off entirely.
 # -----------------------------------------------------------------------------
 promoBanner:
   enabled: true
@@ -62,6 +74,44 @@ theme:
   accent: "#ff6b01"                  # links, underlines, highlights
   defaultMode: auto                  # auto | light | dark
   radius: 12px
+
+# -----------------------------------------------------------------------------
+# Analytics — all three are off by default. Flip `enabled` to true and fill in
+# your own id. Nothing loads on the page until you do; there is no tracking
+# script in the theme otherwise.
+#
+#   umami   — self-hosted or cloud. Needs the script URL and the website id.
+#   google  — GA4 measurement id (starts with G-)
+#   clarity — Microsoft Clarity project id
+# -----------------------------------------------------------------------------
+analytics:
+  umami:
+    enabled: false
+    scriptUrl: https://analytics.example.com/script.js
+    websiteId: ""
+  googleAnalytics:
+    enabled: false
+    measurementId: ""
+  clarity:
+    enabled: false
+    projectId: ""
+
+# -----------------------------------------------------------------------------
+# SEO defaults. Per-page titles and descriptions come from the Markdown files;
+# these are the fallbacks and the shared metadata.
+# -----------------------------------------------------------------------------
+seo:
+  titleTemplate: "{title} — Inkfolio"   # set to "{title}" to drop the suffix
+  defaultDescription: The demo site for Inkfolio — an editorial Astro theme with posts, research, a weekly series, projects and an activity log.
+  ogImage: /og-default.png              # 1200×630 image used by social cards
+  twitterHandle: ""                     # without the @, e.g. "yourname"
+  locale: en_US
+  localeZh: zh_CN
+  keywords: [astro, blog, theme, editorial, bilingual]
+  # structured data (WebSite + Person + BlogPosting). Turn off if you already
+  # inject your own JSON-LD elsewhere.
+  structuredData: true
+  robots: index,follow
 
 footer:
   note: Built with Inkfolio

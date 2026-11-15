@@ -1,0 +1,39 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import { langPath, type Lang } from '../lib/config';
+import { t } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+
+const collection = lang === 'zh' ? 'weeklyZh' : 'weekly';
+const entries = (await getCollection(collection as 'weekly' | 'weeklyZh'))
+  .filter((entry) => !entry.data.draft)
+  .sort((a, b) => b.data.issue - a.data.issue);
+
+const fmt = (d: Date) => new Date(d).toLocaleDateString(lang === 'zh' ? 'zh-CN' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+const altHref = lang === 'zh' ? '/weekly/' : '/zh/weekly/';
+---
+<Base title={t(lang, 'weekly')} lang={lang} alt={altHref}>
+  <section class="post-head">
+    <h1>{t(lang, 'weekly')}</h1>
+    <p class="post-lede">{t(lang, 'weeklyLede')}</p>
+  </section>
+
+  <section class="sec-body" style="max-width: 680px; margin-top: 32px;">
+    <ul class="rows">
+      {entries.map((entry) => (
+        <li>
+          <div>
+            <a href={langPath(`/weekly/${entry.id}/`, lang)}>{entry.data.title}</a>
+            {entry.data.description && <p class="tagline">{entry.data.description}</p>}
+          </div>
+          <time class="meta" datetime={new Date(entry.data.date).toISOString()}>{t(lang, 'issue')} {entry.data.issue} · {fmt(new Date(entry.data.date))}</time>
+        </li>
+      ))}
+    </ul>
+  </section>
+</Base>

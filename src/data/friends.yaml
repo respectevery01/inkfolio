@@ -1,0 +1,16 @@
+# Example blogroll. The avatar field is optional — initials are used otherwise.
+- name: Slow Web Notes
+  url: https://example.com/blog-a
+  desc: Essays about building for the long term.
+  descZh: 关于长期主义的文章。
+  avatar: SW
+- name: The Quiet Terminal
+  url: https://example.com/blog-b
+  desc: Command-line tooling and terminal aesthetics.
+  descZh: 命令行工具与终端美学。
+  avatar: QT
+- name: Paper Machines
+  url: https://example.com/blog-c
+  desc: Notes on typography and editorial layout for the web.
+  descZh: 网页排版与编辑设计的笔记。
+  avatar: PM

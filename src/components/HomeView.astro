@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import { site, langPath, type Lang } from '../lib/config';
+import { projects } from '../lib/data';
 import { t } from '../i18n/ui';
 
 interface Props {
@@ -9,14 +10,20 @@ interface Props {
 }
 const { lang } = Astro.props;
 
-const collection = lang === 'zh' ? 'postsZh' : 'posts';
-const entries = (await getCollection(collection as 'posts' | 'postsZh'))
-  .filter((entry) => !entry.data.draft)
-  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+const postsCollection = lang === 'zh' ? 'postsZh' : 'posts';
+const weeklyCollection = lang === 'zh' ? 'weeklyZh' : 'weekly';
+const researchCollection = lang === 'zh' ? 'researchZh' : 'research';
 
-const fmt = (d: Date) => new Date(d).toLocaleDateString(lang === 'zh' ? 'zh-CN' : 'en-GB', { day: 'numeric', month: lang === 'zh' ? 'long' : 'long', year: 'numeric' });
+const byDate = (a: any, b: any) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime();
+
+const posts = (await getCollection(postsCollection as any)).filter((e: any) => !e.data.draft).sort(byDate);
+const weekly = (await getCollection(weeklyCollection as any)).filter((e: any) => !e.data.draft).sort((a: any, b: any) => b.data.issue - a.data.issue);
+const research = (await getCollection(researchCollection as any)).filter((e: any) => !e.data.draft).sort(byDate);
+
+const fmt = (d: Date) => new Date(d).toLocaleDateString(lang === 'zh' ? 'zh-CN' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
 const tagline = lang === 'zh' ? site.taglineZh : site.tagline;
 const altHref = lang === 'zh' ? '/' : '/zh/';
+const liveProjects = projects.filter((p) => p.status !== 'archived').slice(0, 2);
 ---
 <Base title={lang === 'zh' ? site.nameZh : site.name} lang={lang} alt={altHref}>
   <section class="home-hero">
@@ -34,9 +41,8 @@ const altHref = lang === 'zh' ? '/' : '/zh/';
       <a class="more" href={langPath('/posts/', lang)}>{t(lang, 'allPosts')}</a>
     </div>
     <div class="sec-body">
-      {entries.length === 0 && <p class="empty">—</p>}
       <ul class="rows">
-        {entries.slice(0, 8).map((entry) => (
+        {posts.slice(0, 5).map((entry: any) => (
           <li>
             <div>
               <a href={langPath(`/posts/${entry.id}/`, lang)}>{entry.data.title}</a>
@@ -46,6 +52,76 @@ const altHref = lang === 'zh' ? '/' : '/zh/';
           </li>
         ))}
       </ul>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-head">
+      <h2>{t(lang, 'weekly')}</h2>
+      <a class="more" href={langPath('/weekly/', lang)}>{t(lang, 'allPosts')}</a>
+    </div>
+    <div class="sec-body">
+      <ul class="rows">
+        {weekly.slice(0, 3).map((entry: any) => (
+          <li>
+            <div>
+              <a href={langPath(`/weekly/${entry.id}/`, lang)}>{entry.data.title}</a>
+              {entry.data.description && <p class="tagline">{entry.data.description}</p>}
+            </div>
+            <span class="meta">{t(lang, 'issue')} {entry.data.issue}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-head">
+      <h2>{t(lang, 'research')}</h2>
+      <a class="more" href={langPath('/research/', lang)}>{t(lang, 'allPosts')}</a>
+    </div>
+    <div class="sec-body">
+      <ul class="rows">
+        {research.slice(0, 2).map((entry: any) => (
+          <li>
+            <div>
+              <a href={langPath(`/research/${entry.id}/`, lang)}>{entry.data.title}</a>
+              {entry.data.description && <p class="tagline">{entry.data.description}</p>}
+            </div>
+            <time class="meta" datetime={new Date(entry.data.date).toISOString()}>{entry.data.type}</time>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-head">
+      <h2>{t(lang, 'projects')}</h2>
+      <a class="more" href={langPath('/projects/', lang)}>{t(lang, 'allPosts')}</a>
+    </div>
+    <div class="sec-body">
+      <div class="build">
+        {liveProjects.map((project) => (
+          <article class="proj">
+            <div class="build-top">
+              <h3>{project.title}<small>{project.tag}</small></h3>
+            </div>
+            <p>{lang === 'zh' ? project.descZh ?? project.desc : project.desc}</p>
+            <a class="v" href={project.url} target="_blank" rel="noopener">{t(lang, 'visit')} →</a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-head">
+      <h2>{t(lang, 'log')}</h2>
+      <a class="more" href={langPath('/log/', lang)}>{t(lang, 'log')}</a>
+    </div>
+    <div class="sec-body">
+      <p class="prose" style="margin-top:0">{t(lang, 'logLede')}</p>
     </div>
   </section>
 </Base>

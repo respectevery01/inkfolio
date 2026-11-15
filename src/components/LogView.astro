@@ -1,0 +1,54 @@
+---
+import Base from '../layouts/Base.astro';
+import { log, currentStreak } from '../lib/data';
+import { site, type Lang } from '../lib/config';
+import { t } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const altHref = lang === 'zh' ? '/log/' : '/zh/log/';
+
+// Group days into calendar weeks (columns), Sunday first.
+const weeks: { date: string; count: number }[][] = [];
+let week: { date: string; count: number }[] = [];
+for (const day of log.days) {
+  const dow = new Date(day.date + 'T00:00:00Z').getUTCDay();
+  if (dow === 0 && week.length) {
+    weeks.push(week);
+    week = [];
+  }
+  week.push(day);
+}
+if (week.length) weeks.push(week);
+
+const level = (n: number) => (n === 0 ? 0 : n <= 2 ? 1 : n <= 4 ? 2 : n <= 6 ? 3 : 4);
+const active = log.days.filter((d) => d.count > 0).length;
+const streak = currentStreak(log.days);
+const fmtDay = (d: string) => new Date(d + 'T00:00:00Z').toLocaleDateString(lang === 'zh' ? 'zh-CN' : 'en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+---
+<Base title={t(lang, 'log')} lang={lang} alt={altHref}>
+  <section class="post-head">
+    <h1>{t(lang, 'log')}</h1>
+    <p class="post-lede">{t(lang, 'logLede')}</p>
+    <div class="log-stats">
+      <span><b>{streak}</b> {t(lang, 'streak')}</span>
+      <span><b>{active}</b> {t(lang, 'total')}</span>
+    </div>
+  </section>
+
+  <section class="sec-body" style="max-width: 860px; margin-top: 32px;">
+    <div class="log-wrap">
+      <div class="log-grid" role="img" aria-label={t(lang, 'logLede')}>
+        {weeks.map((col) => (
+          <div class="log-week">
+            {col.map((day) => (
+              <span class="log-cell" data-level={level(day.count)} title={`${fmtDay(day.date)} · ${day.count}`}></span>
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>

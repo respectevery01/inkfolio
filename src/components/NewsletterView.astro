@@ -1,0 +1,29 @@
+---
+import Base from '../layouts/Base.astro';
+import { t } from '../i18n/ui';
+import type { Lang } from '../lib/config';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const altHref = lang === 'zh' ? '/newsletter/' : '/zh/newsletter/';
+---
+<Base title={t(lang, 'newsletter')} lang={lang} alt={altHref}>
+  <section class="post-head">
+    <h1>{t(lang, 'newsletter')}</h1>
+    <p class="post-lede">{t(lang, 'newsletterLede')}</p>
+  </section>
+
+  <section class="sec-body" style="max-width: 520px; margin-top: 32px;">
+    <!--
+      Demo form. It posts nowhere: replace the action with your provider's endpoint
+      (Buttondown, Mailchimp, a Cloudflare Worker, anything that accepts a POST).
+    -->
+    <form class="sub-form" action="#" method="post">
+      <input type="email" name="email" required placeholder={t(lang, 'emailPlaceholder')} aria-label="Email" />
+      <button class="btn" type="submit">{t(lang, 'subscribe')}</button>
+    </form>
+    <p class="sub-note">{t(lang, 'subscribeNote')}</p>
+  </section>
+</Base>

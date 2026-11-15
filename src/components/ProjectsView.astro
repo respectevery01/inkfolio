@@ -1,0 +1,33 @@
+---
+import Base from '../layouts/Base.astro';
+import { projects } from '../lib/data';
+import { t } from '../i18n/ui';
+import type { Lang } from '../lib/config';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const altHref = lang === 'zh' ? '/projects/' : '/zh/projects/';
+---
+<Base title={t(lang, 'projects')} lang={lang} alt={altHref}>
+  <section class="post-head">
+    <h1>{t(lang, 'projects')}</h1>
+    <p class="post-lede">{t(lang, 'projectsLede')}</p>
+  </section>
+
+  <section class="sec-body" style="max-width: 720px; margin-top: 36px;">
+    <div class="build">
+      {projects.map((project) => (
+        <article class="proj">
+          <div class="build-top">
+            <h3>{project.title}<small>{project.tag}</small></h3>
+            {project.status === 'archived' && <span class="tag">{t(lang, 'archived')}</span>}
+          </div>
+          <p>{lang === 'zh' ? project.descZh ?? project.desc : project.desc}</p>
+          <a class="v" href={project.url} target="_blank" rel="noopener">{t(lang, 'visit')} →</a>
+        </article>
+      ))}
+    </div>
+  </section>
+</Base>

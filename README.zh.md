@@ -56,23 +56,38 @@ promoBanner:
 
 | 页面 | 路径 |
 | --- | --- |
-| 首页（最新文章） | `/` 与 `/zh/` |
-| 文章索引 | `/posts/` 与 `/zh/posts/` |
-| 正文 | `/posts/<slug>/` |
+| 首页（各栏目最新） | `/` 与 `/zh/` |
+| 文章索引 / 正文 | `/posts/`、`/posts/<slug>/` |
+| 周更系列 | `/weekly/`、`/weekly/<slug>/` |
+| 研究 | `/research/`、`/research/<slug>/` |
+| 项目 | `/projects/` |
+| 活跃度（热力图） | `/log/` |
+| 工具箱 | `/nav/` |
+| 友链 | `/friends/` |
+| 联系 | `/contact/` |
+| 订阅 | `/newsletter/` |
 | 关于 | `/about/` |
 | RSS | `/rss.xml` 与 `/zh/rss.xml` |
 | 404 | `/404.html` |
-| sitemap | 由 `@astrojs/sitemap` 生成 |
+| sitemap / robots | 由 `site.url` 生成 |
 
-内容都是 Markdown：
+以上每一页都有 `/zh/` 版本，并用 `hreflang` 互指。
+
+内容都是 Markdown 和 YAML：
 
 ```
 src/content/posts/         英文文章
 src/content/posts-zh/      中文文章（同名自动配对）
+src/content/weekly/        周更（frontmatter 带期号）
+src/content/research/      长篇调查
 src/content/pages/         about.md / about-zh.md
+src/data/projects.yaml     项目列表
+src/data/tools.yaml        工具箱，按分类分组
+src/data/friends.yaml      友链
+src/data/log.json          活跃度数据（一天一条）
 ```
 
-主题自带五篇文章即文档：上手、每个配置项、横幅、写文章、改外观。
+主题自带六篇文章即文档：上手、每个配置项、横幅、写文章、改外观、统计与 SEO。
 
 ## 怎么改
 
@@ -81,6 +96,27 @@ src/content/pages/         about.md / about-zh.md
 - **导航**：`nav` 列表；`labelZh` 可选，不写就不出现在中文站。
 - **字体与间距**：`src/styles/global.css` 顶部的 CSS 变量。
 - **页脚**：`footer.note` 与 `social` 列表。
+
+
+## 统计与 SEO
+
+三家统计默认全关，不开 `enabled: true` 并填 id 就不会注入任何脚本。
+
+```yaml
+analytics:
+  umami:
+    enabled: true
+    scriptUrl: https://analytics.your-domain.com/script.js
+    websiteId: 1a2b3c4d-...
+  googleAnalytics:
+    enabled: false
+    measurementId: G-XXXXXXXXXX
+  clarity:
+    enabled: false
+    projectId: abcdefghij
+```
+
+SEO 默认值在 `seo` 一节：`titleTemplate`、`defaultDescription`、`ogImage`（1200×630）、`twitterHandle`、`keywords`、`structuredData`（WebSite + BlogPosting 的 JSON-LD，日期取自 frontmatter）。每页自己的标题和描述来自各自的 Markdown。
 
 ## 许可证
 

@@ -2,7 +2,7 @@
 import Banner from '../components/Banner.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
-import { site, theme, footer, type Lang } from '../lib/config';
+import { site, theme, seo, analytics, titleFor, type Lang } from '../lib/config';
 import '../styles/global.css';
 
 interface Props {
@@ -11,18 +11,60 @@ interface Props {
   lang?: Lang;
   /** counterpart page in the other language — only pass this when the page really exists */
   alt?: string;
+  /** pass this on article pages so structured data carries the real dates */
+  article?: { published: Date; updated?: Date; tags?: string[]; section?: string };
 }
 
-const { title, description = site.description, lang = 'en', alt } = Astro.props;
+const { title, description, lang = 'en', alt, article } = Astro.props;
 
-const pageTitle = title === site.name ? title : `${title} — ${lang === 'zh' ? site.nameZh : site.name}`;
+const pageTitle = titleFor(title, lang);
+const pageDescription = description || (lang === 'zh' ? site.descriptionZh : site.description) || seo.defaultDescription;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const altPath = alt ? new URL(alt, Astro.site).pathname : null;
 const hasAlt = !!altPath && altPath !== Astro.url.pathname;
 const altUrl = hasAlt ? new URL(alt as string, Astro.site) : canonical;
 const selfHreflang = lang === 'en' ? 'en' : 'zh-CN';
+const ogImage = seo.ogImage ? new URL(seo.ogImage, Astro.site).href : undefined;
+const locale = lang === 'zh' ? seo.localeZh : seo.locale;
 
 const accentVars = `--accent:${theme.accent};--u:${theme.accent};--radius:${theme.radius};`;
+
+const person = {
+  '@type': 'Person',
+  name: lang === 'zh' ? site.authorZh : site.author,
+  url: site.url,
+};
+const jsonLd = seo.structuredData
+  ? article
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'BlogPosting',
+        headline: title,
+        description: pageDescription,
+        datePublished: new Date(article.published).toISOString(),
+        ...(article.updated ? { dateModified: new Date(article.updated).toISOString() } : {}),
+        ...(article.tags?.length ? { keywords: article.tags.join(', ') } : {}),
+        ...(article.section ? { articleSection: article.section } : {}),
+        inLanguage: lang === 'zh' ? 'zh-CN' : 'en',
+        mainEntityOfPage: canonical.href,
+        ...(ogImage ? { image: ogImage } : {}),
+        author: person,
+        publisher: person,
+      }
+    : {
+        '@context': 'https://schema.org',
+        '@type': 'WebSite',
+        name: lang === 'zh' ? site.nameZh : site.name,
+        url: site.url,
+        description: pageDescription,
+        inLanguage: lang === 'zh' ? 'zh-CN' : 'en',
+        author: person,
+      }
+  : null;
+
+const umamiOn = analytics.umami.enabled && analytics.umami.scriptUrl && analytics.umami.websiteId;
+const gaOn = analytics.googleAnalytics.enabled && analytics.googleAnalytics.measurementId;
+const clarityOn = analytics.clarity.enabled && analytics.clarity.projectId;
 ---
 <!doctype html>
 <html lang={lang === 'zh' ? 'zh-CN' : 'en'} data-theme-mode={theme.defaultMode} style={accentVars}>
@@ -30,18 +72,33 @@ const accentVars = `--accent:${theme.accent};--u:${theme.accent};--radius:${them
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{pageTitle}</title>
-    <meta name="description" content={description} />
+    <meta name="description" content={pageDescription} />
+    <meta name="robots" content={seo.robots} />
     <link rel="canonical" href={canonical} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     {hasAlt && <link rel="alternate" hreflang={selfHreflang} href={canonical} />}
     {hasAlt && <link rel="alternate" hreflang={lang === 'en' ? 'zh-CN' : 'en'} href={altUrl} />}
     {hasAlt && <link rel="alternate" hreflang="x-default" href={lang === 'en' ? canonical : altUrl} />}
-    <meta property="og:type" content="website" />
+
+    <meta property="og:type" content={article ? 'article' : 'website'} />
+    <meta property="og:site_name" content={lang === 'zh' ? site.nameZh : site.name} />
     <meta property="og:title" content={pageTitle} />
-    <meta property="og:description" content={description} />
+    <meta property="og:description" content={pageDescription} />
     <meta property="og:url" content={canonical} />
-    <meta name="twitter:card" content="summary" />
-    <link rel="alternate" type="application/rss+xml" title={site.name} href={new URL('/rss.xml', Astro.site)} />
+    <meta property="og:locale" content={locale} />
+    {ogImage && <meta property="og:image" content={ogImage} />}
+    {ogImage && <meta property="og:image:width" content="1200" />}
+    {ogImage && <meta property="og:image:height" content="630" />}
+    <meta name="twitter:card" content={ogImage ? 'summary_large_image' : 'summary'} />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={pageDescription} />
+    {seo.twitterHandle && <meta name="twitter:site" content={`@${seo.twitterHandle}`} />}
+    {ogImage && <meta name="twitter:image" content={ogImage} />}
+    {seo.keywords.length > 0 && <meta name="keywords" content={seo.keywords.join(', ')} />}
+
+    <link rel="alternate" type="application/rss+xml" title={lang === 'zh' ? site.nameZh : site.name} href={new URL(lang === 'zh' ? '/zh/rss.xml' : '/rss.xml', Astro.site)} />
+    {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+
     <script is:inline>
       // Theme is resolved before paint so there is no flash of the wrong mode.
       (function () {
@@ -53,6 +110,19 @@ const accentVars = `--accent:${theme.accent};--u:${theme.accent};--radius:${them
         } catch (e) {}
       })();
     </script>
+
+    {umamiOn && <script is:inline defer src={analytics.umami.scriptUrl} data-website-id={analytics.umami.websiteId}></script>}
+
+    {gaOn && (
+      <>
+        <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${analytics.googleAnalytics.measurementId}`}></script>
+        <script is:inline set:html={`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${analytics.googleAnalytics.measurementId}');`}></script>
+      </>
+    )}
+
+    {clarityOn && (
+      <script is:inline set:html={`(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","${analytics.clarity.projectId}");`}></script>
+    )}
   </head>
   <body>
     <Banner lang={lang} />
