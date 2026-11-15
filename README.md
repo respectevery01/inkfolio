@@ -39,7 +39,7 @@ npm run build    # type-check + build + search index
 | `npm run build` | check, build, index |
 | `npm run preview` | serve `dist/` |
 | `node scripts/build-og.mjs` | one 1200×630 OG image per post (needs Playwright) |
-| `node scripts/fetch-log.mjs` | refresh the activity log from GitHub |
+| `npm run log` | refresh the activity heatmap from **public** GitHub data (no token) |
 | `npm run lint` / `npm run format` | ESLint / Prettier |
 
 Then open `site.config.yaml` and set at least:

@@ -1,31 +1,24 @@
-// Builds src/data/log.json for the /log page from GitHub commits.
+// Builds src/data/log.json for the /log page from **public** GitHub data.
 //
-//   GITHUB_TOKEN=ghp_xxx node scripts/fetch-log.mjs
+//   npm run log
 //
-// Tolerant by design: on failure the previous file is kept, so a flaky network
-// never breaks a deploy. Not part of `npm run build` — run it when you want a
-// refresh (or from cron), then commit the JSON.
+// No token, on purpose: a personal access token in a build script is one leak
+// away from exposing every private repository it can read. This script only
+// touches public repositories, so the heatmap can never become a privacy issue.
+// Private work simply does not appear — that is the correct trade.
 import { writeFileSync } from 'node:fs';
 
-// Defaults point at the author's own repositories — edit this list for yours.
+// Public repositories only. Add a repo here once it is public; anything private
+// will return 404 without a token and is reported as skipped.
 export const REPOS = [
-  'respectevery01/jask-v3',
-  'respectevery01/zens-ink-site',
-  'respectevery01/astro-onchaindiary',
-  'respectevery01/paper',
-  'respectevery01/valdos',
   'respectevery01/inkfolio',
+  'respectevery01/paper',
+  'ZensInk/zens-ink-seo-package',
 ];
 
 const DAYS = 365;
 const TZ = 'Asia/Shanghai'; // day buckets follow the author's clock, not UTC
 const OUT = 'src/data/log.json';
-
-const token = process.env.GITHUB_TOKEN || '';
-if (!token) {
-  console.error('GITHUB_TOKEN is required (public-only runs hit the 60 req/h limit fast).');
-  process.exit(1);
-}
 
 const dayInTz = (iso) =>
   new Intl.DateTimeFormat('en-CA', { timeZone: TZ, year: 'numeric', month: '2-digit', day: '2-digit' }).format(
@@ -37,7 +30,6 @@ const since = new Date(Date.now() - DAYS * 864e5).toISOString();
 async function api(url) {
   const res = await fetch(url, {
     headers: {
-      Authorization: `Bearer ${token}`,
       Accept: 'application/vnd.github+json',
       'User-Agent': 'inkfolio-fetch-log',
     },
@@ -85,15 +77,16 @@ for (let i = DAYS - 1; i >= 0; i--) {
   days.push({ date: key, count: counts[key] ?? 0 });
 }
 
+if (!repos.length) {
+  console.error('No public repositories returned data — keeping the existing file.');
+  process.exit(1);
+}
+
 const payload = {
   updated: new Date().toISOString().slice(0, 10),
   repos,
   repoStats: repoStats.sort((a, b) => b.commits - a.commits),
   days,
 };
-if (!repos.length) {
-  console.error('No repositories returned data — keeping the existing file.');
-  process.exit(1);
-}
 writeFileSync(OUT, JSON.stringify(payload, null, 1) + '\n');
 console.log(`wrote ${OUT}: ${days.length} days, ${days.reduce((n, d) => n + d.count, 0)} commits`);

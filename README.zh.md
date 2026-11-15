@@ -39,7 +39,7 @@ npm run build    # 类型检查 + 构建 + 搜索索引
 | `npm run build` | 检查、构建、建索引 |
 | `npm run preview` | 预览 `dist/` |
 | `node scripts/build-og.mjs` | 每篇文章一张 1200×630 OG 图（需要 Playwright） |
-| `node scripts/fetch-log.mjs` | 从 GitHub 刷新活跃度 |
+| `npm run log` | 从**公开** GitHub 数据刷新活跃度（不用 token） |
 | `npm run lint` / `npm run format` | ESLint / Prettier |
 
 然后打开 `site.config.yaml`，至少改这三行：

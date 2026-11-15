@@ -34,20 +34,20 @@ Keeping them apart is deliberate: automation can lie about what matters, and a h
 ## Refresh it
 
 ```bash
-GITHUB_TOKEN=ghp_xxx node scripts/fetch-log.mjs
+npm run log
 ```
 
-The repository list lives at the top of that script:
+No token is involved, and that is deliberate: a personal access token sitting in a build script can read every private repository it was granted, so one leak becomes a full exposure. The script only reads **public** repositories.
 
 ```js title="scripts/fetch-log.mjs"
 export const REPOS = [
-  'owner/repo-one', // [!code --]
+  'owner/repo-one',
   'owner/repo-two',
-  'owner/repo-three', // [!code ++]
+  'owner/repo-three',
 ];
 ```
 
-One `owner/name` per line. Private repositories need a token with `repo` scope; public ones work with any token but still hit the 60-requests-per-hour anonymous limit quickly.
+One `owner/name` per line, public only. Private work simply does not appear on the page — that is the right trade, not a limitation to work around.
 
 ## What it writes
 
