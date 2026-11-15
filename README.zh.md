@@ -117,7 +117,7 @@ src/data/log.json          活跃度数据（一天一条）
 
 ## MCP 页面
 
-默认关闭。`mcp.enabled` 为 false 时，`/mcp/` 页面带 `noindex`，导航入口也会被过滤掉。
+这个示例站是开着的。把 `mcp.enabled` 改成 false，`/mcp/` 页面会变成 `noindex`，导航入口也会被过滤掉。
 
 ```yaml
 mcp:

@@ -5,12 +5,12 @@ date: 2026-11-16
 tags: [mcp, configuration]
 ---
 
-The MCP page ships turned off. While `mcp.enabled` is false:
+This demo ships with the MCP page on. Set `mcp.enabled: false` and the opposite happens: the page stops being indexable and its nav entry disappears.
 
 - `/mcp/` renders a short "not enabled" page with `noindex`, so it never lands in search results.
 - The navigation entry is filtered out — no dead link anywhere on the site.
 
-## Turning it on
+## Turning it on (or off)
 
 ```yaml
 mcp:

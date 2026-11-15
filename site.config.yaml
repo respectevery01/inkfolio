@@ -170,13 +170,13 @@ seo:
   robots: index,follow
 
 # -----------------------------------------------------------------------------
-# MCP page — off by default: no nav entry, no indexable page.
-# Flip `enabled` to true and fill in the endpoint. Everything else (sources,
-# tools) is plain YAML — no code changes needed.
+# MCP page — on in this demo. Set `enabled: false` to hide it: the page becomes
+# noindex and the nav entry disappears. Everything here is plain YAML, so
+# sources and tools are edited without touching code.
 # -----------------------------------------------------------------------------
 mcp:
-  enabled: false
-  endpoint: ""                        # e.g. https://mcp.your-domain.com/mcp
+  enabled: true
+  endpoint: ""                        # empty = https://<your domain>/mcp
   name: Inkfolio MCP
   sources:
     - host: your-site.com

@@ -117,7 +117,7 @@ No Astro file needs editing to add a link. Shipped icons: `jask`, `astro`, `font
 
 ## MCP page
 
-Off by default. While `mcp.enabled` is false the `/mcp/` page is `noindex` and the navigation entry is filtered out.
+Ships on in this demo. Set `mcp.enabled: false` and the `/mcp/` page becomes `noindex` while the navigation entry is filtered out.
 
 ```yaml
 mcp:
