@@ -15,7 +15,7 @@ interface Props {
   alt?: string;
 }
 const { lang, title, description = '', sidebar, currentId, toc, prev, next, alt } = Astro.props;
-const zh = lang === 'zh';
+const zh = lang !== 'en';
 ---
 
 <Base title={title} description={description} lang={lang} alt={alt} maxWidth="1240px">

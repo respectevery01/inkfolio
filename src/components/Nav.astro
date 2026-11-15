@@ -1,4 +1,5 @@
 ---
+import { availableLangs } from '../lib/langs';
 import Icon from './Icon.astro';
 import { nav, navCta, site, mcp, type Lang, type NavLeaf } from '../lib/config';
 
@@ -9,7 +10,8 @@ interface Props {
 }
 const { lang, alt } = Astro.props;
 
-const zh = lang === 'zh';
+const zh = lang !== 'en';
+const currentHreflang = lang === 'zh-hant' ? 'zh-Hant' : lang === 'zh' ? 'zh-Hans' : 'en';
 const path = Astro.url.pathname || '/';
 const base = zh ? '/zh' : '';
 const to = (href: string) => (href.startsWith('http') ? href : `${base}${href}` || '/');
@@ -85,8 +87,13 @@ const altHref = alt && alt !== path ? alt : null;
           <i class="fa-solid fa-language" style="font-size:17px" aria-hidden="true"></i>
         </summary>
         <ul class="lang-list">
-          <li><a class="is-current" href={Astro.url.pathname} aria-current="page">{zh ? '简体中文' : 'English'}</a></li>
-          <li><a href={altHref} hreflang={zh ? 'en' : 'zh-Hans'} lang={zh ? 'en' : 'zh-Hans'}>{zh ? 'English' : '简体中文'}</a></li>
+          {availableLangs().map((l) => (
+            l.hreflang === currentHreflang ? (
+              <li><a class="is-current" href={Astro.url.pathname} aria-current="page">{zh ? l.label : l.labelEn}</a></li>
+            ) : (
+              <li><a href={l.prefix} hreflang={l.hreflang} lang={l.hreflang}>{zh ? l.label : l.labelEn}</a></li>
+            )
+          ))}
         </ul>
       </details>
     )}

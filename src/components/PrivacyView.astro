@@ -7,7 +7,7 @@ interface Props {
   lang: Lang;
 }
 const { lang } = Astro.props;
-const zh = lang === 'zh';
+const zh = lang !== 'en';
 const entry = await getEntry('pages', zh ? 'privacy-zh' : 'privacy');
 if (!entry) throw new Error('Missing privacy page content (src/content/pages/privacy(-zh).md)');
 const { Content } = await render(entry);

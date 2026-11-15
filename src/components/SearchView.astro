@@ -7,7 +7,7 @@ interface Props {
   lang: Lang;
 }
 const { lang } = Astro.props;
-const zh = lang === 'zh';
+const zh = lang !== 'en';
 const altHref = zh ? '/search/' : '/zh/search/';
 ---
 
@@ -53,7 +53,7 @@ const altHref = zh ? '/search/' : '/zh/search/';
         return d.innerHTML;
       }
       function inLang(url) {
-        return lang === 'zh' ? url.indexOf('/zh/') === 0 : url.indexOf('/zh/') !== 0;
+        return lang !== 'en' ? url.indexOf('/zh/') === 0 : url.indexOf('/zh/') !== 0;
       }
 
       async function ensure() {
@@ -77,7 +77,7 @@ const altHref = zh ? '/search/' : '/zh/search/';
           })
           .join('');
         hint.hidden = false;
-        hint.textContent = items.length ? '' : lang === 'zh' ? '没有匹配的内容。' : 'No matches.';
+        hint.textContent = items.length ? '' : lang !== 'en' ? '没有匹配的内容。' : 'No matches.';
         if (items.length) hint.hidden = true;
       }
 

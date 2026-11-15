@@ -9,7 +9,7 @@ interface Props {
   lang: Lang;
 }
 const { lang } = Astro.props;
-const zh = lang === 'zh';
+const zh = lang !== 'en';
 const altHref = zh ? '/friends/' : '/zh/friends/';
 const friends = parse(friendsRaw) as {
   name: string;

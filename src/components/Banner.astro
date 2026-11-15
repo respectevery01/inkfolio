@@ -7,8 +7,8 @@ interface Props {
 }
 const { lang } = Astro.props;
 const visible = banner.enabled && banner.text.trim().length > 0;
-const text = lang === 'zh' ? banner.textZh || banner.text : banner.text;
-const linkText = lang === 'zh' ? banner.linkTextZh || banner.linkText : banner.linkText;
+const text = lang !== 'en' ? banner.textZh || banner.text : banner.text;
+const linkText = lang !== 'en' ? banner.linkTextZh || banner.linkText : banner.linkText;
 ---
 
 {visible && (

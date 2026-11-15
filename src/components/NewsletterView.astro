@@ -7,7 +7,7 @@ interface Props {
   lang: Lang;
 }
 const { lang } = Astro.props;
-const zh = lang === 'zh';
+const zh = lang !== 'en';
 const altHref = zh ? '/newsletter/' : '/zh/newsletter/';
 const L = (en: string, z: string) => (zh ? z : en);
 const base = zh ? '/zh' : '';

@@ -20,7 +20,7 @@ export interface LangDef {
 export const LANGS: LangDef[] = [
   { key: 'en', prefix: '/', hreflang: 'en', label: 'English', labelEn: 'English', contentSuffix: '', available: true },
   { key: 'zh', prefix: '/zh/', hreflang: 'zh-Hans', label: '简体中文', labelEn: 'Simplified Chinese', contentSuffix: '-zh', available: true },
-  { key: 'zh-hant', prefix: '/zh-Hant/', hreflang: 'zh-Hant', label: '繁體中文', labelEn: 'Traditional Chinese', contentSuffix: '-zh-hant', available: false },
+  { key: 'zh-hant', prefix: '/zh-Hant/', hreflang: 'zh-Hant', label: '繁體中文', labelEn: 'Traditional Chinese', contentSuffix: '-zh-hant', available: true },
   { key: 'fr', prefix: '/fr/', hreflang: 'fr', label: 'Français', labelEn: 'French', contentSuffix: '-fr', available: false },
 ];
 

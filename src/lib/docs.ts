@@ -14,7 +14,7 @@ export interface DocSection {
 }
 
 /** Section order and labels. Keys are the first path segment of a docs file. */
-const SECTIONS: Record<string, { en: string; zh: string }> = {
+const SECTIONS: Record<string, { en: string; zh: string; 'zh-hant'?: string }> = {
   'getting-started': { en: 'Getting started', zh: '开始使用' },
   configuration: { en: 'Configuration', zh: '配置' },
   content: { en: 'Content', zh: '内容' },
@@ -44,7 +44,7 @@ export function buildSidebar(entries: Entry[], lang: Lang): DocSection[] {
       const eb = entries.find((e) => e.id === b.id)!;
       return (ea.data.order ?? 100) - (eb.data.order ?? 100);
     });
-    return { key, title: SECTIONS[key]?.[lang] ?? key, items };
+    return { key, title: (SECTIONS[key] as any)?.[lang] ?? SECTIONS[key]?.zh ?? key, items };
   });
 }
 

@@ -5,7 +5,7 @@ interface Props {
   lang: Lang;
 }
 const { lang } = Astro.props;
-const zh = lang === 'zh';
+const zh = lang !== 'en';
 const text = zh ? consent.textZh : consent.text;
 const linkLabel = zh ? consent.linkLabelZh : consent.linkLabel;
 ---

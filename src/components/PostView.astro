@@ -13,12 +13,12 @@ const { entry, lang } = Astro.props;
 const { Content, headings } = await render(entry);
 
 // The other language is only linked when a file with the same name exists there.
-const otherCollection = lang === 'zh' ? 'posts' : 'postsZh';
+const otherCollection = lang !== 'en' ? 'posts' : 'postsZh';
 const other = (await getCollection(otherCollection as 'posts' | 'postsZh')).find((e: any) => e.id === entry.id);
-const alt = other ? langPath(`/posts/${entry.id}/`, lang === 'zh' ? 'en' : 'zh') : undefined;
+const alt = other ? langPath(`/posts/${entry.id}/`, lang !== 'en' ? 'en' : 'zh') : undefined;
 
 const fmt = (d: Date) =>
-  new Date(d).toLocaleDateString(lang === 'zh' ? 'zh-CN' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+  new Date(d).toLocaleDateString(lang !== 'en' ? 'zh-CN' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
 const words = (entry.body ?? '').split(/\s+/).filter(Boolean).length;
 const readMin = Math.max(1, Math.round(words / 220));
 
@@ -52,7 +52,7 @@ const ogImage = existsSync(`public${ogPath}`) ? ogPath : undefined;
       {entry.data.description && <p class="post-lede">{entry.data.description}</p>}
       <div class="byline">
         <div class="who">
-          <span class="who-name">{lang === 'zh' ? site.authorZh : site.author}</span>
+          <span class="who-name">{lang !== 'en' ? site.authorZh : site.author}</span>
         </div>
         <div class="when">
           <time datetime={new Date(entry.data.date).toISOString()}>{fmt(new Date(entry.data.date))}</time>

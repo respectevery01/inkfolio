@@ -7,6 +7,9 @@ export const ui = { en, zh, zhHant } as const;
 export type UiKey = keyof typeof en;
 
 export function t(lang: string, key: UiKey): string {
-  const dict = (ui as Record<string, Record<string, string>>)[lang] ?? ui.en;
+  const dict =
+    lang === 'zh-hant'
+      ? (zhHant as Record<string, string>)
+      : (ui as Record<string, Record<string, string>>)[lang] ?? ui.en;
   return dict[key] ?? (ui.en as Record<string, string>)[key] ?? String(key);
 }

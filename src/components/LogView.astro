@@ -10,7 +10,7 @@ interface Props {
   lang: Lang;
 }
 const { lang } = Astro.props;
-const zh = lang === 'zh';
+const zh = lang !== 'en';
 const altHref = zh ? '/log/' : '/zh/log/';
 
 // Manual entries, newest first — the heatmap stays machine-generated.

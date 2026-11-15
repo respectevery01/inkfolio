@@ -12,7 +12,7 @@ interface Props {
   total: number;
 }
 const { lang, page, totalPages, entries, total } = Astro.props;
-const zh = lang === 'zh';
+const zh = lang !== 'en';
 const base = zh ? '/zh/posts/' : '/posts/';
 const hrefFor = (n: number) => (n === 1 ? base : `${base}page/${n}/`);
 const altHref = zh ? '/posts/' : '/zh/posts/';

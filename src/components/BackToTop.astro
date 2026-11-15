@@ -8,7 +8,7 @@ interface Props {
 const { lang } = Astro.props;
 ---
 
-<button class="to-top" id="to-top" type="button" aria-label={lang === 'zh' ? '回到顶部' : 'Back to top'}>
+<button class="to-top" id="to-top" type="button" aria-label={lang !== 'en' ? '回到顶部' : 'Back to top'}>
   <Icon name="arrow-up" size={16} />
 </button>
 

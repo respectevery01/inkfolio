@@ -1,7 +1,7 @@
 import raw from '../../site.config.yaml?raw';
 import { parse } from 'yaml';
 
-export type Lang = 'en' | 'zh';
+export type Lang = 'en' | 'zh' | 'zh-hant';
 
 export interface NavLeaf {
   label: string;
@@ -160,14 +160,16 @@ export function titleFor(title: string, lang: Lang): string {
   return seo.titleTemplate.replace('{title}', title).replace('{site}', siteName);
 }
 
-export function pickLang<T>(value: { en: T; zh: T }, lang: Lang): T {
+export function pickLang<T>(value: { en: T; zh: T; 'zh-hant'?: T }, lang: Lang): T {
+  if (lang === 'zh-hant') return value['zh-hant'] ?? value.zh;
   return lang === 'zh' ? value.zh : value.en;
 }
 
 /** Prefix a path for the requested language: ('/posts/', 'zh') → '/zh/posts/' */
 export function langPath(path: string, lang: Lang): string {
   if (lang === 'en') return path;
-  return path === '/' ? '/zh/' : `/zh${path}`;
+  const prefix = lang === 'zh-hant' ? '/zh-Hant' : '/zh';
+  return path === '/' ? `${prefix}/` : `${prefix}${path}`;
 }
 
 export interface McpSource {
