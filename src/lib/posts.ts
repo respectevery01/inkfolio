@@ -17,7 +17,12 @@ export async function loadPosts(lang: Lang) {
   const collection = lang === 'zh' ? 'postsZh' : 'posts';
   const entries = (await getCollection(collection as 'posts' | 'postsZh'))
     .filter((e) => !e.data.draft)
-    .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+    .sort((a, b) => {
+      const pa = (a.data as any).pinned ?? 999;
+      const pb = (b.data as any).pinned ?? 999;
+      if (pa !== pb) return pa - pb;
+      return new Date(b.data.date).getTime() - new Date(a.data.date).getTime();
+    });
 
   const rows: PostRow[] = entries.map((e) => ({
     id: e.id,
@@ -26,6 +31,7 @@ export async function loadPosts(lang: Lang) {
     date: new Date(e.data.date),
     tags: e.data.tags ?? [],
     cover: (e.data as any).cover,
+    pinned: (e.data as any).pinned,
     coverAlt: (e.data as any).coverAlt,
   }));
 

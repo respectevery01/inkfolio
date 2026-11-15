@@ -50,8 +50,13 @@ for (let n = 1; n <= totalPages; n++) {
 
   <ul class="pf-list">
     {entries.map((entry: any) => (
-      <li class="pf-row">
-        <article class={`pf-item${entry.cover ? '' : ' noimg'}`}>
+      <li class={`pf-row${entry.pinned ? ' pf-row-pin' : ''}`}>
+        <article class={`pf-item${entry.cover ? '' : ' noimg'}${entry.pinned ? ' pf-item-pin' : ''}`}>
+          {entry.pinned && (
+            <span class="pf-pin" title={zh ? '置顶' : 'Pinned'} aria-label={zh ? '置顶' : 'Pinned'}>
+              <svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17v5M8 3h8l-1.2 6.2 2.7 2.7-.7 1.1H7.2l-.7-1.1 2.7-2.7L8 3z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/></svg>
+            </span>
+          )}
           {covers.list && entry.cover && <img class="pf-cover" src={entry.cover} alt={entry.coverAlt ?? ''} loading="lazy" decoding="async" />}
           <div class="pf-body">
             <h3 class="pf-rt">

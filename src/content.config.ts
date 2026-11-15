@@ -17,6 +17,8 @@ const postSchema = ({ defaultLang }: { defaultLang?: 'en' | 'zh' } = {}) =>
     /** show the sticky table of contents on wide screens (on by default) */
     /** optional cover image, shown on the list and at the top of the article */
     cover: z.string().optional(),
+    /** pin to the top of the archive; lower numbers come first */
+    pinned: z.number().optional(),
     coverAlt: z.string().optional(),
     toc: z.boolean().default(true),
     lang: z.enum(['en', 'zh', 'zh-hant']).default(defaultLang ?? 'en'),

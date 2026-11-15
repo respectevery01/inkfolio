@@ -3,6 +3,7 @@ title: 从这三条命令开始
 description: 装依赖、本地预览、上线。不用碰构建配置。
 date: 2026-11-10
 cover: /og/posts/zh/getting-started.png
+pinned: 1
 coverAlt: 从这三条命令开始
 tags: [上手, 部署]
 lang: zh
