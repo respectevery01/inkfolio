@@ -28,7 +28,9 @@ const { title, description, lang = 'en', alt, article, noindex = false, maxWidth
 
 const pageTitle = titleFor(title, lang);
 const pageDescription =
-  description || (lang === 'zh' ? site.descriptionZh : site.description) || seo.defaultDescription;
+  description ||
+  [title, lang === 'zh' ? site.descriptionZh : site.description].filter(Boolean).join(' — ').slice(0, 158) ||
+  seo.defaultDescription;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const altPath = alt ? new URL(alt, Astro.site).pathname : null;
 const hasAlt = !!altPath && altPath !== Astro.url.pathname;
