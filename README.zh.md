@@ -182,6 +182,7 @@ inkfolio/
 - [x] 构建时生成 OG 图
 - [x] GEO / SEO 层——`sitemap.xml`、`robots.txt`、`llms.txt`、JSON-LD、canonical 与 hreflang
 - [x] 页脚显示本地时间与天气
+- [ ] 更多内容语言——UI 文案现在是一份字典，加语言要先把这些键抽出来，切换器也要改成下拉
 - [ ] 动态（Moments）——`/moments` 的短记时间线
 - [ ] 频道（Channel）——Telegram 频道的只读镜像
 

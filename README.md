@@ -182,6 +182,7 @@ The output is static, so any host works. On Cloudflare Pages: build command `npm
 - [x] Build-time OG images
 - [x] GEO / SEO layer — `sitemap.xml`, `robots.txt`, `llms.txt`, JSON-LD, canonical and hreflang
 - [x] Local time and weather in the footer
+- [ ] More content languages — the UI strings are one dictionary; adding a language needs those keys extracted and the switcher turned into a dropdown
 - [ ] Moments — a short-notes timeline at `/moments`
 - [ ] Channel — a read-only mirror of a Telegram channel
 
