@@ -27,8 +27,8 @@ interface Props {
 const { title, description, lang = 'en', alt, article, noindex = false, maxWidth, ogImage: ogImageProp } = Astro.props;
 
 let pageTitle = titleFor(title, lang);
-const zhHomeTitle = lang === 'zh' && (title === site.name || pageTitle === site.name);
-if (zhHomeTitle) pageTitle = `${site.name} — ${site.taglineZh || site.tagline}`;
+const isHomeTitle = title === site.name || pageTitle === site.name;
+if (isHomeTitle) pageTitle = `${site.name} — ${lang === 'zh' ? site.taglineZh || site.tagline : site.tagline}`;
 const pageDescription =
   description ||
   [title, lang === 'zh' ? site.descriptionZh : site.description].filter(Boolean).join(' — ').slice(0, 158) ||
