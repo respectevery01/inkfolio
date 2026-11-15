@@ -50,12 +50,31 @@ Add a column by appending an entry; add a link by appending to `links`. No compo
 
 ```yaml
 footer:
+  copyright: '© {year} {name}' # {year} and {name} are filled in
+  copyrightZh: '© {year} {name}'
   copyrightName: Inkfolio
   authorUrl: https://jask.dev
   authorLabel: jask.dev
+  text: '' # free text after the copyright
+  textZh: ''
   artLight: /footer/footer-light.webp
   artDark: /footer/footer-dark.webp
 ```
+
+`copyright` takes over the whole line; leave it empty and the theme writes `© {year} {copyrightName}` itself. `text` is a place for a licence note or anything else that belongs next to the copyright — it is plain text, not Markdown.
+
+### The credit
+
+```yaml
+footer:
+  credit:
+    show: true
+    label: Powered by Inkfolio
+    labelZh: 由 Inkfolio 驱动
+    href: https://github.com/respectevery01/inkfolio
+```
+
+Rendered as a single 11px line at 60% opacity beneath everything else: present, not advertised. Set `show: false` to remove it (the theme is GPL, so check the licence before you do).
 
 The illustration is **1600 × 529** WebP, one file per theme. Replace the two files in `public/footer/` keeping the names. Set both paths to `""` to drop it.
 

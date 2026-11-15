@@ -50,12 +50,31 @@ footerColumns:
 
 ```yaml
 footer:
+  copyright: '© {year} {name}' # {year} 与 {name} 会被替换
+  copyrightZh: '© {year} {name}'
   copyrightName: Inkfolio
   authorUrl: https://jask.dev
   authorLabel: jask.dev
+  text: '' # 版权后面的自定义文字
+  textZh: ''
   artLight: /footer/footer-light.webp
   artDark: /footer/footer-dark.webp
 ```
+
+`copyright` 接管整行；留空则由主题自己拼 `© {year} {copyrightName}`。`text` 放许可证说明之类要跟版权写在一起的话，纯文本，不渲染 Markdown。
+
+### 署名
+
+```yaml
+footer:
+  credit:
+    show: true
+    label: Powered by Inkfolio
+    labelZh: 由 Inkfolio 驱动
+    href: https://github.com/respectevery01/inkfolio
+```
+
+渲染成最底下单独一行：11px、百分之六十透明度。在，但不吆喝。`show: false` 可去掉（主题是 GPL，去之前先看许可证）。
 
 大图是 **1600 × 529** 的 WebP，一个主题一张。直接覆盖 `public/footer/` 里那两个文件、文件名不变。两个路径都设成 `""` 就不要这张图。
 

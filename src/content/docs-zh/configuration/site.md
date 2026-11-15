@@ -56,3 +56,5 @@ weather:
 ```
 
 时钟精确到秒，用读者自己的时区。`visitor` 模式下天气按免 key 的 IP 定位查询，定位失败才回落到坐标；改成 `mode: fixed` 就只报一个地址，此时 `label`、`latitude`、`longitude`、`timezone` 决定显示内容。全程不涉及 API key——Open-Meteo 本身不需要，`geoEndpoint` 可把定位请求指到你自己的代理。天气缓存 30 分钟；都失败时天气部分隐藏，时钟照常走。
+
+定位按顺序试三个互不相干的服务——你配了 `geoEndpoint` 就先用它，然后 `ipwho.is`、`get.geojs.io`、`ipapi.co`，每个四秒超时。因为广告拦截插件、公司网络和部分国家的网络环境都会单独卡掉其中任意一个。三个全挂时用回落坐标，并把坐标对应的地名一起显示，不会出现一个没有地名的温度。

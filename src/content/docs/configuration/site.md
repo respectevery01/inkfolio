@@ -56,3 +56,5 @@ weather:
 ```
 
 The clock ticks to the second in the reader's own timezone. In `visitor` mode weather follows a keyless IP lookup, with the fallback coordinates used only if that fails. Set `mode: fixed` to report one address instead: then `label`, `latitude`, `longitude` and `timezone` are what the widget uses. No API key is involved — Open-Meteo needs none, and `geoEndpoint` lets you route the lookup through your own proxy. Weather is cached for 30 minutes; if everything fails the weather halves disappear and the clock stays.
+
+Three unrelated geolocation services are tried in order — your `geoEndpoint` first if set, then `ipwho.is`, `get.geojs.io` and `ipapi.co`, each with a four-second deadline — because extensions, corporate networks and some countries block any single one of them. When all of three fail, the fallback coordinates are used and the widget shows their label, so a temperature is never reported for an unnamed place.

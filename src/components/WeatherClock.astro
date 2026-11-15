@@ -9,7 +9,7 @@ const enabled = w.enabled === true;
 const units = w.units === 'fahrenheit' ? 'fahrenheit' : 'celsius';
 const fixed = w.mode === 'fixed';
 const zhLabel = w.labelZh ?? w.label ?? '';
-const label = fixed ? (Astro.url.pathname.startsWith('/zh') ? zhLabel : (w.label ?? zhLabel)) : '';
+const label = Astro.url.pathname.startsWith('/zh') ? zhLabel : (w.label ?? zhLabel);
 ---
 
 {enabled && (
@@ -71,7 +71,7 @@ const label = fixed ? (Astro.url.pathname.startsWith('/zh') ? zhLabel : (w.label
       tempEl.textContent = `${Math.round(temp)}${mark}`;
       const [en, cn] = codes[code] ?? ['', ''];
       condEl.textContent = zh ? cn : en;
-      sep.hidden = false;
+      sep.hidden = !place;
     };
 
     const cacheKey = 'inkfolio:wx';
@@ -83,31 +83,62 @@ const label = fixed ? (Astro.url.pathname.startsWith('/zh') ? zhLabel : (w.label
       }
     } catch {}
 
-    const geoUrl = root.dataset.geo || 'https://ipwho.is/';
     const fixedMode = root.dataset.mode === 'fixed';
     if (fixedMode) placeEl.textContent = root.dataset.label || '';
-    const fallbackLat = Number(root.dataset.lat);
-    const fallbackLon = Number(root.dataset.lon);
+
+    // Zero is treated as "not set": 0,0 is the Gulf of Guinea, never a home.
+    const coord = (value?: string) => {
+      const raw = (value ?? '').trim();
+      const n = raw ? Number(raw) : NaN;
+      return Number.isFinite(n) && n !== 0 ? n : NaN;
+    };
+    const fixedLat = coord(root.dataset.lat);
+    const fixedLon = coord(root.dataset.lon);
+    const hasFixed = Number.isFinite(fixedLat) && Number.isFinite(fixedLon);
+
+    // Geolocation providers, tried in order. Any one of them can be blocked by an
+    // extension, a corporate network or a country-level filter, which is why one
+    // endpoint is not enough: three unrelated ones cover most of it.
+    const geoEndpoints = [
+      root.dataset.geo,
+      'https://ipwho.is/',
+      'https://get.geojs.io/v1/ip/geo.json',
+      'https://ipapi.co/json/',
+    ].filter(Boolean) as string[];
+
+    const getJson = async (url: string) => {
+      const ac = new AbortController();
+      const timer = setTimeout(() => ac.abort(), 4000);
+      try {
+        const r = await fetch(url, { headers: { Accept: 'application/json' }, signal: ac.signal });
+        return r.ok ? await r.json() : null;
+      } finally {
+        clearTimeout(timer);
+      }
+    };
+
+    const readGeo = (g: any) => {
+      const lat = Number(g?.latitude ?? g?.lat);
+      const lon = Number(g?.longitude ?? g?.lon);
+      if (!Number.isFinite(lat) || !Number.isFinite(lon)) return null;
+      const city = typeof g.city === 'string' ? g.city : '';
+      const cc =
+        typeof g.country_code === 'string' ? g.country_code : typeof g.country === 'string' ? g.country : '';
+      const place = [city, cc].filter(Boolean).join(', ');
+      return { lat, lon, place: place || (zh ? '你所在的位置' : 'Your location') };
+    };
 
     const locate = async (): Promise<{ lat: number; lon: number; place: string } | null> => {
-      if (fixedMode) {
-        return { lat: Number(root.dataset.lat), lon: Number(root.dataset.lon), place: root.dataset.label || '' };
+      if (fixedMode && hasFixed) {
+        return { lat: fixedLat, lon: fixedLon, place: root.dataset.label || '' };
       }
-      try {
-        const r = await fetch(geoUrl, { headers: { Accept: 'application/json' } });
-        if (r.ok) {
-          const g = await r.json();
-          const lat = Number(g.latitude ?? g.lat);
-          const lon = Number(g.longitude ?? g.lon);
-          if (Number.isFinite(lat) && Number.isFinite(lon)) {
-            const place = [g.city, g.country_code ?? g.country].filter(Boolean).join(', ');
-            return { lat, lon, place: place || (zh ? '你所在的位置' : 'Your location') };
-          }
-        }
-      } catch {}
-      if (Number.isFinite(fallbackLat) && Number.isFinite(fallbackLon)) {
-        return { lat: fallbackLat, lon: fallbackLon, place: '' };
+      for (const endpoint of geoEndpoints) {
+        try {
+          const hit = readGeo(await getJson(endpoint));
+          if (hit) return hit;
+        } catch {}
       }
+      if (hasFixed) return { lat: fixedLat, lon: fixedLon, place: root.dataset.label || '' };
       return null;
     };
 

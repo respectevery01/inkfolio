@@ -156,9 +156,21 @@ export const theme = {
 export const footer = {
   note: (parsed.footer?.note as string) ?? '',
   noteZh: (parsed.footer?.noteZh as string) ?? parsed.footer?.note ?? '',
+  // Free text shown after the copyright. `note` stays as a legacy alias.
+  text: (parsed.footer?.text as string) ?? (parsed.footer?.note as string) ?? '',
+  textZh: (parsed.footer?.textZh as string) ?? (parsed.footer?.noteZh as string) ?? parsed.footer?.text ?? '',
+  // {year} and {name} are replaced; leave empty for "© {year} {copyrightName}".
+  copyright: (parsed.footer?.copyright as string) ?? '',
+  copyrightZh: (parsed.footer?.copyrightZh as string) ?? (parsed.footer?.copyright as string) ?? '',
   copyrightName: (parsed.footer?.copyrightName as string) ?? site.name,
   authorUrl: (parsed.footer?.authorUrl as string) ?? '',
   authorLabel: (parsed.footer?.authorLabel as string) ?? '',
+  credit: {
+    show: parsed.footer?.credit?.show !== false,
+    label: (parsed.footer?.credit?.label as string) ?? 'Powered by Inkfolio',
+    labelZh: ((parsed.footer?.credit?.labelZh as string) ?? (parsed.footer?.credit?.label as string)) || '由 Inkfolio 驱动',
+    href: (parsed.footer?.credit?.href as string) ?? '',
+  },
   artLight: (parsed.footer?.artLight as string) ?? '',
   artDark: (parsed.footer?.artDark as string) ?? '',
 };

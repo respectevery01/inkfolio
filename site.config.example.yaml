@@ -240,11 +240,18 @@ mcp:
 # Footer. Copyright line, the author, and a link back to your site.
 # -----------------------------------------------------------------------------
 footer:
-  note: Built with Inkfolio
-  noteZh: 由 Inkfolio 驱动
-  copyrightName: Inkfolio # shown after © + the current year
+  copyright: '© {year} {name}' # {year} and {name} are filled in
+  copyrightZh: '© {year} {name}'
+  copyrightName: Inkfolio # fills {name} and the default line
+  text: '' # free text after the copyright
+  textZh: ''
   authorUrl: https://jask.dev # the author line links back here
   authorLabel: jask.dev
+  credit:
+    show: true
+    label: Powered by Inkfolio
+    labelZh: 由 Inkfolio 驱动
+    href: https://github.com/respectevery01/inkfolio
   # Wide illustration above the footer columns. 1600×529 WebP, two files so the
   # drawing can differ per theme. Replace the files in public/footer/ — same
   # names, same size — and nothing else needs to change. Set art to "" to drop it.

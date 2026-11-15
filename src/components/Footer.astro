@@ -16,8 +16,12 @@ const cur = (href: string) => {
   const target = to(href);
   return path === target || (target !== '/' && path.startsWith(target)) ? 'page' : undefined;
 };
-const note = zh ? footer.noteZh : footer.note;
+const note = zh ? footer.textZh : footer.text;
 const year = new Date().getFullYear();
+const copyrightTpl = (zh ? footer.copyrightZh : footer.copyright).trim();
+const copyright = (copyrightTpl || '© {year} {name}')
+  .replace(/\{year\}/g, String(year))
+  .replace(/\{name\}/g, footer.copyrightName);
 const socials = social.map((item: any) => ({ ...item, href: to(item.href), external: item.href.startsWith('http') }));
 
 // The MCP page can be switched off in site.config.yaml; its footer link follows.
@@ -57,7 +61,7 @@ const art =
     </div>
     <div class="foot-bottom">
       <span class="foot-legal">
-        © {year} {footer.copyrightName}
+        {copyright}
         {footer.authorUrl && (
           <>
             {' '}
@@ -66,8 +70,8 @@ const art =
               {footer.authorLabel || footer.authorUrl.replace(/^https?:\/\//, '')}
             </a>
           </>
-        )}{' '}
-        · {note}
+        )}
+        {note && <> · {note}</>}
       </span>
       <WeatherClock />
       <span class="foot-soc">
@@ -83,6 +87,17 @@ const art =
         {site.email && <a href={`mailto:${site.email}`}>{site.email}</a>}
       </span>
     </div>
+    {footer.credit.show && footer.credit.label && (
+      <p class="foot-credit">
+        {footer.credit.href ? (
+          <a href={footer.credit.href} rel="noopener">
+            {zh ? footer.credit.labelZh : footer.credit.label}
+          </a>
+        ) : (
+          zh ? footer.credit.labelZh : footer.credit.label
+        )}
+      </p>
+    )}
   </div>
 </footer>
 <style is:global>
@@ -113,5 +128,22 @@ const art =
     text-decoration-color: var(--u);
     text-decoration-thickness: 1.5px;
     text-underline-offset: 4px;
+  }
+  /* Deliberately quiet: a credit, not a badge. */
+  .foot-credit {
+    margin-top: 20px;
+    font-size: 11px;
+    line-height: 1.5;
+    color: var(--muted);
+    opacity: 0.6;
+    letter-spacing: 0.01em;
+  }
+  .foot-credit a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .foot-credit a:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
 </style>
