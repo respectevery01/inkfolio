@@ -2317,7 +2317,7 @@ main.page > * {
 /* Pinned posts: full-width cover, orange pin, sit above the archive */
 .pf-item-pin { position: relative; display: block; }
 .pf-item-pin .pf-cover { width: 100%; max-height: none; aspect-ratio: 16 / 9; object-fit: cover; margin-bottom: 18px; }
-.pf-pin { position: absolute; top: 12px; left: 12px; display: inline-flex; align-items: center;
-  gap: 0; padding: 6px; border-radius: 999px; color: #fff; background: var(--u); box-shadow: 0 2px 8px rgb(0 0 0 / .18); z-index: 2; }
+.pf-pin { display: inline-flex; align-items: center; justify-content: center; vertical-align: 2px;
+  margin-right: 8px; color: var(--u); }
 .pf-item-pin .pf-rt { font-size: 1.12em; }
-@media (max-width: 640px) { .pf-item-pin .pf-cover { margin-bottom: 14px; } .pf-pin { top: 8px; left: 8px; padding: 5px; } }
+@media (max-width: 640px) { .pf-item-pin .pf-cover { margin-bottom: 14px; } .pf-pin { margin-right: 6px; } }
