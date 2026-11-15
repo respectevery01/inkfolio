@@ -28,7 +28,9 @@ export interface LogDay {
   count: number;
 }
 
-export const log = logRaw as { updated: string; repos: string[]; days: LogDay[] };
+export interface RepoStat { name: string; commits: number; last: string | null }
+
+export const log = logRaw as { updated: string; repos: string[]; repoStats?: RepoStat[]; days: LogDay[] };
 
 /** Streak of consecutive days with at least one entry, counted back from yesterday. */
 export function currentStreak(days: LogDay[], today = new Date()): number {

@@ -1,6 +1,6 @@
 ---
 import Icon from './Icon.astro';
-import { nav, navCta, site, type Lang, type NavLeaf } from '../lib/config';
+import { nav, navCta, site, mcp, type Lang, type NavLeaf } from '../lib/config';
 
 interface Props {
   lang: Lang;
@@ -25,13 +25,13 @@ const items = nav
   .map((item) => {
     if (item.items) {
       const children = item.items
-        .map((child) => ({ ...child, shown: label(child) !== null }))
+        .map((child) => ({ ...child, shown: label(child) !== null && (mcp.enabled || child.href !== '/mcp/') }))
         .filter((child) => child.shown);
       return { ...item, children };
     }
     return { ...item, children: null };
   })
-  .filter((item) => (item.children ? item.children.length > 0 && label(item) !== null : label(item) !== null));
+  .filter((item) => (item.children ? item.children.length > 0 && label(item) !== null : label(item) !== null && (mcp.enabled || item.href !== '/mcp/')));
 
 const groupActive = (children: { href: string }[] | null) => !!children?.some((child) => path.startsWith(to(child.href)));
 const altHref = alt && alt !== path ? alt : null;

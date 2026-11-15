@@ -14,9 +14,11 @@ interface Props {
   alt?: string;
   /** pass this on article pages so structured data carries the real dates */
   article?: { published: Date; updated?: Date; tags?: string[]; section?: string };
+  /** keep a page out of search engines (used when a feature is disabled) */
+  noindex?: boolean;
 }
 
-const { title, description, lang = 'en', alt, article } = Astro.props;
+const { title, description, lang = 'en', alt, article, noindex = false } = Astro.props;
 
 const pageTitle = titleFor(title, lang);
 const pageDescription = description || (lang === 'zh' ? site.descriptionZh : site.description) || seo.defaultDescription;
@@ -73,7 +75,7 @@ const clarityOn = analytics.clarity.enabled && analytics.clarity.projectId;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{pageTitle}</title>
     <meta name="description" content={pageDescription} />
-    <meta name="robots" content={seo.robots} />
+    <meta name="robots" content={noindex ? 'noindex,follow' : seo.robots} />
     <link rel="canonical" href={canonical} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     {hasAlt && <link rel="alternate" hreflang={selfHreflang} href={canonical} />}

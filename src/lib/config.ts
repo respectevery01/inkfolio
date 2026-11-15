@@ -151,3 +151,22 @@ export function langPath(path: string, lang: Lang): string {
   if (lang === 'en') return path;
   return path === '/' ? '/zh/' : `/zh${path}`;
 }
+
+export interface McpSource { host: string; items?: number; desc: { en: string; zh: string } }
+export interface McpTool { name: string; args?: string; desc: { en: string; zh: string } }
+
+export const mcp = {
+  enabled: process.env.MCP_ENABLED === 'true' || parsed.mcp?.enabled === true,
+  endpoint: (parsed.mcp?.endpoint as string) ?? '',
+  name: (parsed.mcp?.name as string) ?? `${site.name} MCP`,
+  sources: ((parsed.mcp?.sources ?? []) as McpSource[]).map((src) => ({
+    host: src.host,
+    items: typeof src.items === 'number' ? src.items : undefined,
+    desc: src.desc,
+  })),
+  tools: ((parsed.mcp?.tools ?? []) as McpTool[]).map((tool) => ({
+    name: tool.name,
+    args: tool.args ?? '',
+    desc: tool.desc,
+  })),
+};

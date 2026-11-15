@@ -115,6 +115,37 @@ Icons are [Font Awesome Free](https://fontawesome.com), bundled locally — no C
 
 No Astro file needs editing to add a link. Shipped icons: `jask`, `astro`, `fontawesome`, `github`; leave `icon` out and the first letter is used.
 
+## MCP page
+
+Off by default. While `mcp.enabled` is false the `/mcp/` page is `noindex` and the navigation entry is filtered out.
+
+```yaml
+mcp:
+  enabled: true
+  endpoint: https://mcp.your-domain.com/mcp
+  name: Your MCP
+  sources:
+    - host: your-site.com
+      items: 42
+      desc: { en: Articles and notes, zh: 文章与笔记 }
+  tools:
+    - name: search
+      args: query, source?
+      desc: { en: Keyword search across all sources., zh: 跨源关键词搜索。 }
+```
+
+No code changes: the page renders the endpoint, connection steps for Claude Code / Cursor / Claude Desktop, your tools and your sources. It documents an MCP server you already run — the theme is static and does not host one. Demo builds can force it on with `MCP_ENABLED=true` without editing the YAML.
+
+## Activity log
+
+`/log/` reads `src/data/log.json`. Refresh it from real GitHub commits:
+
+```bash
+GITHUB_TOKEN=ghp_xxx node scripts/fetch-log.mjs
+```
+
+Repositories are listed at the top of that script (`REPOS`), one `owner/name` per line. It writes per-day counts for the last 365 days, plus per-repo totals and the last commit date. Failures keep the existing file, so a flaky network never breaks a deploy.
+
 ## Analytics and SEO
 
 All analytics are **off by default** — no script is injected unless you enable it and supply an id.

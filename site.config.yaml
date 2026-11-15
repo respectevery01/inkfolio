@@ -61,6 +61,11 @@ nav:
         href: /friends/
         sub: Sites worth reading
         subZh: 值得读的站
+      - label: MCP
+        labelZh: MCP
+        href: /mcp/
+        sub: Connect your agent
+        subZh: 让 agent 直连本站
 
 # The button on the right of the navigation.
 navCta:
@@ -164,6 +169,46 @@ seo:
   structuredData: true
   robots: index,follow
 
+# -----------------------------------------------------------------------------
+# MCP page — off by default: no nav entry, no indexable page.
+# Flip `enabled` to true and fill in the endpoint. Everything else (sources,
+# tools) is plain YAML — no code changes needed.
+# -----------------------------------------------------------------------------
+mcp:
+  enabled: false
+  endpoint: ""                        # e.g. https://mcp.your-domain.com/mcp
+  name: Inkfolio MCP
+  sources:
+    - host: your-site.com
+      items: 42
+      desc:
+        en: Articles and notes, English and Chinese
+        zh: 文章与笔记，中英双语
+    - host: second-site.com
+      items: 18
+      desc:
+        en: Docs and release notes
+        zh: 文档与更新日志
+  tools:
+    - name: list_sources
+      args: ""
+      desc:
+        en: Every connected source with its item count.
+        zh: 列出所有接入的内容源及条目数。
+    - name: search
+      args: query, source?
+      desc:
+        en: Keyword search across all sources. Start here.
+        zh: 跨源关键词搜索，从这里开始。
+    - name: read
+      args: source, id
+      desc:
+        en: Full text of one item as markdown, with metadata.
+        zh: 读取单条全文（markdown，带元数据）。
+
+# -----------------------------------------------------------------------------
+# Footer. Copyright line, the author, and a link back to your site.
+# -----------------------------------------------------------------------------
 footer:
   note: Built with Inkfolio
   noteZh: 由 Inkfolio 驱动

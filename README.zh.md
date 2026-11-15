@@ -115,6 +115,37 @@ src/data/log.json          活跃度数据（一天一条）
 
 加一条链接不需要改任何 Astro 文件。目前自带：`jask`、`astro`、`fontawesome`、`github`；不写 `icon` 就用首字母。
 
+## MCP 页面
+
+默认关闭。`mcp.enabled` 为 false 时，`/mcp/` 页面带 `noindex`，导航入口也会被过滤掉。
+
+```yaml
+mcp:
+  enabled: true
+  endpoint: https://mcp.your-domain.com/mcp
+  name: Your MCP
+  sources:
+    - host: your-site.com
+      items: 42
+      desc: { en: Articles and notes, zh: 文章与笔记 }
+  tools:
+    - name: search
+      args: query, source?
+      desc: { en: Keyword search across all sources., zh: 跨源关键词搜索。 }
+```
+
+不用改代码：页面会自己渲染端点、三种客户端的接法、工具列表和内容源列表。它只给已经在跑的 MCP 服务写说明页——主题是静态的，不托管服务。演示构建可以设 `MCP_ENABLED=true` 临时打开，不用改 YAML。
+
+## 活跃度
+
+`/log/` 读的是 `src/data/log.json`，用真实 GitHub 提交刷新：
+
+```bash
+GITHUB_TOKEN=ghp_xxx node scripts/fetch-log.mjs
+```
+
+仓库列表在脚本顶部的 `REPOS` 里，一行一个 `owner/name`。脚本写最近 365 天的按日计数，外加每个仓库的提交数和最后提交日期。失败时保留旧文件，网络抽风不会搞坏部署。
+
 ## 统计与 SEO
 
 三家统计默认全关，不开 `enabled: true` 并填 id 就不会注入任何脚本。

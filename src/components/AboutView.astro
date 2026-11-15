@@ -30,19 +30,45 @@ const stack = [
   { icon: 'bot', label: 'TypeScript', note: 'UI' },
 ];
 
-const journey = zh
-  ? [
-      { icon: 'flask', when: '2026 — 至今', org: 'Inkfolio', role: '作者', desc: '这个主题：先给自己用，然后开源。' },
-      { icon: 'globe', when: '2025', org: '模板与工具', role: '独立开发', desc: '把重复的建站工作收成一套模板和脚本。' },
-      { icon: 'ethereum', when: '2021', org: '', role: '入场', desc: '第一次链上转账，也就此开始研究骗局。' },
-      { icon: 'box', when: '更早', org: '', role: '基础', desc: '物流管理出身，懂提单、HS 编码和清关。' },
-    ]
-  : [
-      { icon: 'flask', when: '2026 — now', org: 'Inkfolio', role: 'Author', desc: 'This theme. Built for my own site first, opened up after.' },
-      { icon: 'globe', when: '2025', org: 'Templates and tools', role: 'Independent', desc: 'Turned the repeated parts of shipping sites into templates and scripts.' },
-      { icon: 'ethereum', when: '2021', org: '', role: 'Started', desc: 'First on-chain transfer — and the first scam I tried to trace.' },
-      { icon: 'box', when: 'Earlier', org: '', role: 'Foundation', desc: 'Logistics degree: bills of lading, HS codes, customs.' },
-    ];
+// Release notes. Newest first — this is the "journey" section.
+const changelog = [
+  {
+    icon: 'tag',
+    v: 'v1.0.0',
+    when: '2026-11',
+    what: {
+      en: 'First public release: bilingual pages, config-driven everything, activity log, MCP page, Font Awesome icons.',
+      zh: '首个公开版本：双语页面、全部配置化、活跃度页、MCP 页、Font Awesome 图标。',
+    },
+  },
+  {
+    icon: 'code',
+    v: 'v0.3.0',
+    when: '2026-11',
+    what: {
+      en: 'Nav directory and friends list moved into YAML; icons by filename, no Astro edits.',
+      zh: '导航目录和友链搬进 YAML；图标按文件名引用，不用改 Astro。',
+    },
+  },
+  {
+    icon: 'flask',
+    v: 'v0.2.0',
+    when: '2026-11',
+    what: {
+      en: 'Analytics (Umami / GA4 / Clarity) and SEO defaults moved into one config block.',
+      zh: '统计（Umami / GA4 / Clarity）和 SEO 默认值收进同一个配置块。',
+    },
+  },
+  {
+    icon: 'box',
+    v: 'v0.1.0',
+    when: '2026-10',
+    what: {
+      en: 'Editorial base: warm paper, one accent, system fonts, light and dark.',
+      zh: '编辑风底座：暖纸白、一个强调色、系统字体、亮暗双主题。',
+    },
+  },
+];
 
 const socials = social.map((item) => ({ ...item, href: item.href.startsWith('http') || item.href.startsWith('mailto:') ? item.href : zh ? `/zh${item.href}` : item.href }));
 ---
@@ -111,16 +137,16 @@ const socials = social.map((item) => ({ ...item, href: item.href.startsWith('htt
       </div>
     </section>
 
-    <section class="sec" id="journey">
-      <div class="sec-head"><h2>{zh ? '一路走来' : 'The journey so far'}</h2></div>
+    <section class="sec" id="changelog">
+      <div class="sec-head"><h2>{zh ? '更新日志' : 'Changelog'}</h2></div>
       <div class="sec-body">
         <ol class="timeline">
-          {journey.map((j) => (
+          {changelog.map((c) => (
             <li>
-              <span class="tl-ic"><Icon name={j.icon} size={j.icon === 'ethereum' ? 28 : 16} /></span>
+              <span class="tl-ic"><Icon name={c.icon} size={16} /></span>
               <div class="tl-tx">
-                <p class="tl-when">{j.when}{j.org && <> · {j.org}</>} · {j.role}</p>
-                <p class="tl-desc">{j.desc}</p>
+                <p class="tl-when">{c.v} · {c.when}</p>
+                <p class="tl-desc">{zh ? c.what.zh : c.what.en}</p>
               </div>
             </li>
           ))}

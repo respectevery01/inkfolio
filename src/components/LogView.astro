@@ -96,15 +96,19 @@ const aria = zh
 
     <section class="sec" style="padding-top:56px">
       <div class="sec-head">
-        <h2>{zh ? '在做的仓库' : 'Repositories'}</h2>
+        <h2>{zh ? '仓库' : 'Repositories'}</h2>
         <span class="meta">{activeDays} {zh ? '天有记录' : 'active days'}</span>
       </div>
       <div class="sec-body">
         <ul class="rows">
-          {log.repos.map((repo) => (
+          {(log.repoStats ?? log.repos.map((name) => ({ name, commits: 0, last: null }))).map((repo) => (
             <li>
-              <div><span class="repo-name">{repo}</span></div>
-              <span class="meta">{log.days.filter((d) => d.count > 0).length} / {log.days.length}</span>
+              <div>
+                <a href={`https://github.com/${repo.name}`} target="_blank" rel="noopener" class="repo-name">{repo.name}</a>
+              </div>
+              <span class="meta">
+                {repo.commits} {zh ? '次提交' : 'commits'}{repo.last ? ` · ${repo.last}` : ''}
+              </span>
             </li>
           ))}
         </ul>
