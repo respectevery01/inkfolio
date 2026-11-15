@@ -180,6 +180,7 @@ The output is static, so any host works. On Cloudflare Pages: build command `npm
 - [x] Tools page, friends page, MCP page
 - [x] Static search, real pagination
 - [x] Build-time OG images
+- [x] GEO / SEO layer — `sitemap.xml`, `robots.txt`, `llms.txt`, JSON-LD, canonical and hreflang
 - [x] Local time and weather in the footer
 - [ ] Moments — a short-notes timeline at `/moments`
 - [ ] Channel — a read-only mirror of a Telegram channel

@@ -37,3 +37,24 @@ site:
 ## Chinese pages
 
 Every optional `*Zh` key falls back to the English value when omitted, so a single-language site is just `showLanguageSwitcher: false` and no `*Zh` keys.
+
+## Weather and local time
+
+The footer can show the reader's clock and current conditions. It is off unless `weather.enabled` is `true`.
+
+```yaml
+weather:
+  enabled: true
+  mode: visitor        # visitor = the reader's location · fixed = the address below
+  units: celsius       # celsius | fahrenheit
+  geoEndpoint: ''      # visitor mode only; '' uses ipwho.is
+  fallbackLatitude: 31.2304
+  fallbackLongitude: 121.4737
+  label: Shanghai
+  labelZh: 上海
+  latitude: 31.2304
+  longitude: 121.4737
+  timezone: Asia/Shanghai
+```
+
+The clock ticks to the second in the reader's own timezone. In `visitor` mode weather follows a keyless IP lookup, with the fallback coordinates used only if that fails. Set `mode: fixed` to report one address instead: then `label`, `latitude`, `longitude` and `timezone` are what the widget uses. No API key is involved — Open-Meteo needs none, and `geoEndpoint` lets you route the lookup through your own proxy. Weather is cached for 30 minutes; if everything fails the weather halves disappear and the clock stays.

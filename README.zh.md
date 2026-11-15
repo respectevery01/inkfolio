@@ -180,6 +180,7 @@ inkfolio/
 - [x] 工具页、友链页、MCP 页
 - [x] 静态搜索、真分页
 - [x] 构建时生成 OG 图
+- [x] GEO / SEO 层——`sitemap.xml`、`robots.txt`、`llms.txt`、JSON-LD、canonical 与 hreflang
 - [x] 页脚显示本地时间与天气
 - [ ] 动态（Moments）——`/moments` 的短记时间线
 - [ ] 频道（Channel）——Telegram 频道的只读镜像

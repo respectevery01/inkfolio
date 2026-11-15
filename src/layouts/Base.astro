@@ -217,5 +217,28 @@ const requireConsent = consent.enabled && (gaOn || clarityOn);
     <Footer lang={lang} />
     <BackToTop lang={lang} />
     {consent.enabled && <CookieConsent lang={lang} />}
-  </body>
+  <script>
+  document.querySelectorAll('.prose pre, .docs-prose pre').forEach(function (pre) {
+    if (pre.parentElement && pre.parentElement.classList.contains('cb-body')) return;
+    var code = pre.querySelector('code');
+    var parent = pre.parentNode; if (!parent) return;
+    var name = pre.getAttribute('data-filename') || pre.getAttribute('data-language') || (code && code.getAttribute('data-language')) || 'code';
+    var wrap = document.createElement('div'); wrap.className = 'cb';
+    var head = document.createElement('div'); head.className = 'cb-head';
+    var title = document.createElement('span'); title.className = 'cb-title'; title.textContent = name;
+    var btn = document.createElement('button'); btn.type = 'button'; btn.className = 'cb-copy'; btn.textContent = 'Copy';
+    head.appendChild(title); head.appendChild(btn);
+    var body = document.createElement('div'); body.className = 'cb-body';
+    parent.insertBefore(wrap, pre);
+    body.appendChild(pre); wrap.appendChild(head); wrap.appendChild(body);
+    btn.addEventListener('click', function () {
+      var text = code ? (code.textContent || '') : (pre.textContent || '');
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied'; btn.classList.add('is-done');
+        setTimeout(function () { btn.textContent = 'Copy'; btn.classList.remove('is-done'); }, 1600);
+      });
+    });
+  });
+</script>
+</body>
 </html>

@@ -37,3 +37,24 @@ site:
 ## 中文页
 
 所有 `*Zh` 键不写就回落到英文值，所以单语言站只需要 `showLanguageSwitcher: false`，其他中文键全删也没关系。
+
+## 天气与本地时间
+
+页脚可以显示读者本地时间和当前天气，默认关闭，`weather.enabled` 设为 `true` 才出现。
+
+```yaml
+weather:
+  enabled: true
+  mode: visitor        # visitor = 读者所在地 · fixed = 下面填的固定地址
+  units: celsius       # celsius | fahrenheit
+  geoEndpoint: ''      # 仅 visitor 模式；留空用 ipwho.is
+  fallbackLatitude: 31.2304
+  fallbackLongitude: 121.4737
+  label: Shanghai
+  labelZh: 上海
+  latitude: 31.2304
+  longitude: 121.4737
+  timezone: Asia/Shanghai
+```
+
+时钟精确到秒，用读者自己的时区。`visitor` 模式下天气按免 key 的 IP 定位查询，定位失败才回落到坐标；改成 `mode: fixed` 就只报一个地址，此时 `label`、`latitude`、`longitude`、`timezone` 决定显示内容。全程不涉及 API key——Open-Meteo 本身不需要，`geoEndpoint` 可把定位请求指到你自己的代理。天气缓存 30 分钟；都失败时天气部分隐藏，时钟照常走。
