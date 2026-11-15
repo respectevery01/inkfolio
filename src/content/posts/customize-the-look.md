@@ -13,13 +13,16 @@ One line in `site.config.yaml`:
 
 ```yaml
 theme:
-  accent: "#ff6b01"
+  accent: '#ff6b01'
 ```
 
 It feeds the CSS variables `--accent` and `--u`, which drive links, wavy underlines and the active nav item. Dark mode uses the same value; if your colour is too dark on a dark background, pick a lighter one or add an override in `src/styles/global.css`:
 
 ```css
-:root[data-theme="dark"] { --accent: #ff7b1a; --u: #ff7b1a; }
+:root[data-theme='dark'] {
+  --accent: #ff7b1a;
+  --u: #ff7b1a;
+}
 ```
 
 ## Typography

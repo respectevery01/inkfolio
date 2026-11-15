@@ -15,6 +15,22 @@ The `/log/` page reads `src/data/log.json`:
 }
 ```
 
+## Two data sources, on purpose
+
+- **The heatmap is pulled.** `scripts/fetch-log.mjs` reads public commit data from the repositories in `REPOS` and writes per-day counts plus per-repo totals. Nothing here is typed by hand, so it stays honest when you skip a week.
+- **The notes are written by hand.** `src/data/log-notes.yaml` holds the weekly record that appears under the grid: one entry per week or release, with a title and a few bullets in English and Chinese.
+
+```yaml
+- date: 2026-11-16
+  title: v1.0.0 released
+  titleZh: v1.0.0 发布
+  items:
+    en: [Docs section, Static search]
+    zh: [文档区, 静态搜索]
+```
+
+Keeping them apart is deliberate: automation can lie about what matters, and a hand-written line cannot be regenerated from commits.
+
 ## Refresh it
 
 ```bash
@@ -23,10 +39,11 @@ GITHUB_TOKEN=ghp_xxx node scripts/fetch-log.mjs
 
 The repository list lives at the top of that script:
 
-```js
+```js title="scripts/fetch-log.mjs"
 export const REPOS = [
-  'owner/repo-one',
+  'owner/repo-one', // [!code --]
   'owner/repo-two',
+  'owner/repo-three', // [!code ++]
 ];
 ```
 

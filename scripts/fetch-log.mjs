@@ -5,7 +5,7 @@
 // Tolerant by design: on failure the previous file is kept, so a flaky network
 // never breaks a deploy. Not part of `npm run build` — run it when you want a
 // refresh (or from cron), then commit the JSON.
-import { writeFileSync, readFileSync, existsSync } from 'node:fs';
+import { writeFileSync } from 'node:fs';
 
 // Defaults point at the author's own repositories — edit this list for yours.
 export const REPOS = [
@@ -28,7 +28,9 @@ if (!token) {
 }
 
 const dayInTz = (iso) =>
-  new Intl.DateTimeFormat('en-CA', { timeZone: TZ, year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date(iso));
+  new Intl.DateTimeFormat('en-CA', { timeZone: TZ, year: 'numeric', month: '2-digit', day: '2-digit' }).format(
+    new Date(iso),
+  );
 
 const since = new Date(Date.now() - DAYS * 864e5).toISOString();
 

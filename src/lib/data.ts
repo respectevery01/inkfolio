@@ -28,7 +28,11 @@ export interface LogDay {
   count: number;
 }
 
-export interface RepoStat { name: string; commits: number; last: string | null }
+export interface RepoStat {
+  name: string;
+  commits: number;
+  last: string | null;
+}
 
 export const log = logRaw as { updated: string; repos: string[]; repoStats?: RepoStat[]; days: LogDay[] };
 

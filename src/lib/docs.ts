@@ -38,19 +38,18 @@ export function buildSidebar(entries: Entry[], lang: Lang): DocSection[] {
     groups.get(section)!.push({ id: entry.id, title: entry.data.title, href: docHref(entry.id, lang) });
   }
 
-  return SECTION_ORDER.filter((key) => groups.has(key))
-    .map((key) => {
-      const items = groups.get(key)!.sort((a, b) => {
-        const ea = entries.find((e) => e.id === a.id)!;
-        const eb = entries.find((e) => e.id === b.id)!;
-        return (ea.data.order ?? 100) - (eb.data.order ?? 100);
-      });
-      return { key, title: SECTIONS[key]?.[lang] ?? key, items };
+  return SECTION_ORDER.filter((key) => groups.has(key)).map((key) => {
+    const items = groups.get(key)!.sort((a, b) => {
+      const ea = entries.find((e) => e.id === a.id)!;
+      const eb = entries.find((e) => e.id === b.id)!;
+      return (ea.data.order ?? 100) - (eb.data.order ?? 100);
     });
+    return { key, title: SECTIONS[key]?.[lang] ?? key, items };
+  });
 }
 
 /** Previous / next across the flattened sidebar, so the order matches what readers see. */
-export function docNeighbours(sidebar: DocSection[], id: string, lang: Lang) {
+export function docNeighbours(sidebar: DocSection[], id: string, _lang: Lang) {
   const flat = sidebar.flatMap((section) => section.items);
   const index = flat.findIndex((item) => item.id === id);
   return {

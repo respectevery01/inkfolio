@@ -1,139 +1,162 @@
 ---
-import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
+import Icon from './Icon.astro';
 import { t } from '../i18n/ui';
 import type { Lang } from '../lib/config';
 
 interface Props {
   lang: Lang;
+  page: number;
+  totalPages: number;
+  entries: { id: string; title: string; description: string; date: Date; tags: string[] }[];
+  total: number;
 }
-const { lang } = Astro.props;
+const { lang, page, totalPages, entries, total } = Astro.props;
 const zh = lang === 'zh';
+const base = zh ? '/zh/posts/' : '/posts/';
+const hrefFor = (n: number) => (n === 1 ? base : `${base}page/${n}/`);
 const altHref = zh ? '/posts/' : '/zh/posts/';
+const fmt = (d: Date) =>
+  new Date(d).toLocaleDateString(zh ? 'zh-CN' : 'en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
 
-const collection = zh ? 'postsZh' : 'posts';
-const entries = (await getCollection(collection as 'posts' | 'postsZh'))
-  .filter((e) => !e.data.draft)
-  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
-
-const fmt = (d: Date) => new Date(d).toLocaleDateString(zh ? 'zh-CN' : 'en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
-
-const data = entries.map((e) => ({
-  title: e.data.title,
-  desc: (e.data.description || '').slice(0, 110),
-  cat: e.data.tags?.[0] ?? (zh ? '随笔' : 'Essays'),
-  date: fmt(new Date(e.data.date)),
-  ts: new Date(e.data.date).getTime(),
-  img: '',
-  href: zh ? `/zh/posts/${e.id}/` : `/posts/${e.id}/`,
-}));
-
-const cats = [zh ? '全部' : 'All', ...new Set(data.map((d) => d.cat))];
-const PER = 10;
-
-const labels = {
-  count: (n: number) => (zh ? `${n} 篇文章` : `${n} posts`),
-  lede: zh
-    ? '关于建站、SEO、Cloudflare 和 AI agent 的长文与笔记。'
-    : 'Build notes and essays on SEO, Cloudflare, self-hosting and AI agents.',
-  search: zh ? '搜索文章' : 'Search posts',
-  placeholder: zh ? '标题、摘要…' : 'Titles, summaries…',
-  latest: zh ? '最新' : 'Latest',
-  read: zh ? '读这篇' : 'Read the post',
-  empty: zh ? '没有匹配的文章。' : 'No matching posts.',
-};
+// Page numbers with ellipses: 1 … 4 5 6 … 12
+const numbers: (number | '…')[] = [];
+for (let n = 1; n <= totalPages; n++) {
+  if (n === 1 || n === totalPages || Math.abs(n - page) <= 1) numbers.push(n);
+  else if (numbers[numbers.length - 1] !== '…') numbers.push('…');
+}
 ---
-<Base title={t(lang, 'posts')} lang={lang} alt={altHref}>
+
+<Base
+  title={page > 1 ? `${t(lang, 'allPosts')} — ${page}` : t(lang, 'posts')}
+  lang={lang}
+  alt={page === 1 ? altHref : undefined}
+>
   <section class="art-head">
     <h1>{zh ? '文章' : 'Posts'}</h1>
-    <p class="meta"><span class="pf-count">{labels.count(data.length)}</span>{labels.lede}</p>
+    <p class="meta">
+      <span class="pf-count">
+        {total} {zh ? '篇' : 'posts'}
+      </span>
+      {zh
+        ? '关于建站、SEO、Cloudflare 和 AI agent 的长文与笔记。'
+        : 'Build notes and essays on SEO, Cloudflare, self-hosting and AI agents.'}
+    </p>
   </section>
 
-  <div class="pf-controls">
-    <div class="pf-topics" id="pfTopics">
-      {cats.map((c, i) => <button class="pf-topic" data-cat={c} aria-pressed={i === 0}>{c}</button>)}
-    </div>
-    <div class="pf-search">
-      <label for="pfSearch">{labels.search}</label>
-      <input id="pfSearch" type="search" placeholder={labels.placeholder} autocomplete="off" />
-    </div>
-  </div>
+  <ul class="pf-list">
+    {entries.map((entry: any) => (
+      <li class="pf-row">
+        <article class="pf-item noimg">
+          <div class="pf-body">
+            <h3 class="pf-rt">
+              <a href={`${base}${entry.id}/`}>{entry.title}</a>
+            </h3>
+            {entry.description && <p class="pf-desc">{entry.description}</p>}
+            <p class="pf-meta">
+              {fmt(entry.date)}
+              {entry.tags.length > 0 && <> · {entry.tags[0]}</>}
+            </p>
+          </div>
+        </article>
+      </li>
+    ))}
+  </ul>
 
-  <section class="pf-latest" id="pfLatest" hidden>
-    <h2 class="pf-label">{labels.latest}</h2>
-    <article class="pf-feat" id="pfFeat"></article>
-  </section>
-
-  <ul class="pf-list" id="pfList"></ul>
-  <nav class="pf-pager" id="pfPager" aria-label="Pagination"></nav>
-  <p class="pf-empty" id="pfEmpty" hidden>{labels.empty}</p>
-
-  <script is:inline define:vars={{ data, cats, PER, readLabel: labels.read }}>
-    (function () {
-      var all = cats[0];
-      var st = { cat: all, q: '', page: 1 };
-      var list = document.getElementById('pfList');
-      var featBox = document.getElementById('pfFeat');
-      var latest = document.getElementById('pfLatest');
-      var pager = document.getElementById('pfPager');
-      var empty = document.getElementById('pfEmpty');
-
-      function esc(s) { var d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }
-      function filtered() {
-        var q = st.q.trim().toLowerCase();
-        return data.filter(function (p) {
-          if (st.cat !== all && p.cat !== st.cat) return false;
-          if (q && (p.title + ' ' + p.desc).toLowerCase().indexOf(q) < 0) return false;
-          return true;
-        });
-      }
-      function rowHTML(p) {
-        return '<li class="pf-row"><article class="pf-item noimg">' +
-          '<div class="pf-body"><h3 class="pf-rt"><a href="' + p.href + '">' + esc(p.title) + '</a></h3>' +
-          (p.desc ? '<p class="pf-desc">' + esc(p.desc) + '</p>' : '') +
-          '<p class="pf-meta">' + p.date + ' · ' + esc(p.cat) + '</p></div></article></li>';
-      }
-      function featHTML(p) {
-        return '<div class="pf-feat-body"><h3 class="pf-feat-title"><a href="' + p.href + '">' + esc(p.title) + '</a></h3>' +
-          (p.desc ? '<p class="pf-feat-desc">' + esc(p.desc) + '</p>' : '') +
-          '<p class="pf-feat-meta">' + p.date + ' · ' + esc(p.cat) + '</p>' +
-          '<p class="pf-feat-read"><a href="' + p.href + '">' + esc(readLabel) + '</a></p></div>';
-      }
-      function renderPager(total) {
-        var pages = Math.ceil(total / PER);
-        pager.innerHTML = '';
-        if (pages <= 1) return;
-        for (var i = 1; i <= pages; i++) {
-          var b = document.createElement('button');
-          b.textContent = i;
-          if (i === st.page) b.setAttribute('aria-current', 'page');
-          b.addEventListener('click', (function (n) { return function () { st.page = n; render(); window.scrollTo({ top: 0, behavior: 'smooth' }); }; })(i));
-          pager.appendChild(b);
-        }
-      }
-      function render() {
-        var items = filtered();
-        var showFeat = st.cat === all && !st.q && st.page === 1 && items.length > 0;
-        if (showFeat) {
-          featBox.innerHTML = featHTML(items[0]);
-          latest.hidden = false;
-          items = items.slice(1);
-        } else { latest.hidden = true; }
-        var slice = items.slice((st.page - 1) * PER, st.page * PER);
-        list.innerHTML = slice.map(rowHTML).join('');
-        renderPager(items.length);
-        empty.hidden = items.length > 0;
-      }
-      document.querySelectorAll('.pf-topic').forEach(function (b) {
-        b.addEventListener('click', function () {
-          st.cat = b.dataset.cat; st.page = 1;
-          document.querySelectorAll('.pf-topic').forEach(function (x) { x.setAttribute('aria-pressed', x === b); });
-          render();
-        });
-      });
-      var si = document.getElementById('pfSearch'), tm;
-      si.addEventListener('input', function () { clearTimeout(tm); tm = setTimeout(function () { st.q = si.value; st.page = 1; render(); }, 160); });
-      render();
-    })();
-  </script>
+  {totalPages > 1 && (
+    <nav class="pf-pager" aria-label={zh ? '分页' : 'Pagination'}>
+      {page > 1 && (
+        <a class="pg-step" href={hrefFor(page - 1)} rel="prev" aria-label={zh ? '上一页' : 'Previous page'}>
+          <Icon name="arrow-left" size={14} />
+        </a>
+      )}
+      {numbers.map((n: any) =>
+        n === '…' ? (
+          <span class="pg-gap">…</span>
+        ) : (
+          <a class="pg-num" href={hrefFor(n)} aria-current={n === page ? 'page' : undefined}>
+            {n}
+          </a>
+        ),
+      )}
+      {page < totalPages && (
+        <a class="pg-step" href={hrefFor(page + 1)} rel="next" aria-label={zh ? '下一页' : 'Next page'}>
+          <Icon name="arrow-right" size={14} />
+        </a>
+      )}
+    </nav>
+  )}
 </Base>
+
+<style is:global>
+  .pf-list {
+    margin: 36px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  .pf-row {
+    border-top: 1px solid var(--line);
+  }
+  .pf-row:last-child {
+    border-bottom: 1px solid var(--line);
+  }
+  .pf-item {
+    display: block;
+    padding: 20px 0;
+  }
+  .pf-rt {
+    margin: 0;
+    font-size: 19px;
+    line-height: 1.35;
+    font-weight: 620;
+    letter-spacing: -0.01em;
+  }
+  .pf-rt a {
+    color: var(--ink);
+  }
+  .pf-desc {
+    margin: 6px 0 0;
+    font-size: 15.5px;
+    line-height: 1.55;
+    color: var(--body);
+    max-width: 40em;
+  }
+  .pf-meta {
+    margin: 8px 0 0;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  .pf-pager {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 44px;
+  }
+  .pf-pager a {
+    display: inline-grid;
+    place-items: center;
+    min-width: 34px;
+    height: 34px;
+    padding: 0 8px;
+    border-radius: 9px;
+    font-size: 14px;
+    color: var(--body);
+    text-decoration: none;
+    font-variant-numeric: tabular-nums;
+  }
+  .pf-pager a:hover {
+    background: var(--chip);
+    color: var(--ink);
+  }
+  .pf-pager a[aria-current='page'] {
+    background: var(--ink);
+    color: var(--bg);
+    font-weight: 580;
+  }
+  .pg-gap {
+    color: var(--faint);
+    padding: 0 4px;
+  }
+</style>

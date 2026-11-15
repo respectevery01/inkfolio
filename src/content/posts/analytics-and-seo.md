@@ -47,7 +47,7 @@ The same file controls the metadata every page shares:
 
 ```yaml
 seo:
-  titleTemplate: "{title} — Your Site"
+  titleTemplate: '{title} — Your Site'
   defaultDescription: One sentence about the site.
   ogImage: /og-default.png
   twitterHandle: yourname

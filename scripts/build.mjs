@@ -1,0 +1,14 @@
+// astro check → astro build → pagefind index. Fails the build on a type error.
+// Bins are invoked through the current node binary, so this works even when npm
+// runs scripts with a PATH that lacks node_modules/.bin.
+import { spawnSync } from 'node:child_process';
+
+const run = (args) => {
+  const r = spawnSync(process.execPath, args, { stdio: 'inherit' });
+  if (r.status !== 0) process.exit(r.status ?? 1);
+};
+
+run(['node_modules/astro/bin/astro.mjs', 'check']);
+run(['node_modules/astro/bin/astro.mjs', 'build']);
+run(['node_modules/pagefind/lib/runner/bin.cjs', '--site', 'dist']);
+console.log('search index written to dist/pagefind');

@@ -18,15 +18,29 @@ const researchCollection = lang === 'zh' ? 'researchZh' : 'research';
 const byDate = (a: any, b: any) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime();
 
 const posts = (await getCollection(postsCollection as any)).filter((e: any) => !e.data.draft).sort(byDate);
-const weekly = (await getCollection(weeklyCollection as any)).filter((e: any) => !e.data.draft).sort((a: any, b: any) => b.data.issue - a.data.issue);
+const weekly = (await getCollection(weeklyCollection as any))
+  .filter((e: any) => !e.data.draft)
+  .sort((a: any, b: any) => b.data.issue - a.data.issue);
 const research = (await getCollection(researchCollection as any)).filter((e: any) => !e.data.draft).sort(byDate);
 
-const fmt = (d: Date) => new Date(d).toLocaleDateString(lang === 'zh' ? 'zh-CN' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
-const greeting = (lang === 'zh' ? site.greetingZh : site.greeting) || (lang === 'zh' ? `嗨，我是 ${site.nameZh}。` : `Hey, I'm ${site.name}.`);
-const socials = social.map((item) => ({ ...item, href: item.href.startsWith('http') || item.href.startsWith('mailto:') ? item.href : lang === 'zh' ? `/zh${item.href}` : item.href }));
+const fmt = (d: Date) =>
+  new Date(d).toLocaleDateString(lang === 'zh' ? 'zh-CN' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+const greeting =
+  (lang === 'zh' ? site.greetingZh : site.greeting) ||
+  (lang === 'zh' ? `嗨，我是 ${site.nameZh}。` : `Hey, I'm ${site.name}.`);
+const socials = social.map((item: any) => ({
+  ...item,
+  href:
+    item.href.startsWith('http') || item.href.startsWith('mailto:')
+      ? item.href
+      : lang === 'zh'
+        ? `/zh${item.href}`
+        : item.href,
+}));
 const altHref = lang === 'zh' ? '/' : '/zh/';
-const liveProjects = projects.filter((p) => p.status !== 'archived').slice(0, 2);
+const liveProjects = projects.filter((p: any) => p.status !== 'archived').slice(0, 2);
 ---
+
 <Base title={lang === 'zh' ? site.nameZh : site.name} lang={lang} alt={altHref}>
   <section class="home-hero">
     <div>
@@ -35,10 +49,11 @@ const liveProjects = projects.filter((p) => p.status !== 'archived').slice(0, 2)
         <p>{lang === 'zh' ? site.descriptionZh : site.description}</p>
       </div>
       <ul class="social">
-        {socials.map((item) => (
+        {socials.map((item: any) => (
           <li>
             <a class="soc" href={item.href} rel="noopener me">
-              <Icon name={item.icon} />{item.label}
+              <Icon name={item.icon} />
+              {item.label}
             </a>
           </li>
         ))}
@@ -54,7 +69,9 @@ const liveProjects = projects.filter((p) => p.status !== 'archived').slice(0, 2)
   <section class="sec">
     <div class="sec-head">
       <h2>{t(lang, 'latestPosts')}</h2>
-      <a class="more" href={langPath('/posts/', lang)}>{t(lang, 'allPosts')}</a>
+      <a class="more" href={langPath('/posts/', lang)}>
+        {t(lang, 'allPosts')}
+      </a>
     </div>
     <div class="sec-body">
       <ul class="rows">
@@ -64,7 +81,9 @@ const liveProjects = projects.filter((p) => p.status !== 'archived').slice(0, 2)
               <a href={langPath(`/posts/${entry.id}/`, lang)}>{entry.data.title}</a>
               {entry.data.description && <p class="tagline">{entry.data.description}</p>}
             </div>
-            <time class="meta" datetime={new Date(entry.data.date).toISOString()}>{fmt(new Date(entry.data.date))}</time>
+            <time class="meta" datetime={new Date(entry.data.date).toISOString()}>
+              {fmt(new Date(entry.data.date))}
+            </time>
           </li>
         ))}
       </ul>
@@ -74,7 +93,9 @@ const liveProjects = projects.filter((p) => p.status !== 'archived').slice(0, 2)
   <section class="sec">
     <div class="sec-head">
       <h2>{t(lang, 'weekly')}</h2>
-      <a class="more" href={langPath('/weekly/', lang)}>{t(lang, 'allPosts')}</a>
+      <a class="more" href={langPath('/weekly/', lang)}>
+        {t(lang, 'allPosts')}
+      </a>
     </div>
     <div class="sec-body">
       <ul class="rows">
@@ -84,7 +105,9 @@ const liveProjects = projects.filter((p) => p.status !== 'archived').slice(0, 2)
               <a href={langPath(`/weekly/${entry.id}/`, lang)}>{entry.data.title}</a>
               {entry.data.description && <p class="tagline">{entry.data.description}</p>}
             </div>
-            <span class="meta">{t(lang, 'issue')} {entry.data.issue}</span>
+            <span class="meta">
+              {t(lang, 'issue')} {entry.data.issue}
+            </span>
           </li>
         ))}
       </ul>
@@ -94,7 +117,9 @@ const liveProjects = projects.filter((p) => p.status !== 'archived').slice(0, 2)
   <section class="sec">
     <div class="sec-head">
       <h2>{t(lang, 'research')}</h2>
-      <a class="more" href={langPath('/research/', lang)}>{t(lang, 'allPosts')}</a>
+      <a class="more" href={langPath('/research/', lang)}>
+        {t(lang, 'allPosts')}
+      </a>
     </div>
     <div class="sec-body">
       <ul class="rows">
@@ -104,7 +129,9 @@ const liveProjects = projects.filter((p) => p.status !== 'archived').slice(0, 2)
               <a href={langPath(`/research/${entry.id}/`, lang)}>{entry.data.title}</a>
               {entry.data.description && <p class="tagline">{entry.data.description}</p>}
             </div>
-            <time class="meta" datetime={new Date(entry.data.date).toISOString()}>{entry.data.type}</time>
+            <time class="meta" datetime={new Date(entry.data.date).toISOString()}>
+              {entry.data.type}
+            </time>
           </li>
         ))}
       </ul>
@@ -114,17 +141,24 @@ const liveProjects = projects.filter((p) => p.status !== 'archived').slice(0, 2)
   <section class="sec">
     <div class="sec-head">
       <h2>{t(lang, 'projects')}</h2>
-      <a class="more" href={langPath('/projects/', lang)}>{t(lang, 'allPosts')}</a>
+      <a class="more" href={langPath('/projects/', lang)}>
+        {t(lang, 'allPosts')}
+      </a>
     </div>
     <div class="sec-body">
       <div class="build">
-        {liveProjects.map((project) => (
+        {liveProjects.map((project: any) => (
           <article class="proj">
             <div class="build-top">
-              <h3>{project.title}<small>{project.tag}</small></h3>
+              <h3>
+                {project.title}
+                <small>{project.tag}</small>
+              </h3>
             </div>
-            <p>{lang === 'zh' ? project.descZh ?? project.desc : project.desc}</p>
-            <a class="v" href={project.url} target="_blank" rel="noopener">{t(lang, 'visit')} →</a>
+            <p>{lang === 'zh' ? (project.descZh ?? project.desc) : project.desc}</p>
+            <a class="v" href={project.url} target="_blank" rel="noopener">
+              {t(lang, 'visit')} →
+            </a>
           </article>
         ))}
       </div>
@@ -134,10 +168,14 @@ const liveProjects = projects.filter((p) => p.status !== 'archived').slice(0, 2)
   <section class="sec">
     <div class="sec-head">
       <h2>{t(lang, 'log')}</h2>
-      <a class="more" href={langPath('/log/', lang)}>{t(lang, 'log')}</a>
+      <a class="more" href={langPath('/log/', lang)}>
+        {t(lang, 'log')}
+      </a>
     </div>
     <div class="sec-body">
-      <p class="prose" style="margin-top:0">{t(lang, 'logLede')}</p>
+      <p class="prose" style="margin-top:0">
+        {t(lang, 'logLede')}
+      </p>
     </div>
   </section>
 </Base>

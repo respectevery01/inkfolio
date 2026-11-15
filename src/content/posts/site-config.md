@@ -5,7 +5,7 @@ date: 2026-11-11
 tags: [configuration]
 ---
 
-Everything visitors see as *structure* comes from `site.config.yaml` in the project root. You do not need to open a component to rename the site or add a menu item.
+Everything visitors see as _structure_ comes from `site.config.yaml` in the project root. You do not need to open a component to rename the site or add a menu item.
 
 ## site
 
@@ -35,7 +35,7 @@ Shown in the footer. Relative links like `/rss.xml` are automatically prefixed f
 
 ## promoBanner
 
-Covered in its own post — see *Turn the banner off in one line*.
+Covered in its own post — see _Turn the banner off in one line_.
 
 ## theme
 

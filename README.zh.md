@@ -17,16 +17,30 @@ Astro 的博客主题大多两极化：要么是套着博客外壳的 SaaS 落�
 - **一次设置两种主题**：亮色与暗色，默认跟随系统，按访客记忆，且在首次绘制前应用，不会闪。
 - **靠减法变快**：纯静态、零 webfont、无统计脚本、无 cookie 弹窗、无前端框架。全站脚本就是约 40 行内联 JS：主题切换、移动菜单、横幅。
 - **能读**：正文 632px、行高 1.75，表格和代码块有正经样式；不加动画，天然尊重「减少动态效果」的系统设置。
+- **没有后端也能搜索和分页**：Pagefind 在构建后给全站建索引；文章列表是真的静态分页，爬虫看到的是真实页面。
+- **每篇文章一张社交卡**：`scripts/build-og.mjs` 生成 1200×630 图；文件缺失的页面自动回落默认图。
+- **会自我说明的代码块**：文件名标签（`​```yaml title="site.config.yaml"`）、行高亮（`// [!code highlight]`）、diff（`// [!code ++]` / `// [!code --]`）。
 
 ## 快速开始
 
-需要 Node.js 20 或更新版本。
+需要 Node.js 20 或更新版本（Astro 7）。已满足官方 Astro 主题目录的收录前提。
 
 ```bash
 npm install
 npm run dev      # http://localhost:4321
-npm run build    # 输出到 dist/
+npm run build    # 类型检查 + 构建 + 搜索索引
 ```
+
+`npm run build` 按顺序做三件事：`astro check`（有类型错误直接失败）、`astro build`、`pagefind`（静态搜索索引写进 `dist/pagefind`）。
+
+| 脚本 | 作用 |
+| --- | --- |
+| `npm run dev` | 开发服务器 |
+| `npm run build` | 检查、构建、建索引 |
+| `npm run preview` | 预览 `dist/` |
+| `node scripts/build-og.mjs` | 每篇文章一张 1200×630 OG 图（需要 Playwright） |
+| `node scripts/fetch-log.mjs` | 从 GitHub 刷新活跃度 |
+| `npm run lint` / `npm run format` | ESLint / Prettier |
 
 然后打开 `site.config.yaml`，至少改这三行：
 
@@ -56,22 +70,22 @@ promoBanner:
 
 ## 包含哪些页面
 
-| 页面 | 路径 |
-| --- | --- |
-| 首页（各栏目最新） | `/` 与 `/zh/` |
-| 文章索引 / 正文 | `/posts/`、`/posts/<slug>/` |
-| 周更系列 | `/weekly/`、`/weekly/<slug>/` |
-| 研究 | `/research/`、`/research/<slug>/` |
-| 项目 | `/projects/` |
-| 活跃度（热力图） | `/log/` |
-| 工具箱 | `/nav/` |
-| 友链 | `/friends/` |
-| 联系 | `/contact/` |
-| 订阅 | `/newsletter/` |
-| 关于 | `/about/` |
-| RSS | `/rss.xml` 与 `/zh/rss.xml` |
-| 404 | `/404.html` |
-| sitemap / robots | 由 `site.url` 生成 |
+| 页面               | 路径                              |
+| ------------------ | --------------------------------- |
+| 首页（各栏目最新） | `/` 与 `/zh/`                     |
+| 文章索引 / 正文    | `/posts/`、`/posts/<slug>/`       |
+| 周更系列           | `/weekly/`、`/weekly/<slug>/`     |
+| 研究               | `/research/`、`/research/<slug>/` |
+| 项目               | `/projects/`                      |
+| 活跃度（热力图）   | `/log/`                           |
+| 工具箱             | `/nav/`                           |
+| 友链               | `/friends/`                       |
+| 联系               | `/contact/`                       |
+| 订阅               | `/newsletter/`                    |
+| 关于               | `/about/`                         |
+| RSS                | `/rss.xml` 与 `/zh/rss.xml`       |
+| 404                | `/404.html`                       |
+| sitemap / robots   | 由 `site.url` 生成                |
 
 以上每一页都有 `/zh/` 版本，并用 `hreflang` 互指。
 
@@ -99,7 +113,6 @@ src/data/log.json          活跃度数据（一天一条）
 - **字体与间距**：`src/styles/global.css` 顶部的 CSS 变量。
 - **页脚**：`footer.note` 与 `social` 列表。
 
-
 ## 图标、统计与 SEO
 
 图标全部来自 [Font Awesome Free](https://fontawesome.com)，本地打包，不走 CDN、不需要 kit token。
@@ -110,7 +123,7 @@ src/data/log.json          活跃度数据（一天一条）
 ```yaml
 - name: Astro
   url: https://astro.build
-  icon: astro        # 对应 public/icons/astro.svg
+  icon: astro # 对应 public/icons/astro.svg
 ```
 
 加一条链接不需要改任何 Astro 文件。目前自带：`jask`、`astro`、`fontawesome`、`github`；不写 `icon` 就用首字母。

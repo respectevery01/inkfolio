@@ -5,7 +5,7 @@ export type Lang = 'en' | 'zh';
 
 export interface NavLeaf {
   label: string;
-  labelZh?: string;
+  labelZh?: string | null;
   href: string;
   sub?: string;
   subZh?: string;
@@ -168,8 +168,16 @@ export function langPath(path: string, lang: Lang): string {
   return path === '/' ? '/zh/' : `/zh${path}`;
 }
 
-export interface McpSource { host: string; items?: number; desc: { en: string; zh: string } }
-export interface McpTool { name: string; args?: string; desc: { en: string; zh: string } }
+export interface McpSource {
+  host: string;
+  items?: number;
+  desc: { en: string; zh: string };
+}
+export interface McpTool {
+  name: string;
+  args?: string;
+  desc: { en: string; zh: string };
+}
 
 export const mcp = {
   enabled: process.env.MCP_ENABLED === 'true' || parsed.mcp?.enabled === true,

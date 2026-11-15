@@ -15,10 +15,10 @@ mcp:
 
 ## What enabled controls
 
-| `enabled` | page | navigation |
-| --- | --- | --- |
-| `true` | full page, indexable | entry appears under More |
-| `false` | short “not enabled” page, `noindex` | entry filtered out everywhere, including the footer |
+| `enabled` | page                                | navigation                                          |
+| --------- | ----------------------------------- | --------------------------------------------------- |
+| `true`    | full page, indexable                | entry appears under More                            |
+| `false`   | short “not enabled” page, `noindex` | entry filtered out everywhere, including the footer |
 
 > [!TIP]
 > Leave `endpoint` empty and the page uses `https://<your domain>/mcp`. That is right for most setups.

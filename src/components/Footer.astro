@@ -15,31 +15,37 @@ const cur = (href: string) => {
 };
 const note = zh ? footer.noteZh : footer.note;
 const year = new Date().getFullYear();
-const socials = social.map((item) => ({ ...item, href: to(item.href), external: item.href.startsWith('http') }));
+const socials = social.map((item: any) => ({ ...item, href: to(item.href), external: item.href.startsWith('http') }));
 
 // The MCP page can be switched off in site.config.yaml; its footer link follows.
-const columns = footerColumns.map((col) => ({
+const columns = footerColumns.map((col: any) => ({
   ...col,
-  links: col.links.filter((link) => mcp.enabled || link.href !== '/mcp/'),
+  links: col.links.filter((link: any) => mcp.enabled || link.href !== '/mcp/'),
 }));
-const art = footer.artLight || footer.artDark ? { light: footer.artLight, dark: footer.artDark || footer.artLight } : null;
+const art =
+  footer.artLight || footer.artDark ? { light: footer.artLight, dark: footer.artDark || footer.artLight } : null;
 ---
+
 <footer class="foot" data-chrome-s="footer">
   {art && (
     <div class="foot-art" aria-hidden="true">
       <img class="art-light" src={art.light} alt="" width="1600" height="529" loading="lazy" decoding="async" />
-      {art.dark !== art.light && <img class="art-dark" src={art.dark} alt="" width="1600" height="529" loading="lazy" decoding="async" />}
+      {art.dark !== art.light && (
+        <img class="art-dark" src={art.dark} alt="" width="1600" height="529" loading="lazy" decoding="async" />
+      )}
     </div>
   )}
   <div class="foot-inner">
     <div class="foot-cols">
-      {columns.map((col) => (
+      {columns.map((col: any) => (
         <nav>
           <p class="foot-h">{zh ? col.titleZh : col.title}</p>
           <ul>
-            {col.links.map((link) => (
+            {col.links.map((link: any) => (
               <li>
-                <a href={to(link.href)} aria-current={cur(link.href)}>{zh ? link.labelZh ?? link.label : link.label}</a>
+                <a href={to(link.href)} aria-current={cur(link.href)}>
+                  {zh ? (link.labelZh ?? link.label) : link.label}
+                </a>
               </li>
             ))}
           </ul>
@@ -50,13 +56,25 @@ const art = footer.artLight || footer.artDark ? { light: footer.artLight, dark: 
       <span class="foot-legal">
         © {year} {footer.copyrightName}
         {footer.authorUrl && (
-          <> · <a href={footer.authorUrl} rel="noopener">{footer.authorLabel || footer.authorUrl.replace(/^https?:\/\//, '')}</a></>
-        )}
-        {' '}· {note}
+          <>
+            {' '}
+            ·{' '}
+            <a href={footer.authorUrl} rel="noopener">
+              {footer.authorLabel || footer.authorUrl.replace(/^https?:\/\//, '')}
+            </a>
+          </>
+        )}{' '}
+        · {note}
       </span>
       <span class="foot-soc">
-        {socials.map((item) => (
-          <a href={item.href} rel={item.external ? 'noopener' : undefined} target={item.external ? '_blank' : undefined}>{item.label}</a>
+        {socials.map((item: any) => (
+          <a
+            href={item.href}
+            rel={item.external ? 'noopener' : undefined}
+            target={item.external ? '_blank' : undefined}
+          >
+            {item.label}
+          </a>
         ))}
         {site.email && <a href={`mailto:${site.email}`}>{site.email}</a>}
       </span>
@@ -64,9 +82,32 @@ const art = footer.artLight || footer.artDark ? { light: footer.artLight, dark: 
   </div>
 </footer>
 <style is:global>
-  .foot-legal a { color: var(--muted); }
-  .foot-legal a:hover { color: var(--ink); text-decoration-line: underline; text-decoration-style: wavy; text-decoration-color: var(--u); text-decoration-thickness: 1.5px; text-underline-offset: 4px; }
-  .foot-soc { display: inline-flex; flex-wrap: wrap; gap: 16px; }
-  .foot-soc a { color: var(--muted); text-decoration: none; }
-  .foot-soc a:hover { color: var(--ink); text-decoration-line: underline; text-decoration-style: wavy; text-decoration-color: var(--u); text-decoration-thickness: 1.5px; text-underline-offset: 4px; }
+  .foot-legal a {
+    color: var(--muted);
+  }
+  .foot-legal a:hover {
+    color: var(--ink);
+    text-decoration-line: underline;
+    text-decoration-style: wavy;
+    text-decoration-color: var(--u);
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 4px;
+  }
+  .foot-soc {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .foot-soc a {
+    color: var(--muted);
+    text-decoration: none;
+  }
+  .foot-soc a:hover {
+    color: var(--ink);
+    text-decoration-line: underline;
+    text-decoration-style: wavy;
+    text-decoration-color: var(--u);
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 4px;
+  }
 </style>

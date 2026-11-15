@@ -8,7 +8,7 @@ description: Accent colour, dark mode, the dismissible banner, three analytics p
 
 ```yaml
 theme:
-  accent: "#ff6b01"
+  accent: '#ff6b01'
   defaultMode: auto
   radius: 12px
 ```
@@ -16,7 +16,10 @@ theme:
 `accent` feeds `--accent` and `--u` (links, underlines, active nav). `defaultMode` is `auto | light | dark`; visitors can override it and their choice is remembered. Dark mode may need its own accent — add an override in `src/styles/global.css`:
 
 ```css
-:root[data-theme="dark"] { --accent: #ff7b1a; --u: #ff7b1a; }
+:root[data-theme='dark'] {
+  --accent: #ff7b1a;
+  --u: #ff7b1a;
+}
 ```
 
 ## promoBanner
@@ -57,7 +60,7 @@ analytics:
 
 ```yaml
 seo:
-  titleTemplate: "{title} — Inkfolio"
+  titleTemplate: '{title} — Inkfolio'
   defaultDescription: One sentence about the site.
   ogImage: /og-default.png
   twitterHandle: yourname

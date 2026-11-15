@@ -22,7 +22,9 @@ const products = [
       ? '给自由职业者的极简复式记账工具。一个 SQLite 文件、可导出 CSV，从不要求银行登录。'
       : 'A tiny double-entry bookkeeping app for freelancers. One SQLite file, CSV export, never asks for a bank login.',
     out: zh ? '里面有什么' : 'What it ships',
-    items: zh ? ['复式记账，离线优先', 'CSV 导入导出', '单文件数据库'] : ['Double-entry, offline first', 'CSV import and export', 'Single-file database'],
+    items: zh
+      ? ['复式记账，离线优先', 'CSV 导入导出', '单文件数据库']
+      : ['Double-entry, offline first', 'CSV import and export', 'Single-file database'],
   },
   {
     name: 'Field Notes',
@@ -53,7 +55,9 @@ const fun = [
     tag: zh ? '原创科幻' : 'Original sci-fi',
     url: 'https://valdos.xyz',
     host: 'valdos.xyz',
-    desc: zh ? '原创科幻小说《褐星》，完结免费，配档案与完整世界观。' : 'An original sci-fi novel — complete, free, with a codex and worldbuilding.',
+    desc: zh
+      ? '原创科幻小说《褐星》，完结免费，配档案与完整世界观。'
+      : 'An original sci-fi novel — complete, free, with a codex and worldbuilding.',
     out: zh ? '里面有什么' : 'What it ships',
     items: zh ? ['19 章完结', '27 条档案', '中英双语'] : ['19 chapters, complete', '27-entry codex', 'Bilingual'],
   },
@@ -74,6 +78,7 @@ const stats = zh
       { k: 'Build time', v: '~1.7s' },
     ];
 ---
+
 <Base title={t(lang, 'projects')} lang={lang} alt={altHref}>
   <article class="projects">
     <section class="hero" style="padding-top:56px">
@@ -82,18 +87,35 @@ const stats = zh
         <p>{t(lang, 'projectsLede')}</p>
       </div>
       <dl class="reach">
-        {stats.map((s) => (
+        {stats.map((s: any) => (
           <div>
             <dt>{s.k}</dt>
             <dd>{s.v}</dd>
           </div>
         ))}
       </dl>
-      <p class="reach-note">{zh ? '数字取自本仓库最近一次构建。' : 'Numbers from the last build of this repository.'}</p>
+      <p class="reach-note">
+        {zh ? '数字取自本仓库最近一次构建。' : 'Numbers from the last build of this repository.'}
+      </p>
       <ul class="contents">
-        <li><a href="#run">{zh ? '在做的' : 'What I run'}<span>{products.length}</span></a></li>
-        <li><a href="#oss">{zh ? '开源' : 'Open source'}<span>{oss.length}</span></a></li>
-        <li><a href="#fun">{zh ? '玩票' : 'Fun'}<span>{fun.length}</span></a></li>
+        <li>
+          <a href="#run">
+            {zh ? '在做的' : 'What I run'}
+            <span>{products.length}</span>
+          </a>
+        </li>
+        <li>
+          <a href="#oss">
+            {zh ? '开源' : 'Open source'}
+            <span>{oss.length}</span>
+          </a>
+        </li>
+        <li>
+          <a href="#fun">
+            {zh ? '玩票' : 'Fun'}
+            <span>{fun.length}</span>
+          </a>
+        </li>
       </ul>
     </section>
 
@@ -102,19 +124,36 @@ const stats = zh
         <h2>{zh ? '在做的' : 'What I run'}</h2>
         <span class="count">{products.length}</span>
       </div>
-      {products.map((p) => (
+      {products.map((p: any) => (
         <div class="tool">
           <div>
             <div class="who">
-              <span class="logo" style="background:var(--chip)">{p.name.slice(0, 1)}</span>
-              <h3><a href={p.url} target="_blank" rel="noopener">{p.name}</a><small>{p.tag}</small></h3>
+              <span class="logo" style="background:var(--chip)">
+                {p.name.slice(0, 1)}
+              </span>
+              <h3>
+                <a href={p.url} target="_blank" rel="noopener">
+                  {p.name}
+                </a>
+                <small>{p.tag}</small>
+              </h3>
             </div>
             <p>{p.desc}</p>
-            <p class="go"><a href={p.url} target="_blank" rel="noopener">{p.host}</a></p>
+            <p class="go">
+              <a href={p.url} target="_blank" rel="noopener">
+                {p.host}
+              </a>
+            </p>
           </div>
           <div class="out">
-            <p class="out-h">{p.out} — <strong>{p.items.length}</strong></p>
-            <ul class="tags">{p.items.map((i) => <li>{i}</li>)}</ul>
+            <p class="out-h">
+              {p.out} — <strong>{p.items.length}</strong>
+            </p>
+            <ul class="tags">
+              {p.items.map((i: any) => (
+                <li>{i}</li>
+              ))}
+            </ul>
           </div>
         </div>
       ))}
@@ -125,19 +164,34 @@ const stats = zh
         <h2>{zh ? '开源' : 'Open source'}</h2>
         <span class="count">{oss.length}</span>
       </div>
-      {oss.map((o) => (
+      {oss.map((o: any) => (
         <div class="tool">
           <div>
             <div class="who">
-              <span class="logo" style="background:var(--chip);color:var(--ink)"><Icon name="github" size={22} /></span>
-              <h3><a href={o.url} target="_blank" rel="noopener">{o.name}</a><small>{o.stars != null ? `★ ${o.stars}` : 'GitHub'}</small></h3>
+              <span class="logo" style="background:var(--chip);color:var(--ink)">
+                <Icon name="github" size={22} />
+              </span>
+              <h3>
+                <a href={o.url} target="_blank" rel="noopener">
+                  {o.name}
+                </a>
+                <small>{o.stars != null ? `★ ${o.stars}` : 'GitHub'}</small>
+              </h3>
             </div>
             <p>{o.desc}</p>
-            <p class="go"><a href={o.url} target="_blank" rel="noopener">GitHub</a></p>
+            <p class="go">
+              <a href={o.url} target="_blank" rel="noopener">
+                GitHub
+              </a>
+            </p>
           </div>
           <div class="out">
             <p class="out-h">{zh ? '技术栈' : 'Stack'}</p>
-            <ul class="tags">{o.tags.map((tag) => <li>{tag}</li>)}</ul>
+            <ul class="tags">
+              {o.tags.map((tag: any) => (
+                <li>{tag}</li>
+              ))}
+            </ul>
           </div>
         </div>
       ))}
@@ -148,19 +202,36 @@ const stats = zh
         <h2>{zh ? '玩票' : 'Fun'}</h2>
         <span class="count">{fun.length}</span>
       </div>
-      {fun.map((p) => (
+      {fun.map((p: any) => (
         <div class="tool">
           <div>
             <div class="who">
-              <span class="logo" style="background:var(--chip)">{p.name.slice(0, 1)}</span>
-              <h3><a href={p.url} target="_blank" rel="noopener">{p.name}</a><small>{p.tag}</small></h3>
+              <span class="logo" style="background:var(--chip)">
+                {p.name.slice(0, 1)}
+              </span>
+              <h3>
+                <a href={p.url} target="_blank" rel="noopener">
+                  {p.name}
+                </a>
+                <small>{p.tag}</small>
+              </h3>
             </div>
             <p>{p.desc}</p>
-            <p class="go"><a href={p.url} target="_blank" rel="noopener">{p.host}</a></p>
+            <p class="go">
+              <a href={p.url} target="_blank" rel="noopener">
+                {p.host}
+              </a>
+            </p>
           </div>
           <div class="out">
-            <p class="out-h">{p.out} — <strong>{p.items.length}</strong></p>
-            <ul class="tags">{p.items.map((i) => <li>{i}</li>)}</ul>
+            <p class="out-h">
+              {p.out} — <strong>{p.items.length}</strong>
+            </p>
+            <ul class="tags">
+              {p.items.map((i: any) => (
+                <li>{i}</li>
+              ))}
+            </ul>
           </div>
         </div>
       ))}

@@ -48,7 +48,7 @@ Clarity 录屏加热力图，找「用户在哪一页放弃」很好用；它也
 
 ```yaml
 seo:
-  titleTemplate: "{title} — 你的站名"
+  titleTemplate: '{title} — 你的站名'
   defaultDescription: 一句话介绍这个站。
   ogImage: /og-default.png
   twitterHandle: yourname

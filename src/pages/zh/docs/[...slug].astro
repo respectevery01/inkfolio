@@ -6,8 +6,8 @@ import { buildSidebar, docHref, docNeighbours } from '../../../lib/docs';
 export async function getStaticPaths() {
   const [entries, others] = await Promise.all([getCollection('docsZh'), getCollection('docs')]);
   const sidebar = buildSidebar(entries, 'zh');
-  const otherIds = new Set(others.map((e) => e.id));
-  return entries.map((entry) => {
+  const otherIds = new Set(others.map((e: any) => e.id));
+  return entries.map((entry: any) => {
     const { prev, next } = docNeighbours(sidebar, entry.id, 'zh');
     return {
       params: { slug: entry.id },
@@ -25,6 +25,7 @@ export async function getStaticPaths() {
 const { entry, sidebar, prev, next, alt } = Astro.props;
 const { Content, headings } = await render(entry);
 ---
+
 <DocsPage
   lang="zh"
   title={entry.data.title}

@@ -8,7 +8,7 @@ description: 强调色、亮暗、可关横幅、三家统计和共享的元数�
 
 ```yaml
 theme:
-  accent: "#ff6b01"
+  accent: '#ff6b01'
   defaultMode: auto
   radius: 12px
 ```
@@ -16,7 +16,10 @@ theme:
 `accent` 喲给 `--accent` 和 `--u`（链接、下划线、当前菜单项）。`defaultMode` 是 `auto | light | dark`，访客可以自己切，选择会被记住。暗色下可能需要单独一个强调色，在 `src/styles/global.css` 里覆盖：
 
 ```css
-:root[data-theme="dark"] { --accent: #ff7b1a; --u: #ff7b1a; }
+:root[data-theme='dark'] {
+  --accent: #ff7b1a;
+  --u: #ff7b1a;
+}
 ```
 
 ## promoBanner
@@ -57,7 +60,7 @@ analytics:
 
 ```yaml
 seo:
-  titleTemplate: "{title} — Inkfolio"
+  titleTemplate: '{title} — Inkfolio'
   defaultDescription: 一句话介绍这个站。
   ogImage: /og-default.png
   twitterHandle: yourname

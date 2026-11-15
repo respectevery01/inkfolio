@@ -14,13 +14,16 @@ Inkfolio 是故意做得素的：暖纸白背景、近黑正文、一个强调�
 
 ```yaml
 theme:
-  accent: "#ff6b01"
+  accent: '#ff6b01'
 ```
 
 它喂给 CSS 变量 `--accent` 和 `--u`，控制链接、波浪下划线和当前菜单项。暗色模式用同一个值；如果颜色在暗底上太沉，换一个亮一点的，或者在 `src/styles/global.css` 里覆盖：
 
 ```css
-:root[data-theme="dark"] { --accent: #ff7b1a; --u: #ff7b1a; }
+:root[data-theme='dark'] {
+  --accent: #ff7b1a;
+  --u: #ff7b1a;
+}
 ```
 
 ## 字体

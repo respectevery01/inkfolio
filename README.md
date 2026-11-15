@@ -17,16 +17,30 @@ Most Astro blog themes are either a SaaS landing page wearing a blog hat, or a s
 - **Two themes, one value** — light and dark, following the system by default, remembered per visitor, applied before first paint so there is no flash.
 - **Fast by subtraction** — static HTML, no web fonts, no analytics, no cookie banner, no JavaScript framework. The only scripts are ~40 lines of inline JS for the theme toggle, the mobile menu and the banner.
 - **Readable** — 632px measure, 1.75 line height, real tables and code blocks styled, `prefers-reduced-motion` respected by omission of animation.
+- **Search and pagination without a backend** — Pagefind indexes the built site; the posts list is statically paginated, so crawlers see real pages.
+- **Per-post social cards** — `scripts/build-og.mjs` renders one 1200×630 image per article; pages fall back to the default image when a file is missing.
+- **Code blocks that explain themselves** — filename labels (`​```yaml title="site.config.yaml"`), line highlights (`// [!code highlight]`) and diffs (`// [!code ++]` / `// [!code --]`).
 
 ## Quick start
 
-Requires Node.js 20 or newer.
+Requires Node.js 20 or newer (Astro 7). The theme is listed-ready for the official Astro directory.
 
 ```bash
 npm install
 npm run dev      # http://localhost:4321
-npm run build    # static output in dist/
+npm run build    # type-check + build + search index
 ```
+
+`npm run build` runs three things in order: `astro check` (type errors fail the build), `astro build`, and `pagefind` (static search index into `dist/pagefind`).
+
+| Script | What it does |
+| --- | --- |
+| `npm run dev` | dev server |
+| `npm run build` | check, build, index |
+| `npm run preview` | serve `dist/` |
+| `node scripts/build-og.mjs` | one 1200×630 OG image per post (needs Playwright) |
+| `node scripts/fetch-log.mjs` | refresh the activity log from GitHub |
+| `npm run lint` / `npm run format` | ESLint / Prettier |
 
 Then open `site.config.yaml` and set at least:
 
@@ -56,22 +70,22 @@ Visitors can also dismiss it themselves (`dismissible: true`), and their choice 
 
 ## What is included
 
-| Page | Path |
-| --- | --- |
-| Home (latest across sections) | `/` and `/zh/` |
-| Posts index / article | `/posts/`, `/posts/<slug>/` |
-| Weekly series | `/weekly/`, `/weekly/<slug>/` |
-| Research | `/research/`, `/research/<slug>/` |
-| Projects | `/projects/` |
-| Activity log (heatmap) | `/log/` |
-| Tool shelf | `/nav/` |
-| Friends | `/friends/` |
-| Contact | `/contact/` |
-| Newsletter | `/newsletter/` |
-| About | `/about/` |
-| RSS | `/rss.xml` and `/zh/rss.xml` |
-| 404 | `/404.html` |
-| Sitemap + robots | generated from `site.url` |
+| Page                          | Path                              |
+| ----------------------------- | --------------------------------- |
+| Home (latest across sections) | `/` and `/zh/`                    |
+| Posts index / article         | `/posts/`, `/posts/<slug>/`       |
+| Weekly series                 | `/weekly/`, `/weekly/<slug>/`     |
+| Research                      | `/research/`, `/research/<slug>/` |
+| Projects                      | `/projects/`                      |
+| Activity log (heatmap)        | `/log/`                           |
+| Tool shelf                    | `/nav/`                           |
+| Friends                       | `/friends/`                       |
+| Contact                       | `/contact/`                       |
+| Newsletter                    | `/newsletter/`                    |
+| About                         | `/about/`                         |
+| RSS                           | `/rss.xml` and `/zh/rss.xml`      |
+| 404                           | `/404.html`                       |
+| Sitemap + robots              | generated from `site.url`         |
 
 Every page above also exists under `/zh/`, with `hreflang` linking the pair.
 
@@ -99,7 +113,6 @@ The posts that ship with the theme are documentation: setup, every config key, t
 - **Typography and spacing** — CSS variables at the top of `src/styles/global.css`.
 - **Footer** — `footer.note` plus the `social` list.
 
-
 ## Icons, analytics and SEO
 
 Icons are [Font Awesome Free](https://fontawesome.com), bundled locally — no CDN request, no kit token.
@@ -110,7 +123,7 @@ Icons are [Font Awesome Free](https://fontawesome.com), bundled locally — no C
 ```yaml
 - name: Astro
   url: https://astro.build
-  icon: astro        # public/icons/astro.svg
+  icon: astro # public/icons/astro.svg
 ```
 
 No Astro file needs editing to add a link. Shipped icons: `jask`, `astro`, `fontawesome`, `github`; leave `icon` out and the first letter is used.

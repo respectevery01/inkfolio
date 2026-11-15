@@ -18,8 +18,16 @@ const expertise = zh
       { icon: 'box', k: '静态站', v: 'Astro 加 Cloudflare，零服务器、零数据库、零 webfont。' },
     ]
   : [
-      { icon: 'search', k: 'SEO engineering', v: 'Search pipelines built on free data only — GSC, Bing, SERP structure scoring. Technical audits and GEO.' },
-      { icon: 'bot', k: 'AI agents', v: 'Several product lines, one person. Agents draft, audit and deploy; I set direction and verify.' },
+      {
+        icon: 'search',
+        k: 'SEO engineering',
+        v: 'Search pipelines built on free data only — GSC, Bing, SERP structure scoring. Technical audits and GEO.',
+      },
+      {
+        icon: 'bot',
+        k: 'AI agents',
+        v: 'Several product lines, one person. Agents draft, audit and deploy; I set direction and verify.',
+      },
       { icon: 'box', k: 'Static sites', v: 'Astro on Cloudflare. No server, no database, no web fonts.' },
     ];
 
@@ -70,8 +78,13 @@ const changelog = [
   },
 ];
 
-const socials = social.map((item) => ({ ...item, href: item.href.startsWith('http') || item.href.startsWith('mailto:') ? item.href : zh ? `/zh${item.href}` : item.href }));
+const socials = social.map((item: any) => ({
+  ...item,
+  href:
+    item.href.startsWith('http') || item.href.startsWith('mailto:') ? item.href : zh ? `/zh${item.href}` : item.href,
+}));
 ---
+
 <Base title={zh ? '关于' : 'About'} lang={lang} alt={altHref}>
   <article>
     <section class="hero" style="padding-top:56px">
@@ -85,7 +98,8 @@ const socials = social.map((item) => ({ ...item, href: item.href.startsWith('htt
         <div class="bio">
           <div class="prose">
             <p>
-              <strong>{zh ? site.nameZh : site.name}</strong>{zh
+              <strong>{zh ? site.nameZh : site.name}</strong>
+              {zh
                 ? ' 是一个开源主题的示例站：编辑风排版、暖纸白、一个强调色、系统字体，没有前端框架。'
                 : ' is the demo site for an open-source theme: editorial layout, warm paper, one accent colour, system fonts, no front-end framework.'}
             </p>
@@ -101,8 +115,13 @@ const socials = social.map((item) => ({ ...item, href: item.href.startsWith('htt
             </p>
           </div>
           <ul class="bio-social">
-            {socials.map((item) => (
-              <li><a class="soc" href={item.href} rel="noopener me"><Icon name={item.icon} size={16} />{item.label}</a></li>
+            {socials.map((item: any) => (
+              <li>
+                <a class="soc" href={item.href} rel="noopener me">
+                  <Icon name={item.icon} size={16} />
+                  {item.label}
+                </a>
+              </li>
             ))}
           </ul>
         </div>
@@ -110,13 +129,20 @@ const socials = social.map((item) => ({ ...item, href: item.href.startsWith('htt
     </section>
 
     <section class="sec" id="expertise">
-      <div class="sec-head"><h2>{zh ? '擅长' : 'Expertise'}</h2></div>
+      <div class="sec-head">
+        <h2>{zh ? '擅长' : 'Expertise'}</h2>
+      </div>
       <div class="sec-body">
         <ul class="exp">
-          {expertise.map((e) => (
+          {expertise.map((e: any) => (
             <li>
-              <span class="exp-ic"><Icon name={e.icon} size={16} /></span>
-              <div><b>{e.k}</b><p>{e.v}</p></div>
+              <span class="exp-ic">
+                <Icon name={e.icon} size={16} />
+              </span>
+              <div>
+                <b>{e.k}</b>
+                <p>{e.v}</p>
+              </div>
             </li>
           ))}
         </ul>
@@ -124,13 +150,18 @@ const socials = social.map((item) => ({ ...item, href: item.href.startsWith('htt
     </section>
 
     <section class="sec" id="stack">
-      <div class="sec-head"><h2>{zh ? '技术栈' : 'Stack'}</h2></div>
+      <div class="sec-head">
+        <h2>{zh ? '技术栈' : 'Stack'}</h2>
+      </div>
       <div class="sec-body">
         <ul class="tech">
-          {stack.map((x) => (
+          {stack.map((x: any) => (
             <li>
               <Icon name={x.icon} size={20} />
-              <div><b>{x.label}</b><small>{x.note}</small></div>
+              <div>
+                <b>{x.label}</b>
+                <small>{x.note}</small>
+              </div>
             </li>
           ))}
         </ul>
@@ -138,14 +169,20 @@ const socials = social.map((item) => ({ ...item, href: item.href.startsWith('htt
     </section>
 
     <section class="sec" id="changelog">
-      <div class="sec-head"><h2>{zh ? '更新日志' : 'Changelog'}</h2></div>
+      <div class="sec-head">
+        <h2>{zh ? '更新日志' : 'Changelog'}</h2>
+      </div>
       <div class="sec-body">
         <ol class="timeline">
-          {changelog.map((c) => (
+          {changelog.map((c: any) => (
             <li>
-              <span class="tl-ic"><Icon name={c.icon} size={16} /></span>
+              <span class="tl-ic">
+                <Icon name={c.icon} size={16} />
+              </span>
               <div class="tl-tx">
-                <p class="tl-when">{c.v} · {c.when}</p>
+                <p class="tl-when">
+                  {c.v} · {c.when}
+                </p>
                 <p class="tl-desc">{zh ? c.what.zh : c.what.en}</p>
               </div>
             </li>
@@ -154,6 +191,10 @@ const socials = social.map((item) => ({ ...item, href: item.href.startsWith('htt
       </div>
     </section>
 
-    <p style="margin-top:60px"><a class="backlink" href={zh ? '/zh/' : '/'}>← {zh ? '回首页' : 'Back home'}</a></p>
+    <p style="margin-top:60px">
+      <a class="backlink" href={zh ? '/zh/' : '/'}>
+        ← {zh ? '回首页' : 'Back home'}
+      </a>
+    </p>
   </article>
 </Base>

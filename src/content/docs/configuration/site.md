@@ -6,7 +6,7 @@ description: Name, tagline, author, language and the canonical URL — all in on
 
 Everything in this section lives under `site:` in `site.config.yaml`.
 
-```yaml
+```yaml title="site.config.yaml"
 site:
   name: Inkfolio
   nameZh: Inkfolio

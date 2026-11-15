@@ -4,23 +4,23 @@
 # =============================================================================
 
 site:
-  name: Inkfolio                     # shows in the nav and the browser tab
-  nameZh: Inkfolio                   # Chinese name (used on /zh/ pages)
+  name: Inkfolio # shows in the nav and the browser tab
+  nameZh: Inkfolio # Chinese name (used on /zh/ pages)
   tagline: Write it down, ship it, then write down what happened
   taglineZh: 写下来，做出来，再写下发生了什么
   description: The demo site for Inkfolio — an editorial Astro theme with posts, research, a weekly series, projects, an activity log and a tool shelf.
   descriptionZh: Inkfolio 的示例站——一个编辑风的 Astro 主题，带文章、研究、周更、项目、活跃度图和一个工具箱。
-  url: https://example.com           # your domain, no trailing slash (used for canonical + RSS)
-  author: Inkfolio                   # shows on every article
+  url: https://example.com # your domain, no trailing slash (used for canonical + RSS)
+  author: Inkfolio # shows on every article
   authorZh: Inkfolio
-  greeting: Hey, I'm Inkfolio.        # home hero headline
+  greeting: Hey, I'm Inkfolio. # home hero headline
   greetingZh: 嗨，我是 Inkfolio。
-  avatar: /avatar.png                # shown on the home hero and About (friends list has its own avatar)
-  email: hello@example.com           # optional, only used in the footer if set
-  telegram: ""                       # e.g. https://t.me/yourchannel — shown on the newsletter page
-  contactEndpoint: ""                # optional POST URL for the contact form (Formspree, Worker…). Empty = mailto:
-  defaultLanguage: en                # en → / is English, zh pages at /zh/
-  showLanguageSwitcher: true         # set to false for a single-language site
+  avatar: /avatar.png # shown on the home hero and About (friends list has its own avatar)
+  email: hello@example.com # optional, only used in the footer if set
+  telegram: '' # e.g. https://t.me/yourchannel — shown on the newsletter page
+  contactEndpoint: '' # optional POST URL for the contact form (Formspree, Worker…). Empty = mailto:
+  defaultLanguage: en # en → / is English, zh pages at /zh/
+  showLanguageSwitcher: true # set to false for a single-language site
 
 # -----------------------------------------------------------------------------
 # Top navigation. A plain item has `href`; an item with `items` becomes a
@@ -133,8 +133,8 @@ promoBanner:
 # Look and feel. Accent colour is the only colour you normally need to change.
 # -----------------------------------------------------------------------------
 theme:
-  accent: "#ff6b01"                  # links, underlines, highlights
-  defaultMode: auto                  # auto | light | dark
+  accent: '#ff6b01' # links, underlines, highlights
+  defaultMode: auto # auto | light | dark
   radius: 12px
 
 # -----------------------------------------------------------------------------
@@ -150,13 +150,13 @@ analytics:
   umami:
     enabled: false
     scriptUrl: https://analytics.example.com/script.js
-    websiteId: ""
+    websiteId: ''
   googleAnalytics:
     enabled: false
-    measurementId: ""
+    measurementId: ''
   clarity:
     enabled: false
-    projectId: ""
+    projectId: ''
 
 # -----------------------------------------------------------------------------
 # Cookie consent. Only needed when a provider sets cookies (GA4, Clarity).
@@ -181,10 +181,10 @@ consent:
 # these are the fallbacks and the shared metadata.
 # -----------------------------------------------------------------------------
 seo:
-  titleTemplate: "{title} — Inkfolio"   # set to "{title}" to drop the suffix
+  titleTemplate: '{title} — Inkfolio' # set to "{title}" to drop the suffix
   defaultDescription: The demo site for Inkfolio — an editorial Astro theme with posts, research, a weekly series, projects and an activity log.
-  ogImage: /og-default.png              # 1200×630 image used by social cards
-  twitterHandle: ""                     # without the @, e.g. "yourname"
+  ogImage: /og-default.png # 1200×630 image used by social cards
+  twitterHandle: '' # without the @, e.g. "yourname"
   locale: en_US
   localeZh: zh_CN
   keywords: [astro, blog, theme, editorial, bilingual]
@@ -200,7 +200,7 @@ seo:
 # -----------------------------------------------------------------------------
 mcp:
   enabled: true
-  endpoint: ""                        # empty = https://<your domain>/mcp
+  endpoint: '' # empty = https://<your domain>/mcp
   name: Inkfolio MCP
   sources:
     - host: your-site.com
@@ -215,7 +215,7 @@ mcp:
         zh: 文档与更新日志
   tools:
     - name: list_sources
-      args: ""
+      args: ''
       desc:
         en: Every connected source with its item count.
         zh: 列出所有接入的内容源及条目数。
@@ -236,8 +236,8 @@ mcp:
 footer:
   note: Built with Inkfolio
   noteZh: 由 Inkfolio 驱动
-  copyrightName: Inkfolio             # shown after © + the current year
-  authorUrl: https://jask.dev          # the author line links back here
+  copyrightName: Inkfolio # shown after © + the current year
+  authorUrl: https://jask.dev # the author line links back here
   authorLabel: jask.dev
   # Wide illustration above the footer columns. 1600×529 WebP, two files so the
   # drawing can differ per theme. Replace the files in public/footer/ — same
