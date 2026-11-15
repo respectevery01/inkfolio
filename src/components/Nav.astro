@@ -1,5 +1,6 @@
 ---
 import { toTrad } from '../lib/trad';
+import { navLabel } from '../lib/config';
 import { availableLangs } from '../lib/langs';
 import Icon from './Icon.astro';
 import { nav, navCta, site, mcp, type Lang, type NavLeaf } from '../lib/config';
@@ -22,7 +23,7 @@ const cur = (href: string) => {
   const target = to(href);
   return path === target || (target !== '/' && path.startsWith(target)) ? 'page' : undefined;
 };
-const label = (item: NavLeaf) => (zh ? zhLabel(item.labelZh ?? null) : item.label);
+const label = (item: NavLeaf) => navLabel(item as any, lang);
 const sub = (item: NavLeaf) => (zh ? (item.subZh ?? item.sub ?? null) : (item.sub ?? null));
 
 // Hide a whole group when none of its children has a Chinese label.

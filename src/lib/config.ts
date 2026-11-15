@@ -1,5 +1,7 @@
 import raw from '../../site.config.yaml?raw';
 import { parse } from 'yaml';
+import { ui as uiDict } from '../i18n/ui';
+import { toTrad } from './trad';
 
 export type Lang = 'en' | 'zh' | 'zh-hant';
 
@@ -63,10 +65,59 @@ const asLeaf = (item: NavLeaf): NavLeaf => ({
   subZh: item.subZh,
 });
 
+/**
+ * Nav entries may be written three ways:
+ *   - { key: about, href: /about/ }        labels come from the UI dictionary
+ *   - { name: { en: About, zh: 关于 }, href: /about/ }   your own wording
+ *   - { label: About, labelZh: 关于, href: /about/ }     the old explicit form
+ * Keys win over names, names win over labels; anything missing falls back to
+ * the key itself so a typo shows up instead of a blank link.
+ */
+const NAV_KEY_ALIAS: Record<string, string> = {
+  posts: 'articles',
+  writing: 'posts',
+  log: 'log',
+  nav: 'nav',
+  mcp: 'mcp',
+  friends: 'friends',
+  docs: 'docs',
+  weekly: 'weekly',
+  research: 'research',
+  projects: 'projects',
+  about: 'about',
+  contact: 'contact',
+  newsletter: 'newsletter',
+  privacy: 'privacy',
+};
+
+function rawLabel(item: any, lang: 'en' | 'zh' | 'zh-hant'): string {
+  const key = item?.key ? NAV_KEY_ALIAS[item.key] ?? item.key : null;
+  if (key) {
+    const dict = (lang === 'zh-hant' ? uiDict.zhHant : lang === 'zh' ? uiDict.zh : uiDict.en) as unknown as Record<string, string>;
+    if (dict[key]) return dict[key];
+    if (dict[`nav_${key}`]) return dict[`nav_${key}`];
+  }
+  const name = item?.name;
+  if (name && typeof name === 'object') {
+    const v = name[lang] ?? name.zh ?? name.en;
+    if (v) return String(v);
+  }
+  if (item?.label || item?.labelZh) {
+    const base = lang === 'en' ? item.label : item.labelZh ?? item.label;
+    return String(base ?? '');
+  }
+  return String(item?.key ?? '');
+}
+
 export const nav: NavItem[] = ((parsed.nav ?? []) as NavItem[]).map((item) => ({
   ...asLeaf(item),
   ...(item.items ? { items: item.items.map(asLeaf) } : {}),
 }));
+
+export function navLabel(item: any, lang: 'en' | 'zh' | 'zh-hant'): string {
+  const out = rawLabel(item, lang);
+  return lang === 'zh-hant' ? toTrad(out) : out;
+}
 
 export const navCta = {
   label: (parsed.navCta?.label as string) ?? '',

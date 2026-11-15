@@ -28,7 +28,11 @@ site:
 # and the item stays out of the Chinese navigation instead of 404ing.
 # -----------------------------------------------------------------------------
 nav:
-  - label: Weekly
+  # Each entry is a key plus a link: labels come from the UI dictionary in
+  # every available language, so nothing needs translating by hand. To use your
+  # own wording instead, write name: { en: ..., zh: ..., zh-hant: ... }.
+  - key: weekly
+    label: Weekly
     labelZh: 周更
     href: /weekly/
   - label: Research
