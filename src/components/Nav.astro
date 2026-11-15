@@ -1,4 +1,5 @@
 ---
+import { toTrad } from '../lib/trad';
 import { availableLangs } from '../lib/langs';
 import Icon from './Icon.astro';
 import { nav, navCta, site, mcp, type Lang, type NavLeaf } from '../lib/config';
@@ -11,6 +12,8 @@ interface Props {
 const { lang, alt } = Astro.props;
 
 const zh = lang !== 'en';
+const hant = lang === 'zh-hant';
+const zhLabel = (v?: string | null) => (v ? (hant ? toTrad(v) : v) : null);
 const currentHreflang = lang === 'zh-hant' ? 'zh-Hant' : lang === 'zh' ? 'zh-Hans' : 'en';
 const path = Astro.url.pathname || '/';
 const base = zh ? '/zh' : '';
@@ -19,7 +22,7 @@ const cur = (href: string) => {
   const target = to(href);
   return path === target || (target !== '/' && path.startsWith(target)) ? 'page' : undefined;
 };
-const label = (item: NavLeaf) => (zh ? (item.labelZh ?? null) : item.label);
+const label = (item: NavLeaf) => (zh ? zhLabel(item.labelZh ?? null) : item.label);
 const sub = (item: NavLeaf) => (zh ? (item.subZh ?? item.sub ?? null) : (item.sub ?? null));
 
 // Hide a whole group when none of its children has a Chinese label.
@@ -111,7 +114,7 @@ const altHref = alt && alt !== path ? alt : null;
     </button>
     {navCta.href && (
       <a class="nav-cta" href={to(navCta.href)}>
-        {zh ? navCta.labelZh : navCta.label}
+        {zh ? zhLabel(navCta.labelZh) : navCta.label}
       </a>
     )}
     <button class="icon-btn menu-btn" id="menuBtn" aria-label={zh ? '菜单' : 'Menu'}>
@@ -150,7 +153,7 @@ const altHref = alt && alt !== path ? alt : null;
       {navCta.href && (
         <li>
           <a href={to(navCta.href)} class="m-cta">
-            {zh ? navCta.labelZh : navCta.label}
+            {zh ? zhLabel(navCta.labelZh) : navCta.label}
           </a>
         </li>
       )}

@@ -1,4 +1,5 @@
 ---
+import { toTrad } from '../lib/trad';
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import Icon from './Icon.astro';
@@ -45,7 +46,7 @@ const liveProjects = projects.filter((p: any) => p.status !== 'archived').slice(
   <section class="home-hero">
     <div>
       <h1>{greeting}</h1>
-      <p class="home-sub">{lang !== 'en' ? site.taglineZh : site.tagline}</p>
+      <p class="home-sub">{lang === 'zh-hant' ? toTrad(site.taglineZh) : lang !== 'en' ? site.taglineZh : site.tagline}</p>
       <div class="intro prose">
         <p>{lang !== 'en' ? site.descriptionZh : site.description}</p>
       </div>

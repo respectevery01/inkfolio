@@ -1,4 +1,5 @@
 ---
+import { toTrad } from '../lib/trad';
 import WeatherClock from './WeatherClock.astro';
 import { footer, footerColumns, mcp, site, social, type Lang } from '../lib/config';
 
@@ -40,12 +41,12 @@ const art =
     <div class="foot-cols">
       {columns.map((col: any) => (
         <nav>
-          <p class="foot-h">{zh ? col.titleZh : col.title}</p>
+          <p class="foot-h">{zh ? (lang === 'zh-hant' ? toTrad(col.titleZh) : col.titleZh) : col.title}</p>
           <ul>
             {col.links.map((link: any) => (
               <li>
                 <a href={to(link.href)} aria-current={cur(link.href)}>
-                  {zh ? (link.labelZh ?? link.label) : link.label}
+                  {zh ? (lang === 'zh-hant' ? toTrad(link.labelZh ?? link.label) : (link.labelZh ?? link.label)) : link.label}
                 </a>
               </li>
             ))}
