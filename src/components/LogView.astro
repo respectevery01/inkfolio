@@ -1,4 +1,5 @@
 ---
+import { pickTrad } from '../lib/trad';
 import Base from '../layouts/Base.astro';
 import { log } from '../lib/data';
 import notesRaw from '../data/log-notes.yaml?raw';
@@ -77,19 +78,19 @@ const aria = zh
       <p class="post-lede">{t(lang, 'logLede')}</p>
     </section>
 
-    <section class="act" aria-label={zh ? '提交活跃度' : 'Commit activity'}>
+    <section class="act" aria-label={zh ? pickTrad(lang, '提交活跃度') : 'Commit activity'}>
       <div class="act-head">
-        <span class="act-kicker">{zh ? '提交活跃度' : 'Commit activity'}</span>
+        <span class="act-kicker">{zh ? pickTrad(lang, '提交活跃度') : 'Commit activity'}</span>
         <span class="act-meta">
-          <b>{total}</b> {zh ? '次提交' : 'commits'}
+          <b>{total}</b> {zh ? pickTrad(lang, '次提交') : 'commits'}
           {streak > 1 && (
             <span class="act-streak">
               <i></i>
-              {streak} {zh ? '天连续' : 'day streak'}
+              {streak} {zh ? pickTrad(lang, '天连续') : 'day streak'}
             </span>
           )}
           <span class="act-weeks">
-            {cols.length} {zh ? '周' : 'weeks'}
+            {cols.length} {zh ? pickTrad(lang, '周') : 'weeks'}
           </span>
         </span>
       </div>
@@ -108,7 +109,7 @@ const aria = zh
                 <span
                   class="act-cell"
                   data-l={cell.level}
-                  title={`${cell.key} · ${cell.n} ${zh ? '次提交' : cell.n === 1 ? 'commit' : 'commits'}`}
+                  title={`${cell.key} · ${cell.n} ${zh ? pickTrad(lang, '次提交') : cell.n === 1 ? 'commit' : 'commits'}`}
                 ></span>
               ),
             )}
@@ -117,22 +118,22 @@ const aria = zh
       </div>
       <div class="act-foot">
         <span class="act-legend">
-          {zh ? '少' : 'Less'}
+          {zh ? pickTrad(lang, '少') : 'Less'}
           <i data-l="0"></i>
           <i data-l="1"></i>
           <i data-l="2"></i>
           <i data-l="3"></i>
           <i data-l="4"></i>
-          {zh ? '多' : 'More'}
+          {zh ? pickTrad(lang, '多') : 'More'}
         </span>
-        <span class="act-note">{zh ? '来自公开仓库的提交记录' : 'From public commit history'}</span>
+        <span class="act-note">{zh ? pickTrad(lang, '来自公开仓库的提交记录') : 'From public commit history'}</span>
       </div>
     </section>
 
     <section class="sec" style="padding-top:56px">
       <div class="sec-head">
-        <h2>{zh ? '更新日志' : 'Changelog'}</h2>
-        <span class="meta">{zh ? '手动记录' : 'written by hand'}</span>
+        <h2>{zh ? pickTrad(lang, '更新日志') : 'Changelog'}</h2>
+        <span class="meta">{zh ? pickTrad(lang, '手动记录') : 'written by hand'}</span>
       </div>
       <div class="sec-body">
         <ol class="log-notes">

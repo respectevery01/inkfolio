@@ -31,6 +31,10 @@ const TERMS: Array<[RegExp, string]> = [
   [/账号/g, '帳號'], [/登录/g, '登入'], [/注销/g, '登出'], [/数据库/g, '資料庫'],
   [/服务器/g, '伺服器'], [/数据/g, '資料'], [/视频/g, '影片'], [/博客/g, '部落格'],
   [/配置/g, '設定'], [/文章/g, '文章'], [/关于/g, '關於'], [/联系/g, '聯絡'],
+  [/搜索/g, '搜尋'], [/标签/g, '標籤'], [/发布/g, '發布'], [/保存/g, '儲存'],
+  [/消息/g, '訊息'], [/首页/g, '首頁'], [/加载/g, '載入'], [/刷新/g, '重新整理'],
+  [/撤销/g, '復原'], [/文件夹/g, '資料夾'], [/剪贴板/g, '剪貼簿'], [/移动端/g, '行動版'],
+  [/音频/g, '音訊'], [/视频/g, '影片'], [/订阅/g, '訂閱'], [/搜索框/g, '搜尋框'],
   [/周更/g, '週更'], [/活跃度/g, '活躍度'], [/链接/g, '連結'], [/项目/g, '專案'],
 ];
 
@@ -42,4 +46,9 @@ export function toTrad(input: string): string {
   let chars = '';
   for (const ch of out) chars += CHARS[ch] ?? ch;
   return chars;
+}
+
+/** Pick a Chinese string and convert it for zh-Hant pages. */
+export function pickTrad(lang: string, text: string): string {
+  return lang === 'zh-hant' ? toTrad(text) : text;
 }

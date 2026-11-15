@@ -1,4 +1,5 @@
 ---
+import { pickTrad } from '../lib/trad';
 import Base from '../layouts/Base.astro';
 import { mcp, site, type Lang } from '../lib/config';
 
@@ -40,28 +41,28 @@ const CURL = `curl ${endpoint} \\\n  -H 'content-type: application/json' \\\n  -
 ---
 
 {mcp.enabled ? (
-  <Base title={zh ? '通过 MCP 连接' : 'Connect via MCP'} lang={lang} alt={altHref}>
+  <Base title={zh ? pickTrad(lang, '通过 MCP 连接') : 'Connect via MCP'} lang={lang} alt={altHref}>
     <article>
       <section class="hero mcp-hero">
-        <h1>{zh ? '通过 MCP 连接' : 'Connect via MCP'}</h1>
+        <h1>{zh ? pickTrad(lang, '通过 MCP 连接') : 'Connect via MCP'}</h1>
         <div class="mcp-lede">
           <p>
             {zh
               ? `${mcp.sources.length} 个内容源共用一个 MCP 端点。接进你的 AI 客户端，agent 就能直接搜索和读取 ${total} 篇内容，不用截图也不用爬页。`
               : `${mcp.sources.length} sources share one MCP endpoint. Add it to your AI client and the agent can search and read ${total} documents directly — no screenshots, no scraping.`}
           </p>
-          <p>{zh ? '只读，不用注册，不用 API key。' : 'Read-only. No sign-up, no API key.'}</p>
+          <p>{zh ? pickTrad(lang, '只读，不用注册，不用 API key。') : 'Read-only. No sign-up, no API key.'}</p>
         </div>
         <div class="cblock end">
           <pre>{endpoint}</pre>
           <button type="button" data-copy>
-            {zh ? '复制' : 'Copy'}
+            {zh ? pickTrad(lang, '复制') : 'Copy'}
           </button>
         </div>
       </section>
 
       <section class="blk">
-        <h2>{zh ? '怎么连接' : 'How to connect'}</h2>
+        <h2>{zh ? pickTrad(lang, '怎么连接') : 'How to connect'}</h2>
         <ol class="steps">
           {steps.map((s: any) => (
             <li>
@@ -70,7 +71,7 @@ const CURL = `curl ${endpoint} \\\n  -H 'content-type: application/json' \\\n  -
               <div class="cblock">
                 <pre>{s.code}</pre>
                 <button type="button" data-copy>
-                  {zh ? '复制' : 'Copy'}
+                  {zh ? pickTrad(lang, '复制') : 'Copy'}
                 </button>
               </div>
             </li>
@@ -80,7 +81,7 @@ const CURL = `curl ${endpoint} \\\n  -H 'content-type: application/json' \\\n  -
 
       <section class="blk">
         <div class="blk-head">
-          <h2>{zh ? '可用工具' : 'Available tools'}</h2>
+          <h2>{zh ? pickTrad(lang, '可用工具') : 'Available tools'}</h2>
           <span class="note">{mcp.tools.length}</span>
         </div>
         <ul class="rows">
@@ -100,10 +101,10 @@ const CURL = `curl ${endpoint} \\\n  -H 'content-type: application/json' \\\n  -
 
       <section class="blk">
         <div class="blk-head">
-          <h2>{zh ? '接入的站点' : 'Connected sites'}</h2>
+          <h2>{zh ? pickTrad(lang, '接入的站点') : 'Connected sites'}</h2>
           <span class="note">
             {mcp.sources.length}
-            {total ? ` · ${total} ${zh ? '篇' : 'docs'}` : ''}
+            {total ? ` · ${total} ${zh ? pickTrad(lang, '篇') : 'docs'}` : ''}
           </span>
         </div>
         <ul class="rows sites">
@@ -118,24 +119,24 @@ const CURL = `curl ${endpoint} \\\n  -H 'content-type: application/json' \\\n  -
       </section>
 
       <section class="blk">
-        <h2>{zh ? '先用 curl 试试' : 'Try it with curl'}</h2>
+        <h2>{zh ? pickTrad(lang, '先用 curl 试试') : 'Try it with curl'}</h2>
         <div class="cblock">
           <pre>{CURL}</pre>
           <button type="button" data-copy>
-            {zh ? '复制' : 'Copy'}
+            {zh ? pickTrad(lang, '复制') : 'Copy'}
           </button>
         </div>
         <p class="reach-note" style="margin-top:40px">
-          {zh ? '想把你的站也接进来，或者发现了问题？' : 'Want your site in the hub, or found a problem?'}
-          <a href={zh ? '/zh/contact/' : '/contact/'}>{zh ? '打个招呼' : 'Say hi'}</a>
+          {zh ? pickTrad(lang, '想把你的站也接进来，或者发现了问题？') : 'Want your site in the hub, or found a problem?'}
+          <a href={zh ? '/zh/contact/' : '/contact/'}>{zh ? pickTrad(lang, '打个招呼') : 'Say hi'}</a>
         </p>
       </section>
     </article>
   </Base>
 ) : (
-  <Base title={zh ? 'MCP 未启用' : 'MCP is not enabled'} lang={lang} noindex>
+  <Base title={zh ? pickTrad(lang, 'MCP 未启用') : 'MCP is not enabled'} lang={lang} noindex>
     <section class="post-head">
-      <h1>{zh ? 'MCP 未启用' : 'MCP is not enabled'}</h1>
+      <h1>{zh ? pickTrad(lang, 'MCP 未启用') : 'MCP is not enabled'}</h1>
       <p class="post-lede">
         {zh
           ? '这个站点没有开启 MCP 页面。要打开，在 site.config.yaml 里把 mcp.enabled 改成 true 并填上 endpoint，不需要改代码。'
@@ -143,7 +144,7 @@ const CURL = `curl ${endpoint} \\\n  -H 'content-type: application/json' \\\n  -
       </p>
       <p style="margin-top:20px">
         <a class="btn" href={zh ? '/zh/' : '/'}>
-          {zh ? '回首页' : 'Back home'}
+          {zh ? pickTrad(lang, '回首页') : 'Back home'}
         </a>
       </p>
     </section>

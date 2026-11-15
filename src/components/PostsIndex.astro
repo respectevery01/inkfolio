@@ -1,4 +1,5 @@
 ---
+import { pickTrad } from '../lib/trad';
 import Base from '../layouts/Base.astro';
 import Icon from './Icon.astro';
 import { t } from '../i18n/ui';
@@ -33,10 +34,10 @@ for (let n = 1; n <= totalPages; n++) {
   alt={page === 1 ? altHref : undefined}
 >
   <section class="art-head">
-    <h1>{zh ? '文章' : 'Posts'}</h1>
+    <h1>{zh ? pickTrad(lang, '文章') : 'Posts'}</h1>
     <p class="meta">
       <span class="pf-count">
-        {total} {zh ? '篇' : 'posts'}
+        {total} {zh ? pickTrad(lang, '篇') : 'posts'}
       </span>
       {zh
         ? '关于建站、SEO、Cloudflare 和 AI agent 的长文与笔记。'
@@ -44,7 +45,7 @@ for (let n = 1; n <= totalPages; n++) {
     </p>
   </section>
 
-  <h2 class="pf-sr">{zh ? '全部文章' : 'All posts'}</h2>
+  <h2 class="pf-sr">{zh ? pickTrad(lang, '全部文章') : 'All posts'}</h2>
 
   <ul class="pf-list">
     {entries.map((entry: any) => (
@@ -66,9 +67,9 @@ for (let n = 1; n <= totalPages; n++) {
   </ul>
 
   {totalPages > 1 && (
-    <nav class="pf-pager" aria-label={zh ? '分页' : 'Pagination'}>
+    <nav class="pf-pager" aria-label={zh ? pickTrad(lang, '分页') : 'Pagination'}>
       {page > 1 && (
-        <a class="pg-step" href={hrefFor(page - 1)} rel="prev" aria-label={zh ? '上一页' : 'Previous page'}>
+        <a class="pg-step" href={hrefFor(page - 1)} rel="prev" aria-label={zh ? pickTrad(lang, '上一页') : 'Previous page'}>
           <Icon name="arrow-left" size={14} />
         </a>
       )}
@@ -82,7 +83,7 @@ for (let n = 1; n <= totalPages; n++) {
         ),
       )}
       {page < totalPages && (
-        <a class="pg-step" href={hrefFor(page + 1)} rel="next" aria-label={zh ? '下一页' : 'Next page'}>
+        <a class="pg-step" href={hrefFor(page + 1)} rel="next" aria-label={zh ? pickTrad(lang, '下一页') : 'Next page'}>
           <Icon name="arrow-right" size={14} />
         </a>
       )}
