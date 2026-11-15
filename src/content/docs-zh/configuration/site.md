@@ -4,8 +4,6 @@ order: 1
 description: 站名、标语、作者、语言和域名，都在一个块里。
 ---
 
-这一节全部在 `site.config.yaml` 的 `site:` 下。
-
 ```yaml
 site:
   name: Inkfolio

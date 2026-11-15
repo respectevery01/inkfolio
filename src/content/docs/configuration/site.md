@@ -4,8 +4,6 @@ order: 1
 description: Name, tagline, author, language and the canonical URL — all in one block.
 ---
 
-Everything in this section lives under `site:` in `site.config.yaml`.
-
 ```yaml title="site.config.yaml"
 site:
   name: Inkfolio
