@@ -1,63 +1,51 @@
 ---
-import { footer, footerLinks, site, social, type Lang } from '../lib/config';
+import { footer, footerColumns, site, social, type Lang } from '../lib/config';
 
 interface Props {
   lang: Lang;
 }
 const { lang } = Astro.props;
-const note = lang === 'zh' ? footer.noteZh : footer.note;
-const withLang = (href: string) => (href.startsWith('http') ? href : lang === 'zh' ? `/zh${href}` : href);
-
-const pages = footerLinks
-  .map((item) => ({
-    label: lang === 'zh' ? item.labelZh ?? null : item.label,
-    href: withLang(item.href),
-    external: item.href.startsWith('http'),
-  }))
-  .filter((item) => item.label !== null) as { label: string; href: string; external: boolean }[];
-
-const links = social.map((item) => ({
-  label: item.label,
-  href: withLang(item.href),
-  external: item.href.startsWith('http'),
-}));
+const zh = lang === 'zh';
+const path = Astro.url.pathname || '/';
+const base = zh ? '/zh' : '';
+const to = (href: string) => (href.startsWith('http') ? href : `${base}${href}` || '/');
+const cur = (href: string) => {
+  const target = to(href);
+  return path === target || (target !== '/' && path.startsWith(target)) ? 'page' : undefined;
+};
+const note = zh ? footer.noteZh : footer.note;
+const year = new Date().getFullYear();
+const socials = social.map((item) => ({ ...item, href: to(item.href), external: item.href.startsWith('http') }));
 ---
-<footer class="foot">
+<footer class="foot" data-chrome-s="footer">
   <div class="foot-inner">
     <div class="foot-cols">
-      <div>
-        <h2 class="foot-h">{lang === 'zh' ? site.nameZh : site.name}</h2>
-        <p class="foot-note">{lang === 'zh' ? site.descriptionZh : site.description}</p>
-      </div>
-      <div>
-        <h2 class="foot-h">{lang === 'zh' ? '页面' : 'Pages'}</h2>
-        <ul>
-          {pages.map((item) => (
-            <li>
-              <a href={item.href} rel={item.external ? 'noopener' : undefined} target={item.external ? '_blank' : undefined}>{item.label}</a>
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div>
-        <h2 class="foot-h">{lang === 'zh' ? '别处' : 'Elsewhere'}</h2>
-        <ul>
-          {links.map((link) => (
-            <li>
-              <a href={link.href} rel={link.external ? 'noopener' : undefined} target={link.external ? '_blank' : undefined}>{link.label}</a>
-            </li>
-          ))}
-          {site.email && <li><a href={`mailto:${site.email}`}>{site.email}</a></li>}
-        </ul>
-      </div>
+      {footerColumns.map((col) => (
+        <nav>
+          <p class="foot-h">{zh ? col.titleZh : col.title}</p>
+          <ul>
+            {col.links.map((link) => (
+              <li>
+                <a href={to(link.href)} aria-current={cur(link.href)}>{zh ? link.labelZh ?? link.label : link.label}</a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      ))}
     </div>
     <div class="foot-bottom">
-      <p class="foot-note">{note}</p>
-      <ul class="foot-links">
-        {links.map((link) => (
-          <li><a href={link.href}>{link.label}</a></li>
+      <span>{note} · {year}</span>
+      <span class="foot-soc">
+        {socials.map((item) => (
+          <a href={item.href} rel={item.external ? 'noopener' : undefined} target={item.external ? '_blank' : undefined}>{item.label}</a>
         ))}
-      </ul>
+        {site.email && <a href={`mailto:${site.email}`}>{site.email}</a>}
+      </span>
     </div>
   </div>
 </footer>
+<style is:global>
+  .foot-soc { display: inline-flex; flex-wrap: wrap; gap: 16px; }
+  .foot-soc a { color: var(--muted); text-decoration: none; }
+  .foot-soc a:hover { color: var(--ink); text-decoration-line: underline; text-decoration-style: wavy; text-decoration-color: var(--u); text-decoration-thickness: 1.5px; text-underline-offset: 4px; }
+</style>

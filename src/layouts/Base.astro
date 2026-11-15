@@ -28,7 +28,6 @@ const ogImage = seo.ogImage ? new URL(seo.ogImage, Astro.site).href : undefined;
 const locale = lang === 'zh' ? seo.localeZh : seo.locale;
 
 const accentVars = `--accent:${theme.accent};--u:${theme.accent};--radius:${theme.radius};`;
-
 const person = {
   '@type': 'Person',
   name: lang === 'zh' ? site.authorZh : site.author,
@@ -126,7 +125,7 @@ const clarityOn = analytics.clarity.enabled && analytics.clarity.projectId;
   </head>
   <body>
     <Banner lang={lang} />
-    <Nav lang={lang} />
+    <Nav lang={lang} alt={hasAlt ? (altPath as string) : undefined} />
     <main class="page">
       <slot />
     </main>

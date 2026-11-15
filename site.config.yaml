@@ -18,29 +18,57 @@ site:
   showLanguageSwitcher: true         # set to false for a single-language site
 
 # -----------------------------------------------------------------------------
-# Top navigation. Add or remove lines freely. labelZh is optional — if a page
-# has no Chinese version, drop the labelZh line and it stays hidden on /zh/.
-# Extra pages that do not fit in the bar can live in the footer instead.
+# Top navigation. A plain item has `href`; an item with `items` becomes a
+# dropdown (same markup as the original site). labelZh is optional — omit it
+# and the item stays out of the Chinese navigation instead of 404ing.
 # -----------------------------------------------------------------------------
 nav:
-  - label: Posts
-    labelZh: 文章
-    href: /posts/
   - label: Weekly
     labelZh: 周更
     href: /weekly/
-  - label: Research
-    labelZh: 研究
-    href: /research/
+  - label: Writing
+    labelZh: 写作
+    items:
+      - label: Posts
+        labelZh: 文章
+        href: /posts/
+        sub: Long pieces and notes
+        subZh: 长文与随手记
+      - label: Research
+        labelZh: 研究
+        href: /research/
+        sub: Teardowns and ledgers
+        subZh: 拆解与账单
   - label: Projects
     labelZh: 项目
     href: /projects/
-  - label: Log
-    labelZh: 活跃
-    href: /log/
   - label: About
     labelZh: 关于
     href: /about/
+  - label: More
+    labelZh: 更多
+    items:
+      - label: Activity
+        labelZh: 活跃度
+        href: /log/
+        sub: One square per day
+        subZh: 一格一天
+      - label: Tool shelf
+        labelZh: 工具箱
+        href: /nav/
+        sub: Bookmarks I reopen
+        subZh: 会反复打开的书签
+      - label: Friends
+        labelZh: 友链
+        href: /friends/
+        sub: Sites worth reading
+        subZh: 值得读的站
+
+# The button on the right of the navigation.
+navCta:
+  label: Say hi
+  labelZh: 打个招呼
+  href: /contact/
 
 # -----------------------------------------------------------------------------
 # Social links in the footer.
@@ -49,24 +77,28 @@ social:
   - label: GitHub
     href: https://github.com/yourname
 
-# Extra pages that are not in the top bar. They are linked from the footer,
-# which keeps the navigation short without orphaning anything.
-footerLinks:
-  - label: Tool shelf
-    labelZh: 工具箱
-    href: /nav/
-  - label: Friends
-    labelZh: 友链
-    href: /friends/
-  - label: Contact
-    labelZh: 联系
-    href: /contact/
-  - label: Newsletter
-    labelZh: 订阅
-    href: /newsletter/
-  - label: RSS
-    labelZh: RSS
-    href: /rss.xml
+# Footer columns. Three columns, same layout as the original site.
+footerColumns:
+  - title: Writing
+    titleZh: 写作
+    links:
+      - { label: Weekly, labelZh: 周更, href: /weekly/ }
+      - { label: Posts, labelZh: 文章, href: /posts/ }
+      - { label: Research, labelZh: 研究, href: /research/ }
+      - { label: RSS, labelZh: RSS, href: /rss.xml }
+  - title: Build
+    titleZh: 构建
+    links:
+      - { label: Projects, labelZh: 项目, href: /projects/ }
+      - { label: Activity, labelZh: 活跃度, href: /log/ }
+      - { label: Tool shelf, labelZh: 工具箱, href: /nav/ }
+  - title: Me
+    titleZh: 我
+    links:
+      - { label: About, labelZh: 关于, href: /about/ }
+      - { label: Contact, labelZh: 联系, href: /contact/ }
+      - { label: Newsletter, labelZh: 订阅, href: /newsletter/ }
+      - { label: Friends, labelZh: 友链, href: /friends/ }
 
 # -----------------------------------------------------------------------------
 # The banner at the very top of the page.

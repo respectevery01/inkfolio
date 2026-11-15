@@ -444,7 +444,9 @@ main.page > * { grid-column: 2; }
 @media (max-width: 560px) { .pgp-line code { font-size: 11.5px; letter-spacing: 0; } }
 
 /* ==========================================================================
-   Inkfolio — additions on top of the base editorial system
+   Inkfolio additions — only what the base sheet does not already cover.
+   Nav, dropdowns, footer columns, article shell and the log grid come from
+   the base sheet unchanged, so the theme keeps the original proportions.
    ========================================================================== */
 
 /* ---- top banner (dismissible, removable via site.config.yaml) ---- */
@@ -460,32 +462,10 @@ main.page > * { grid-column: 2; }
   .promo-close { margin-left: 0; }
 }
 
-/* ---- nav actions ---- */
-.nav-actions { display: flex; align-items: center; gap: 4px; }
-.lang-switch { display: inline-flex; align-items: center; height: 34px; padding: 0 10px; border-radius: 9px; font-size: 14px; font-weight: 560; color: var(--body); text-decoration: none; }
-.lang-switch:hover { background: var(--chip); color: var(--ink); }
-@media (max-width: 860px) {
-  .lang-switch { display: none; }
-}
-
-/* ---- footer ---- */
-.foot-bottom { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; border-top: 1px solid var(--line); padding-top: 20px; }
-.foot-note { margin: 0; font-size: 13.5px; color: var(--muted); }
-.foot-note a { color: var(--muted); }
-.foot-links { display: flex; flex-wrap: wrap; gap: 18px; margin: 0; padding: 0; list-style: none; font-size: 13.5px; }
-.foot-links a { color: var(--muted); text-decoration: none; }
-.foot-links a:hover { color: var(--ink); }
-.foot { margin-top: 96px; padding-bottom: 48px; }
-
-/* ---- home / index bits ---- */
-.post-date { font-size: 13.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
-.empty { color: var(--muted); font-size: 16px; }
-
-/* ---- page bits: badge, avatar, projects, tools, contact, newsletter ---- */
+/* ---- small page pieces ---- */
 .badge { display: inline-block; margin: 10px 0 0; font-size: 12.5px; font-weight: 620; letter-spacing: .04em; text-transform: uppercase; color: var(--accent); }
-.avatar { display: inline-grid; place-items: center; width: 34px; height: 34px; border-radius: 10px; background: var(--chip); color: var(--muted); font-size: 12.5px; font-weight: 620; letter-spacing: .02em; }
+.avatar { display: inline-grid; place-items: center; width: 34px; height: 34px; border-radius: 10px; background: var(--chip); color: var(--muted); font-size: 12.5px; font-weight: 620; }
 .proj { min-width: 0; }
-.proj .tag { margin-left: 8px; }
 .tool-group { margin-bottom: 36px; }
 .tool-cat { margin: 0 0 6px; font-size: 13px; font-weight: 640; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); }
 .contact-list { margin: 0; padding: 0; list-style: none; display: grid; gap: 14px; }
@@ -497,10 +477,12 @@ main.page > * { grid-column: 2; }
 .sub-note { margin: 14px 0 0; font-size: 13.5px; line-height: 1.6; color: var(--muted); }
 @media (max-width: 560px) { .contact-list li { grid-template-columns: minmax(0, 1fr); gap: 4px; } }
 
-/* ---- activity log heatmap ---- */
+/* ---- activity log grid (same visual language as the article lists) ---- */
 .log-stats { display: flex; gap: 24px; margin: 18px 0 0; font-size: 14px; color: var(--muted); }
 .log-stats b { color: var(--ink); font-weight: 640; }
 .log-wrap { overflow-x: auto; padding-bottom: 6px; }
+.log-months { display: flex; gap: 3px; margin: 0 0 6px; font-size: 11.5px; color: var(--muted); }
+.log-month { width: 15px; flex: none; }
 .log-grid { display: flex; gap: 3px; }
 .log-week { display: grid; gap: 3px; grid-template-rows: repeat(7, 12px); }
 .log-cell { width: 12px; height: 12px; border-radius: 3px; background: color-mix(in srgb, var(--ink) 8%, transparent); }
@@ -508,3 +490,4 @@ main.page > * { grid-column: 2; }
 .log-cell[data-level="2"] { background: color-mix(in srgb, var(--accent) 55%, transparent); }
 .log-cell[data-level="3"] { background: color-mix(in srgb, var(--accent) 78%, transparent); }
 .log-cell[data-level="4"] { background: var(--accent); }
+.log-legend { display: flex; align-items: center; gap: 6px; margin: 12px 0 0; font-size: 12.5px; color: var(--muted); }

@@ -3,10 +3,22 @@ import { parse } from 'yaml';
 
 export type Lang = 'en' | 'zh';
 
-export interface NavItem {
+export interface NavLeaf {
   label: string;
   labelZh?: string;
   href: string;
+  sub?: string;
+  subZh?: string;
+}
+
+export interface NavItem extends NavLeaf {
+  items?: NavLeaf[];
+}
+
+export interface FooterColumn {
+  title: string;
+  titleZh?: string;
+  links: NavLeaf[];
 }
 
 export interface BannerConfig {
@@ -36,21 +48,34 @@ export const site = {
   showLanguageSwitcher: parsed.site.showLanguageSwitcher !== false,
 };
 
-export const nav = ((parsed.nav ?? []) as NavItem[]).map((item) => ({
+const asLeaf = (item: NavLeaf): NavLeaf => ({
   label: item.label,
   labelZh: item.labelZh ?? null,
   href: item.href,
+  sub: item.sub,
+  subZh: item.subZh,
+});
+
+export const nav: NavItem[] = ((parsed.nav ?? []) as NavItem[]).map((item) => ({
+  ...asLeaf(item),
+  ...(item.items ? { items: item.items.map(asLeaf) } : {}),
 }));
+
+export const navCta = {
+  label: (parsed.navCta?.label as string) ?? '',
+  labelZh: (parsed.navCta?.labelZh as string) ?? parsed.navCta?.label ?? '',
+  href: (parsed.navCta?.href as string) ?? '',
+};
 
 export const social = ((parsed.social ?? []) as { label: string; href: string }[]).map((item) => ({
   label: item.label,
   href: item.href,
 }));
 
-export const footerLinks = ((parsed.footerLinks ?? []) as NavItem[]).map((item) => ({
-  label: item.label,
-  labelZh: item.labelZh ?? null,
-  href: item.href,
+export const footerColumns: FooterColumn[] = ((parsed.footerColumns ?? []) as FooterColumn[]).map((col) => ({
+  title: col.title,
+  titleZh: col.titleZh ?? col.title,
+  links: (col.links ?? []).map(asLeaf),
 }));
 
 export const banner: BannerConfig = {
