@@ -1,0 +1,95 @@
+---
+import { nav, site, type Lang } from '../lib/config';
+import { t } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+
+const items = nav
+  .map((item) => ({
+    label: lang === 'zh' ? item.labelZh ?? null : item.label,
+    href: lang === 'zh' ? (item.href === '/' ? '/zh/' : `/zh${item.href}`) : item.href,
+  }))
+  .filter((item) => item.label !== null) as { label: string; href: string }[];
+
+const homeHref = lang === 'zh' ? '/zh/' : '/';
+const otherLangHref = lang === 'zh' ? '/' : '/zh/';
+const current = Astro.url.pathname;
+const brandName = lang === 'zh' ? site.nameZh : site.name;
+---
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href={homeHref}>
+      <svg class="brand-mark" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+        <rect x="1" y="1" width="22" height="22" rx="6" />
+        <path d="M7 17V8.5M12 17V6M17 17v-6" stroke-linecap="round" />
+        <circle cx="17" cy="7" r="1.7" />
+      </svg>
+      <span>{brandName}</span>
+    </a>
+
+    <nav class="nav-links" aria-label="Main">
+      {items.map((item) => (
+        <a href={item.href} aria-current={current.startsWith(item.href) && item.href !== '/' ? 'page' : undefined}>
+          {item.label}
+        </a>
+      ))}
+    </nav>
+
+    <div class="nav-actions">
+      {site.showLanguageSwitcher && (
+        <a class="lang-switch" href={otherLangHref} hreflang={lang === 'zh' ? 'en' : 'zh-CN'} aria-label={t(lang, 'languageLabel')}>
+          {lang === 'zh' ? 'EN' : '中文'}
+        </a>
+      )}
+      <button class="icon-btn" type="button" data-theme-toggle aria-label={t(lang, 'themeLabel')}>
+        <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true">
+          <circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.7" />
+          <path d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2M5.4 5.4l1.6 1.6M17 17l1.6 1.6M18.6 5.4L17 7M7 17l-1.6 1.6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" />
+        </svg>
+      </button>
+      <button class="icon-btn menu-btn" type="button" data-menu-toggle aria-expanded="false" aria-label="Menu">
+        <svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true">
+          <path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+        </svg>
+      </button>
+    </div>
+  </div>
+  <ul class="m-panel" id="m-panel" hidden>
+    {items.map((item) => (
+      <li><a href={item.href}>{item.label}</a></li>
+    ))}
+    {site.showLanguageSwitcher && (
+      <li><a href={otherLangHref}>{lang === 'zh' ? 'English' : '中文'}</a></li>
+    )}
+  </ul>
+</header>
+
+<script is:inline>
+  (function () {
+    var root = document.documentElement;
+    var toggle = document.querySelector('[data-theme-toggle]');
+    if (toggle) {
+      toggle.addEventListener('click', function () {
+        var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        if (next === 'dark') root.setAttribute('data-theme', 'dark');
+        else root.removeAttribute('data-theme');
+        try {
+          localStorage.setItem('inkfolio-theme', next);
+        } catch (e) {}
+      });
+    }
+
+    var menuBtn = document.querySelector('[data-menu-toggle]');
+    var panel = document.getElementById('m-panel');
+    if (menuBtn && panel) {
+      menuBtn.addEventListener('click', function () {
+        var open = panel.hidden;
+        panel.hidden = !open;
+        menuBtn.setAttribute('aria-expanded', String(open));
+      });
+    }
+  })();
+</script>

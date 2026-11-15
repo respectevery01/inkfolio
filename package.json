@@ -1,0 +1,21 @@
+{
+  "name": "inkfolio",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Inkfolio — an editorial Astro theme for writers and indie builders. Bilingual, config-driven, zero external fonts.",
+  "license": "GPL-3.0-or-later",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/rss": "^4.0.12",
+    "@astrojs/sitemap": "^3.7.3",
+    "astro": "^6.4.2",
+    "yaml": "^2.5.1"
+  }
+}

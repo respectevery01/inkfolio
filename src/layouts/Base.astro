@@ -1,0 +1,65 @@
+---
+import Banner from '../components/Banner.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { site, theme, footer, type Lang } from '../lib/config';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  lang?: Lang;
+  /** counterpart page in the other language — only pass this when the page really exists */
+  alt?: string;
+}
+
+const { title, description = site.description, lang = 'en', alt } = Astro.props;
+
+const pageTitle = title === site.name ? title : `${title} — ${lang === 'zh' ? site.nameZh : site.name}`;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const altPath = alt ? new URL(alt, Astro.site).pathname : null;
+const hasAlt = !!altPath && altPath !== Astro.url.pathname;
+const altUrl = hasAlt ? new URL(alt as string, Astro.site) : canonical;
+const selfHreflang = lang === 'en' ? 'en' : 'zh-CN';
+
+const accentVars = `--accent:${theme.accent};--u:${theme.accent};--radius:${theme.radius};`;
+---
+<!doctype html>
+<html lang={lang === 'zh' ? 'zh-CN' : 'en'} data-theme-mode={theme.defaultMode} style={accentVars}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    {hasAlt && <link rel="alternate" hreflang={selfHreflang} href={canonical} />}
+    {hasAlt && <link rel="alternate" hreflang={lang === 'en' ? 'zh-CN' : 'en'} href={altUrl} />}
+    {hasAlt && <link rel="alternate" hreflang="x-default" href={lang === 'en' ? canonical : altUrl} />}
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary" />
+    <link rel="alternate" type="application/rss+xml" title={site.name} href={new URL('/rss.xml', Astro.site)} />
+    <script is:inline>
+      // Theme is resolved before paint so there is no flash of the wrong mode.
+      (function () {
+        try {
+          var stored = localStorage.getItem('inkfolio-theme');
+          var mode = stored || document.documentElement.getAttribute('data-theme-mode') || 'auto';
+          var dark = mode === 'dark' || (mode === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+          if (dark) document.documentElement.setAttribute('data-theme', 'dark');
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <Banner lang={lang} />
+    <Nav lang={lang} />
+    <main class="page">
+      <slot />
+    </main>
+    <Footer lang={lang} />
+  </body>
+</html>

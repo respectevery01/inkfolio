@@ -1,0 +1,58 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import { langPath, site, type Lang } from '../lib/config';
+import { t } from '../i18n/ui';
+
+interface Props {
+  entry: CollectionEntry<'posts'> | CollectionEntry<'postsZh'>;
+  lang: Lang;
+}
+const { entry, lang } = Astro.props;
+const { Content } = await render(entry);
+
+// The other language is only linked when a file with the same name exists there.
+const otherCollection = lang === 'zh' ? 'posts' : 'postsZh';
+const other = (await getCollection(otherCollection as 'posts' | 'postsZh')).find((e) => e.id === entry.id);
+const alt = other ? langPath(`/posts/${entry.id}/`, lang === 'zh' ? 'en' : 'zh') : undefined;
+
+const fmt = (d: Date) => new Date(d).toLocaleDateString(lang === 'zh' ? 'zh-CN' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+const words = (entry.body ?? '').split(/\s+/).filter(Boolean).length;
+const readMin = Math.max(1, Math.round(words / 220));
+---
+<Base title={entry.data.title} description={entry.data.description} lang={lang} alt={alt}>
+  <article>
+    <header class="post-head">
+      <div class="crumbs">
+        <a href={langPath('/posts/', lang)}>{t(lang, 'posts')}</a>
+      </div>
+      <h1>{entry.data.title}</h1>
+      {entry.data.description && <p class="post-lede">{entry.data.description}</p>}
+      <div class="byline">
+        <div class="who">
+          <span class="who-name">{lang === 'zh' ? site.authorZh : site.author}</span>
+        </div>
+        <div class="when">
+          <time datetime={new Date(entry.data.date).toISOString()}>{fmt(new Date(entry.data.date))}</time>
+          {entry.data.updated && <div>{t(lang, 'updated')} {fmt(new Date(entry.data.updated))}</div>}
+          <div>{readMin} {t(lang, 'minRead')}</div>
+        </div>
+      </div>
+      {entry.data.tags.length > 0 && (
+        <div class="tags">
+          {entry.data.tags.map((tag) => <span class="tag">{tag}</span>)}
+        </div>
+      )}
+    </header>
+
+    <div class="post-body">
+      <div class="post-main prose">
+        <Content />
+      </div>
+    </div>
+
+    <div class="post-end">
+      <a class="backlink" href={langPath('/posts/', lang)}>← {t(lang, 'backToPosts')}</a>
+    </div>
+  </article>
+</Base>

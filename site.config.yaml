@@ -1,0 +1,68 @@
+# =============================================================================
+# Inkfolio — the only file you need to edit to make this site yours.
+# Everything below is plain YAML: text after "#" is a comment, keep the quotes.
+# =============================================================================
+
+site:
+  name: Inkfolio                     # shows in the nav and the browser tab
+  nameZh: 墨集                        # Chinese name (used on /zh/ pages)
+  tagline: Notes on building things alone
+  taglineZh: 一个人做东西的记录
+  description: An editorial blog theme for writers and indie builders. Bilingual, fast, and config-driven.
+  descriptionZh: 给写作者与独立开发者的编辑风博客主题。双语、快、全部由配置文件驱动。
+  url: https://example.com           # your domain, no trailing slash (used for canonical + RSS)
+  author: Your Name                  # shows on every article
+  authorZh: 你的名字
+  email: you@example.com             # optional, only used in the footer if set
+  defaultLanguage: en                # en → / is English, zh pages at /zh/
+  showLanguageSwitcher: true         # set to false for a single-language site
+
+# -----------------------------------------------------------------------------
+# Top navigation. Add or remove lines freely. labelZh is optional — if a page
+# has no Chinese version, drop the labelZh line and it stays hidden on /zh/.
+# -----------------------------------------------------------------------------
+nav:
+  - label: Posts
+    labelZh: 文章
+    href: /posts/
+  - label: About
+    labelZh: 关于
+    href: /about/
+
+# -----------------------------------------------------------------------------
+# Social links in the footer.
+# -----------------------------------------------------------------------------
+social:
+  - label: GitHub
+    href: https://github.com/yourname
+  - label: RSS
+    href: /rss.xml
+
+# -----------------------------------------------------------------------------
+# The banner at the very top of the page.
+#   enabled: false   → the banner disappears from the whole site (one line)
+#   dismissible      → true lets visitors close it; their choice is remembered
+#   text / textZh    → the sentence we show
+#   link / linkText  → the one link we show next to it
+# Edit the text, point it somewhere else, or turn it off entirely.
+# -----------------------------------------------------------------------------
+promoBanner:
+  enabled: true
+  dismissible: true
+  text: This site's SEO runs on ZensInk
+  textZh: 本站的 SEO 用 ZensInk 跑
+  link: https://zens.ink
+  linkText: Take a look
+  linkTextZh: 去看看
+
+# -----------------------------------------------------------------------------
+# Look and feel. Accent colour is the only colour you normally need to change.
+# -----------------------------------------------------------------------------
+theme:
+  accent: "#ff6b01"                  # links, underlines, highlights
+  defaultMode: auto                  # auto | light | dark
+  radius: 12px
+
+footer:
+  note: Built with Inkfolio
+  noteZh: 由 Inkfolio 驱动
