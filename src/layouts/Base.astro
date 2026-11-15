@@ -1,4 +1,5 @@
 ---
+import { siteText } from '../lib/config';
 import Banner from '../components/Banner.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
@@ -31,7 +32,7 @@ const i18nDisabledForLang = i18nCfg.enabled === false && lang !== defaultLang;
 
 let pageTitle = titleFor(title, lang);
 const isHomeTitle = title === site.name || pageTitle === site.name;
-if (isHomeTitle) pageTitle = `${site.name} — ${lang !== 'en' ? site.taglineZh || site.tagline : site.tagline}`;
+if (isHomeTitle) pageTitle = `${site.name} — ${siteText('tagline', lang)}`;
 const pageDescription =
   description ||
   [title, lang !== 'en' ? site.descriptionZh : site.description].filter(Boolean).join(' — ').slice(0, 158) ||
@@ -70,7 +71,7 @@ const jsonLd = seo.structuredData
     : {
         '@context': 'https://schema.org',
         '@type': 'WebSite',
-        name: lang !== 'en' ? site.nameZh : site.name,
+        name: siteText('name', lang),
         url: site.url,
         description: pageDescription,
         inLanguage: lang !== 'en' ? 'zh-CN' : 'en',
@@ -106,7 +107,7 @@ const requireConsent = consent.enabled && (gaOn || clarityOn);
     {hasAlt && <link rel="alternate" hreflang="x-default" href={lang === 'en' ? canonical : altUrl} />}
 
     <meta property="og:type" content={article ? 'article' : 'website'} />
-    <meta property="og:site_name" content={lang !== 'en' ? site.nameZh : site.name} />
+    <meta property="og:site_name" content={siteText('name', lang)} />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={pageDescription} />
     <meta property="og:url" content={canonical} />
@@ -124,7 +125,7 @@ const requireConsent = consent.enabled && (gaOn || clarityOn);
     <link
       rel="alternate"
       type="application/rss+xml"
-      title={lang !== 'en' ? site.nameZh : site.name}
+      title={siteText('name', lang)}
       href={new URL(lang !== 'en' ? '/zh/rss.xml' : '/rss.xml', Astro.site)}
     />
     {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}

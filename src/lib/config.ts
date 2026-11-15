@@ -249,3 +249,15 @@ export const mcp = {
     desc: tool.desc,
   })),
 };
+
+/** Site fields accept either a scalar or one value per language. */
+export function siteText(field: 'name' | 'tagline' | 'description', lang: Lang): string {
+  const raw: any = (site as any)[field] ?? (parsed.site as any)?.[field];
+  const zhRaw: any = (site as any)[`${field}Zh`] ?? (parsed.site as any)?.[`${field}Zh`];
+  if (raw && typeof raw === 'object') {
+    const picked = raw[lang] ?? (lang === 'zh-hant' ? raw['zh-hant'] ?? raw.zh : undefined) ?? raw.zh ?? raw.en;
+    if (picked) return String(picked);
+  }
+  if (zhRaw && lang !== 'en') return String(zhRaw);
+  return String(raw ?? '');
+}

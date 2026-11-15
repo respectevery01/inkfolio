@@ -1,6 +1,7 @@
 ---
 import { pickTrad } from '../lib/trad';
 import { toTrad } from '../lib/trad';
+import { siteText } from '../lib/config';
 import { navLabel } from '../lib/config';
 import { availableLangs } from '../lib/langs';
 import Icon from './Icon.astro';
@@ -51,13 +52,13 @@ const altHref = alt && alt !== path ? alt : null;
 
 <nav class="nav" data-chrome-s="nav">
   <div class="nav-inner" style="position:relative">
-    <a href={zh ? '/zh/' : '/'} class="brand" aria-label={zh ? site.nameZh : site.name}>
+    <a href={zh ? '/zh/' : '/'} class="brand" aria-label={siteText('name', lang)}>
       <svg class="brand-mark" viewBox="0 0 64 64" width="26" height="26" aria-hidden="true">
         <rect width="64" height="64" rx="14" />
         <path d="M25 44V24M34 44V18M43 44V30" />
         <circle cx="43" cy="19" r="4.6" />
       </svg>
-      <span>{zh ? site.nameZh : site.name}</span>
+      <span>{siteText('name', lang)}</span>
     </a>
 
     <div class="nav-links">
