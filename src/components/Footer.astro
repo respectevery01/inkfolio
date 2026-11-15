@@ -34,7 +34,13 @@ const socials = social.map((item) => ({ ...item, href: to(item.href), external: 
       ))}
     </div>
     <div class="foot-bottom">
-      <span>{note} · {year}</span>
+      <span class="foot-legal">
+        © {year} {footer.copyrightName}
+        {footer.authorUrl && (
+          <> · <a href={footer.authorUrl} rel="noopener">{footer.authorLabel || footer.authorUrl.replace(/^https?:\/\//, '')}</a></>
+        )}
+        {' '}· {note}
+      </span>
       <span class="foot-soc">
         {socials.map((item) => (
           <a href={item.href} rel={item.external ? 'noopener' : undefined} target={item.external ? '_blank' : undefined}>{item.label}</a>
@@ -45,6 +51,8 @@ const socials = social.map((item) => ({ ...item, href: to(item.href), external: 
   </div>
 </footer>
 <style is:global>
+  .foot-legal a { color: var(--muted); }
+  .foot-legal a:hover { color: var(--ink); text-decoration-line: underline; text-decoration-style: wavy; text-decoration-color: var(--u); text-decoration-thickness: 1.5px; text-underline-offset: 4px; }
   .foot-soc { display: inline-flex; flex-wrap: wrap; gap: 16px; }
   .foot-soc a { color: var(--muted); text-decoration: none; }
   .foot-soc a:hover { color: var(--ink); text-decoration-line: underline; text-decoration-style: wavy; text-decoration-color: var(--u); text-decoration-thickness: 1.5px; text-underline-offset: 4px; }

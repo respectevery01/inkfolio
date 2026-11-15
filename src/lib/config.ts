@@ -103,6 +103,9 @@ export const theme = {
 export const footer = {
   note: (parsed.footer?.note as string) ?? '',
   noteZh: (parsed.footer?.noteZh as string) ?? parsed.footer?.note ?? '',
+  copyrightName: (parsed.footer?.copyrightName as string) ?? site.name,
+  authorUrl: (parsed.footer?.authorUrl as string) ?? '',
+  authorLabel: (parsed.footer?.authorLabel as string) ?? '',
 };
 
 export const analytics = {

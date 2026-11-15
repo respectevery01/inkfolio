@@ -178,3 +178,6 @@ seo:
 footer:
   note: Built with Inkfolio
   noteZh: 由 Inkfolio 驱动
+  copyrightName: Inkfolio             # shown after © + the current year
+  authorUrl: https://jask.dev          # the author line links back here
+  authorLabel: jask.dev

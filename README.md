@@ -100,6 +100,21 @@ The posts that ship with the theme are documentation: setup, every config key, t
 - **Footer** — `footer.note` plus the `social` list.
 
 
+## Icons, analytics and SEO
+
+Icons are [Font Awesome Free](https://fontawesome.com), bundled locally — no CDN request, no kit token.
+
+- UI glyphs: `<Icon name="sun" />`, `<Icon name="chevron-down" />`, `<Icon name="arrow-right" />` — solid icons by default, brand icons resolve automatically (`github`, `bluesky`, `ethereum`…).
+- The `/nav` page uses its own icon files. Drop an SVG into `public/icons/` and reference it by filename in `src/data/tools.yaml`:
+
+```yaml
+- name: Astro
+  url: https://astro.build
+  icon: astro        # public/icons/astro.svg
+```
+
+No Astro file needs editing to add a link. Shipped icons: `jask`, `astro`, `fontawesome`, `github`; leave `icon` out and the first letter is used.
+
 ## Analytics and SEO
 
 All analytics are **off by default** — no script is injected unless you enable it and supply an id.

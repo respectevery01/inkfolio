@@ -100,6 +100,21 @@ src/data/log.json          活跃度数据（一天一条）
 - **页脚**：`footer.note` 与 `social` 列表。
 
 
+## 图标、统计与 SEO
+
+图标全部来自 [Font Awesome Free](https://fontawesome.com)，本地打包，不走 CDN、不需要 kit token。
+
+- 界面图标：`<Icon name="sun" />`、`<Icon name="chevron-down" />`、`<Icon name="arrow-right" />`——默认 solid，品牌图标自动识别（`github`、`bluesky`、`ethereum` 等）。
+- `/nav` 页用独立的图标文件。把一个 SVG 放进 `public/icons/`，然后在 `src/data/tools.yaml` 里写文件名：
+
+```yaml
+- name: Astro
+  url: https://astro.build
+  icon: astro        # 对应 public/icons/astro.svg
+```
+
+加一条链接不需要改任何 Astro 文件。目前自带：`jask`、`astro`、`fontawesome`、`github`；不写 `icon` 就用首字母。
+
 ## 统计与 SEO
 
 三家统计默认全关，不开 `enabled: true` 并填 id 就不会注入任何脚本。

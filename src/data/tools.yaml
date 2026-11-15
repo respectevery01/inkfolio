@@ -1,54 +1,39 @@
 # The /nav directory — tools grouped by what they are for.
-# Each category needs an id (anchor), an English and Chinese name, and a note.
-# `own: true` marks something you built yourself.
-- id: search
-  en: Search & SEO
-  zh: 搜索与 SEO
-  note:
-    en: Where rankings and indexing actually get checked.
-    zh: 排名和收录到底看哪里。
-  links:
-    - name: Google Search Console
-      url: https://search.google.com/search-console
-      note: { en: Queries, indexing, sitemaps, zh: 查询、收录、站点地图 }
-    - name: Bing Webmaster Tools
-      url: https://www.bing.com/webmasters
-      note: { en: Bing indexing and queries, zh: Bing 收录与搜索词 }
-    - name: Google Trends
-      url: https://trends.google.com
-      note: { en: Demand before tools index it, zh: 工具还没收录时看需求 }
-    - name: Example Rank Tool
-      url: https://example.com/rank
-      note: { en: A placeholder for your own pick, zh: 换成你自己常用的 }
-      own: true
+#
+# Icons: put an SVG in public/icons/ and write its filename (without .svg) in
+# the `icon` field. No Astro changes needed — add a row, pick a name that
+# exists in public/icons/, done. Leave `icon` out and the first letter is used.
+#
+# Shipped icons: jask, astro, fontawesome, github.
 
-- id: build
-  en: Build & deploy
-  zh: 开发与部署
+- id: sites
+  en: Sites
+  zh: 站点
   note:
-    en: The parts that turn a folder into a site.
-    zh: 把一个文件夹变成一个站的东西。
+    en: Places worth opening first.
+    zh: 打开浏览器先去的几个地方。
   links:
+    - name: jask.dev
+      url: https://jask.dev
+      icon: jask
+      note: { en: Weekly dispatches, notes and build logs, zh: 周更、随手记和构建日志 }
     - name: Astro
       url: https://astro.build
-      note: { en: The framework this theme uses, zh: 这个主题用的框架 }
-    - name: Cloudflare Pages
-      url: https://pages.cloudflare.com
-      note: { en: Static hosting with preview builds, zh: 带预览构建的静态托管 }
-    - name: GitHub
-      url: https://github.com
-      note: { en: Where the code lives, zh: 代码放的地方 }
+      icon: astro
+      note: { en: The framework this theme is built on, zh: 这个主题用的框架 }
 
-- id: everyday
-  en: Everyday
-  zh: 日常
+- id: tooling
+  en: Tooling
+  zh: 工具
   note:
-    en: Not tools exactly, but they get opened daily.
-    zh: 严格说不算工具，但每天都会打开。
+    en: Two things that make the rest of this possible.
+    zh: 让上面这些成立的两样东西。
   links:
-    - name: Example Notes
-      url: https://example.com/notes
-      note: { en: Plain-text notes with backlinks, zh: 带反向链接的纯文本笔记 }
-    - name: Example Analytics
-      url: https://example.com/analytics
-      note: { en: Cookie-free page views, zh: 无 cookie 的页面统计 }
+    - name: Font Awesome
+      url: https://fontawesome.com
+      icon: fontawesome
+      note: { en: Every icon on this site comes from here, zh: 这个站的图标全部来自这里 }
+    - name: GitHub
+      url: https://github.com/respectevery01/inkfolio
+      icon: github
+      note: { en: Source for this theme, zh: 这个主题的源码 }

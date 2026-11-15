@@ -2,11 +2,12 @@
 import Base from '../layouts/Base.astro';
 import toolsData from '../data/tools.yaml?raw';
 import { parse } from 'yaml';
+import { readdirSync } from 'node:fs';
 import { t } from '../i18n/ui';
 import type { Lang } from '../lib/config';
 
 interface Note { en: string; zh: string }
-interface Link { name: string; url: string; note: Note; own?: boolean }
+interface Link { name: string; url: string; note: Note; icon?: string; own?: boolean }
 interface Category { id: string; en: string; zh: string; note: Note; links: Link[] }
 
 interface Props {
@@ -18,6 +19,12 @@ const altHref = zh ? '/nav/' : '/zh/nav/';
 
 const categories = parse(toolsData) as Category[];
 const total = categories.reduce((n, c) => n + c.links.length, 0);
+// Any SVG dropped into public/icons/ is available by filename, no code change.
+const availableIcons = new Set(
+  readdirSync('public/icons')
+    .filter((f) => f.endsWith('.svg'))
+    .map((f) => f.replace(/\.svg$/, ''))
+);
 const ownLabel = zh ? '自建' : 'own';
 const initial = (name: string) => name.replace(/^Example\s+/i, '').trim().slice(0, 1).toUpperCase();
 ---
@@ -57,9 +64,9 @@ const initial = (name: string) => name.replace(/^Example\s+/i, '').trim().slice(
               {c.links.map((l) => (
                 <li>
                   <a class="link" href={l.url} target="_blank" rel="noopener">
-                    {l.own ? (
-                      <span class="ico ico-own" aria-hidden="true">
-                        <svg viewBox="0 0 64 64" width="18" height="18"><rect width="64" height="64" rx="14" fill="var(--ink)" /><path d="M38.5 26V41a9.5 9.5 0 0 1-9.5 9.5H21" stroke="var(--bg)" stroke-width="6" fill="none" /><circle cx="38.5" cy="14.5" r="5.25" fill="var(--accent)" /></svg>
+                    {l.icon && availableIcons.has(l.icon) ? (
+                      <span class="ico" aria-hidden="true">
+                        <img src={`/icons/${l.icon}.svg`} alt="" width="18" height="18" loading="lazy" decoding="async" />
                       </span>
                     ) : (
                       <span class="ico ico-letter" aria-hidden="true">{initial(l.name)}</span>
