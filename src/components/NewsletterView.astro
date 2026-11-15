@@ -1,29 +1,49 @@
 ---
 import Base from '../layouts/Base.astro';
+import { site, type Lang } from '../lib/config';
 import { t } from '../i18n/ui';
-import type { Lang } from '../lib/config';
 
 interface Props {
   lang: Lang;
 }
 const { lang } = Astro.props;
-const altHref = lang === 'zh' ? '/newsletter/' : '/zh/newsletter/';
+const zh = lang === 'zh';
+const altHref = zh ? '/newsletter/' : '/zh/newsletter/';
+const L = (en: string, z: string) => (zh ? z : en);
+const base = zh ? '/zh' : '';
 ---
 <Base title={t(lang, 'newsletter')} lang={lang} alt={altHref}>
-  <section class="post-head">
-    <h1>{t(lang, 'newsletter')}</h1>
-    <p class="post-lede">{t(lang, 'newsletterLede')}</p>
+  <section class="art-head">
+    <h1>{zh ? '订阅' : 'Subscribe'}</h1>
+    <p class="meta">
+      {t(lang, 'newsletterLede')}<br />
+      {L('No price talk, no filler.', '不谈价格，不灌水。')}
+    </p>
   </section>
 
-  <section class="sec-body" style="max-width: 520px; margin-top: 32px;">
-    <!--
-      Demo form. It posts nowhere: replace the action with your provider's endpoint
-      (Buttondown, Mailchimp, a Cloudflare Worker, anything that accepts a POST).
-    -->
-    <form class="sub-form" action="#" method="post">
-      <input type="email" name="email" required placeholder={t(lang, 'emailPlaceholder')} aria-label="Email" />
-      <button class="btn" type="submit">{t(lang, 'subscribe')}</button>
-    </form>
-    <p class="sub-note">{t(lang, 'subscribeNote')}</p>
+  <section class="sec" style="padding-top:52px">
+    <div class="sec-head"><h2>{L('How to get it', '怎么收到')}</h2></div>
+    <div class="sec-body">
+      <ul class="rows">
+        <li>
+          <a href={site.telegram || 'https://example.com/telegram'} target="_blank" rel="noopener">{L('Telegram channel', 'Telegram 频道')}</a>
+          <span class="meta">{L('First, every Monday', '每周一第一时间')}</span>
+        </li>
+        <li>
+          <a href={`${base}/rss.xml`}>RSS</a>
+          <span class="meta">{L('Any reader you like', '随便一个阅读器')}</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-head"><h2>{L('Back issues', '往期')}</h2></div>
+    <div class="sec-body">
+      <p class="support-line">
+        {L('Every issue lives in', '所有往期都在')}
+        <a href={`${base}/weekly/`}>{L('the Weekly archive', '周更存档')}</a>{L(', newest first.', '，最新在前。')}
+      </p>
+    </div>
   </section>
 </Base>

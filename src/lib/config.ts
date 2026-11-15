@@ -46,6 +46,8 @@ export const site = {
   greeting: (parsed.site.greeting as string) ?? '',
   greetingZh: (parsed.site.greetingZh as string) ?? parsed.site.greeting ?? '',
   avatar: (parsed.site.avatar as string) ?? '',
+  telegram: (parsed.site.telegram as string) ?? '',
+  contactEndpoint: (parsed.site.contactEndpoint as string) ?? '',
   email: (parsed.site.email as string) ?? '',
   defaultLanguage: ((parsed.site.defaultLanguage as string) ?? 'en') as Lang,
   showLanguageSwitcher: parsed.site.showLanguageSwitcher !== false,

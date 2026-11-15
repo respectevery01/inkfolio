@@ -4,6 +4,8 @@ An editorial Astro theme for writers and indie builders. Warm paper, near-black 
 
 English · [中文](./README.zh.md)
 
+Live demo: https://inkfolio.jask.dev
+
 ![Inkfolio home page](./docs/screenshot-home.png)
 
 ## Why another blog theme

@@ -4,6 +4,8 @@
 
 [English](./README.md) · 中文
 
+在线演示：https://inkfolio.jask.dev
+
 ![Inkfolio 首页](./docs/screenshot-home.png)
 
 ## 为什么又一个博客主题

@@ -17,6 +17,8 @@ site:
   greetingZh: 嗨，我是 Inkfolio。
   avatar: /avatar.png                # 336×336, shown on the home hero and About
   email: hello@example.com           # optional, only used in the footer if set
+  telegram: ""                       # e.g. https://t.me/yourchannel — shown on the newsletter page
+  contactEndpoint: ""                # optional POST URL for the contact form (Formspree, Worker…). Empty = mailto:
   defaultLanguage: en                # en → / is English, zh pages at /zh/
   showLanguageSwitcher: true         # set to false for a single-language site
 
