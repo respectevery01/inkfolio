@@ -37,8 +37,8 @@ nav:
   - label: Docs
     labelZh: 文档
     href: /docs/
-  - label: Writing
-    labelZh: 写作
+  - label: Posts
+    labelZh: 文章
     href: /posts/
   - label: Projects
     labelZh: 项目
@@ -94,6 +94,7 @@ footerColumns:
     links:
       - { label: Weekly, labelZh: 周更, href: /weekly/ }
       - { label: Posts, labelZh: 文章, href: /posts/ }
+      - { label: Docs, labelZh: 文档, href: /docs/ }
       - { label: Research, labelZh: 研究, href: /research/ }
       - { label: RSS, labelZh: RSS, href: /rss.xml }
   - title: Build
