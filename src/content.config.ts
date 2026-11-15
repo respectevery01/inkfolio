@@ -15,8 +15,11 @@ const postSchema = ({ defaultLang }: { defaultLang?: 'en' | 'zh' } = {}) =>
     tags: z.array(z.string()).default([]),
     draft: z.boolean().default(false),
     /** show the sticky table of contents on wide screens (on by default) */
+    /** optional cover image, shown on the list and at the top of the article */
+    cover: z.string().optional(),
+    coverAlt: z.string().optional(),
     toc: z.boolean().default(true),
-    lang: z.enum(['en', 'zh']).default(defaultLang ?? 'en'),
+    lang: z.enum(['en', 'zh', 'zh-hant']).default(defaultLang ?? 'en'),
   });
 
 const posts = defineCollection({

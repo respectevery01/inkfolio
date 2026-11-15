@@ -2,6 +2,8 @@
 title: Every setting in site.config.yaml
 description: One YAML file controls the name, navigation, colours and the top banner. Here is what each key does.
 date: 2026-11-11
+cover: /og/posts/en/site-config.png
+coverAlt: Cover card for this article
 tags: [configuration]
 ---
 

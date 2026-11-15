@@ -6,6 +6,8 @@ export const PER_PAGE = 4;
 export interface PostRow {
   id: string;
   title: string;
+  cover?: string;
+  coverAlt?: string;
   description: string;
   date: Date;
   tags: string[];
@@ -23,6 +25,8 @@ export async function loadPosts(lang: Lang) {
     description: e.data.description,
     date: new Date(e.data.date),
     tags: e.data.tags ?? [],
+    cover: (e.data as any).cover,
+    coverAlt: (e.data as any).coverAlt,
   }));
 
   return {

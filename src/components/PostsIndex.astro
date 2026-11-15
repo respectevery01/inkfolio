@@ -50,7 +50,8 @@ for (let n = 1; n <= totalPages; n++) {
   <ul class="pf-list">
     {entries.map((entry: any) => (
       <li class="pf-row">
-        <article class="pf-item noimg">
+        <article class={`pf-item${entry.cover ? '' : ' noimg'}`}>
+          {entry.cover && <img class="pf-cover" src={entry.cover} alt={entry.coverAlt ?? ''} loading="lazy" decoding="async" />}
           <div class="pf-body">
             <h3 class="pf-rt">
               <a href={`${base}${entry.id}/`}>{entry.title}</a>
@@ -164,4 +165,5 @@ for (let n = 1; n <= totalPages; n++) {
   }
 .pf-sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
   overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.pf-cover { display:block; width:100%; aspect-ratio:16/9; object-fit:contain; background:var(--chip); border-radius:10px; margin-bottom:12px; }
 </style>

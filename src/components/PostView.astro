@@ -50,6 +50,9 @@ const ogImage = existsSync(`public${ogPath}`) ? ogPath : undefined;
       </div>
       <h1>{entry.data.title}</h1>
       {entry.data.description && <p class="post-lede">{entry.data.description}</p>}
+      {entry.data.cover && (
+        <img class="post-cover" src={entry.data.cover} alt={entry.data.coverAlt ?? ''} loading="eager" decoding="async" />
+      )}
       <div class="byline">
         <div class="who">
           <span class="who-name">{lang !== 'en' ? site.authorZh : site.author}</span>
