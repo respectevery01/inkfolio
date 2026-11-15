@@ -35,6 +35,23 @@ const pages = defineCollection({
   }),
 });
 
+/** Docs: path is the section, frontmatter `order` sorts inside it. */
+const docSchema = z.object({
+  title: z.string(),
+  description: z.string().default(''),
+  order: z.number().default(100),
+});
+
+const docs = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/docs' }),
+  schema: docSchema,
+});
+
+const docsZh = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/docs-zh' }),
+  schema: docSchema,
+});
+
 /** Long-form investigations. Same shape as posts plus a `type` badge. */
 const researchSchema = z.object({
   title: z.string(),
@@ -75,4 +92,4 @@ const weeklyZh = defineCollection({
   schema: weeklySchema,
 });
 
-export const collections = { posts, postsZh, pages, research, researchZh, weekly, weeklyZh };
+export const collections = { posts, postsZh, pages, research, researchZh, weekly, weeklyZh, docs, docsZh };

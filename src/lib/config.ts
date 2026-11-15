@@ -126,6 +126,20 @@ export const analytics = {
   },
 };
 
+export const consent = {
+  enabled: parsed.consent?.enabled !== false,
+  storageKey: (parsed.consent?.storageKey as string) ?? 'inkfolio-consent',
+  text: (parsed.consent?.text as string) ?? '',
+  textZh: (parsed.consent?.textZh as string) ?? parsed.consent?.text ?? '',
+  link: (parsed.consent?.link as string) ?? '',
+  linkLabel: (parsed.consent?.linkLabel as string) ?? '',
+  linkLabelZh: (parsed.consent?.linkLabelZh as string) ?? parsed.consent?.linkLabel ?? '',
+  accept: (parsed.consent?.accept as string) ?? 'Accept',
+  acceptZh: (parsed.consent?.acceptZh as string) ?? parsed.consent?.accept ?? '接受',
+  reject: (parsed.consent?.reject as string) ?? 'Decline',
+  rejectZh: (parsed.consent?.rejectZh as string) ?? parsed.consent?.reject ?? '拒绝',
+};
+
 export const seo = {
   titleTemplate: (parsed.seo?.titleTemplate as string) ?? '{title}',
   defaultDescription: (parsed.seo?.defaultDescription as string) ?? site.description,

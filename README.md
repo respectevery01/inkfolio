@@ -115,6 +115,23 @@ Icons are [Font Awesome Free](https://fontawesome.com), bundled locally — no C
 
 No Astro file needs editing to add a link. Shipped icons: `jask`, `astro`, `fontawesome`, `github`; leave `icon` out and the first letter is used.
 
+## Docs
+
+The theme ships a documentation section at `/docs/` (and `/zh/docs/`): sidebar built from the folder tree, on-page table of contents, previous/next links, GitHub-style callouts and copy buttons on every code block. Adding a page is adding a Markdown file under `src/content/docs/<section>/` — the sidebar picks it up.
+
+```
+src/content/docs/getting-started/installation.md
+src/content/docs/configuration/mcp.md
+src/content/docs-zh/…   (same ids, Chinese)
+```
+
+## Back to top and cookie consent
+
+- A back-to-top button appears after 600px of scrolling (respects `prefers-reduced-motion`), floating above the consent card when both are on screen.
+- The consent card is the bottom-right floating style. `consent.enabled: false` removes it. GA4 and Clarity do not load until the visitor accepts; Umami is cookieless and always loads.
+
+The privacy page at `/privacy/` is the default target of the consent link — edit `src/content/pages/privacy.md` (and `-zh`).
+
 ## Footer
 
 Three columns come from `footerColumns` in `site.config.yaml` — add a column or a link without touching code. The bottom line carries the copyright, the author link and your note:

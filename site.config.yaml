@@ -34,6 +34,9 @@ nav:
   - label: Research
     labelZh: 研究
     href: /research/
+  - label: Docs
+    labelZh: 文档
+    href: /docs/
   - label: Writing
     labelZh: 写作
     href: /posts/
@@ -107,6 +110,7 @@ footerColumns:
       - { label: Contact, labelZh: 联系, href: /contact/ }
       - { label: Newsletter, labelZh: 订阅, href: /newsletter/ }
       - { label: Friends, labelZh: 友链, href: /friends/ }
+      - { label: Privacy, labelZh: 隐私, href: /privacy/ }
 
 # -----------------------------------------------------------------------------
 # The banner at the very top of the page.
@@ -152,6 +156,24 @@ analytics:
   clarity:
     enabled: false
     projectId: ""
+
+# -----------------------------------------------------------------------------
+# Cookie consent. Only needed when a provider sets cookies (GA4, Clarity).
+# Umami is cookieless, so a site running only Umami can set `enabled: false`.
+# Analytics that need consent are not loaded until the visitor accepts.
+# -----------------------------------------------------------------------------
+consent:
+  enabled: true
+  storageKey: inkfolio-consent
+  text: This site uses cookies for anonymous analytics.
+  textZh: 本站使用 cookie 做匿名访问统计。
+  link: /privacy/
+  linkLabel: What is collected
+  linkLabelZh: 具体收集什么
+  accept: Accept
+  acceptZh: 接受
+  reject: Decline
+  rejectZh: 拒绝
 
 # -----------------------------------------------------------------------------
 # SEO defaults. Per-page titles and descriptions come from the Markdown files;

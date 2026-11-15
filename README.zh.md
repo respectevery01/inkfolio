@@ -115,6 +115,23 @@ src/data/log.json          活跃度数据（一天一条）
 
 加一条链接不需要改任何 Astro 文件。目前自带：`jask`、`astro`、`fontawesome`、`github`；不写 `icon` 就用首字母。
 
+## 文档
+
+主题自带 `/docs/`（中文 `/zh/docs/`）：侧边栏由目录结构自动生成、右侧本页目录、上下篇、GitHub 风格提示框、每个代码块带复制按钮。加一页就是往 `src/content/docs/<分区>/` 里放一个 Markdown，侧边栏自己会多一项。
+
+```
+src/content/docs/getting-started/installation.md
+src/content/docs/configuration/mcp.md
+src/content/docs-zh/…   （同样的 id，中文）
+```
+
+## 回到顶部与 cookie 同意
+
+- 滚动超过 600px 出现回到顶部按钮（尊重 prefers-reduced-motion），和同意卡片同时出现时会自动上移避开。
+- 同意卡片是右下角浮动样式。`consent.enabled: false` 就关掉。GA4 和 Clarity 在访客点接受之前不会加载；Umami 不写 cookie，始终加载。
+
+`/privacy/` 隐私页是同意文案默认指向的地方，改 `src/content/pages/privacy.md`（和 `-zh`）。
+
 ## 页脚
 
 三栏来自 `site.config.yaml` 的 `footerColumns`——加一栏或加一条链接都不用改代码。底部一行是版权、作者链接和你的小字：
