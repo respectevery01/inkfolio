@@ -96,7 +96,16 @@ const altHref = alt && alt !== path ? alt : null;
             l.hreflang === currentHreflang ? (
               <li><a class="is-current" href={Astro.url.pathname} aria-current="page">{zh ? l.label : l.labelEn}</a></li>
             ) : (
-              <li><a href={l.prefix} hreflang={l.hreflang} lang={l.hreflang}>{zh ? l.label : l.labelEn}</a></li>
+              <li>
+                <a
+                  href={l.prefix}
+                  data-switch-lang={l.hreflang}
+                  data-prefix={l.prefix}
+                  data-home={l.prefix}
+                  hreflang={l.hreflang}
+                  lang={l.hreflang}
+                >{zh ? l.label : l.labelEn}</a>
+              </li>
             )
           ))}
         </ul>
@@ -278,4 +287,25 @@ const altHref = alt && alt !== path ? alt : null;
         });
     });
   })();
+
+  // Language switch keeps you on the same page when that page exists in the
+  // target language, and falls back to that language's home when it does not.
+  document.querySelectorAll('[data-switch-lang]').forEach((a) => {
+    a.addEventListener('click', async (event) => {
+      const el = a;
+      const prefix = el.dataset.prefix || '/';
+      const here = location.pathname;
+      let rest = here.replace(/^\/(zh|zh-Hant)(?=\/)/, '');
+      if (!rest.startsWith('/')) rest = '/' + rest;
+      const candidate = prefix === '/' ? rest : prefix.replace(/\/$/, '') + rest;
+      if (candidate === here) return;
+      event.preventDefault();
+      try {
+        const res = await fetch(candidate, { method: 'HEAD' });
+        location.href = res.ok ? candidate : (el.dataset.home || prefix);
+      } catch {
+        location.href = el.dataset.home || prefix;
+      }
+    });
+  });
 </script>

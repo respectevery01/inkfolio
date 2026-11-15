@@ -1,5 +1,7 @@
 // Language registry. Adding a language means adding one entry here plus a
 // content directory; no component markup changes.
+import { site } from './config';
+
 export interface LangDef {
   /** Short code used in URLs after the first one ('' means root). */
   key: string;
@@ -24,5 +26,16 @@ export const LANGS: LangDef[] = [
   { key: 'fr', prefix: '/fr/', hreflang: 'fr', label: 'Français', labelEn: 'French', contentSuffix: '-fr', available: false },
 ];
 
-export const availableLangs = () => LANGS.filter((l) => l.available);
+const cfg = ((site as any).i18n ?? {}) as { enabled?: boolean; languages?: string[] };
+const enabledList = Array.isArray(cfg.languages) && cfg.languages.length ? cfg.languages : null;
+
+/** Languages that are both implemented and switched on in site.config.yaml. */
+export const availableLangs = () =>
+  LANGS.filter((l) => l.available && (enabledList ? enabledList.includes(l.key) : true));
+
+/** Whether the site publishes more than one language at all. */
+export const multilang = () => cfg.enabled !== false && availableLangs().length > 1;
+
+/** Language a reader with no preference lands on. */
+export const defaultLang = (): string => (cfg as any).defaultLanguage ?? 'en';
 export const langByKey = (key: string) => LANGS.find((l) => l.key === key);

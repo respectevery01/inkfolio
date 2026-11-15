@@ -268,3 +268,15 @@ weather:
   latitude: 31.2304
   longitude: 121.4737
   timezone: Asia/Shanghai
+
+# -----------------------------------------------------------------------------
+# Languages. Turn the whole thing off for a single-language site: routes for the
+# other languages are not built, the switcher disappears and hreflang is left
+# out entirely. `languages` decides what is published; `defaultLanguage` is what
+# a reader with no preference (and every crawler) lands on.
+# -----------------------------------------------------------------------------
+i18n:
+  enabled: true
+  defaultLanguage: en # en | zh | zh-hant
+  languages: [en, zh, zh-hant]
+  detectBrowserLanguage: false # true = first visit follows Accept-Language
