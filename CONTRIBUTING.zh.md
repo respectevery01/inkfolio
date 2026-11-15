@@ -12,7 +12,7 @@
 - **翻译**：中文条目与英文并列存在，缺译、过期译文都欢迎补。
 - **发 PR**：一个 PR 只做一件事。
 
-安全问题不要开公开 issue，请走 [jask.dev](https://jask.dev) 上的邮箱，或用 GitHub 的私密漏洞报告。
+安全问题有单独的流程，见 [SECURITY.zh.md](SECURITY.zh.md)。
 
 ## 动手之前
 

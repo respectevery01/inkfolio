@@ -12,7 +12,7 @@ Thanks for taking the time to help. Inkfolio is a small theme with a narrow prom
 - **Translate.** Chinese entries live beside English ones; missing or stale translations are always accepted.
 - **Send a pull request.** Keep it focused: one concern per PR.
 
-Security issues: do not open a public issue. Email the address on [jask.dev](https://jask.dev) or use GitHub’s private vulnerability reporting.
+Security issues have their own policy: see [SECURITY.md](SECURITY.md).
 
 ## Before you start
 
