@@ -2303,3 +2303,13 @@ main.page > * {
   text-decoration-thickness: 1.5px;
   text-underline-offset: 4px;
 }
+
+/* Post covers: full column width, natural ratio, breathing room before the body */
+.post-cover { display: block; width: 100%; max-width: 100%; height: auto;
+  border-radius: 12px; background: var(--chip); margin: 26px 0 30px; }
+.pf-cover { display: block; width: 100%; max-width: 100%; height: auto; max-height: 260px;
+  object-fit: contain; background: var(--chip); border-radius: 10px; margin: 0 0 16px; }
+@media (max-width: 640px) {
+  .post-cover { margin: 20px 0 22px; border-radius: 10px; }
+  .pf-cover { max-height: 200px; }
+}
