@@ -2,6 +2,8 @@
 title: 改外观，但别把它改坏
 description: 强调色、暗色模式、字体和间距，各自在哪个文件里。
 date: 2026-11-14
+cover: /og/posts/zh/customize-the-look.png
+coverAlt: 改外观，但别把它改坏
 tags: [设计]
 lang: zh
 ---

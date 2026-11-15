@@ -2,6 +2,8 @@
 title: 写一篇稿子，需要的话写两种语言
 description: 文章文件、frontmatter 字段、草稿，以及双语怎么配对。
 date: 2026-11-13
+cover: /og/posts/zh/write-a-post.png
+coverAlt: 写一篇稿子，需要的话写两种语言
 tags: [写作]
 lang: zh
 ---

@@ -2,6 +2,8 @@
 title: Add analytics — Umami, GA4 or Clarity — from the config file
 description: Three supported providers, all off by default, each enabled with two values. No tag manager, no cookie banner included.
 date: 2026-11-15
+cover: /og/posts/en/analytics-and-seo.png
+coverAlt: Add analytics — Umami, GA4 or Clarity — from the config file
 tags: [analytics, configuration]
 ---
 

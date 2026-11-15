@@ -2,6 +2,8 @@
 title: 加统计——Umami、GA4、Clarity——都在配置文件里
 description: 支持三家，默认全关，每家两个值就能开。不带标签管理器，也不带 cookie 弹窗。
 date: 2026-11-15
+cover: /og/posts/zh/analytics-and-seo.png
+coverAlt: 加统计——Umami、GA4、Clarity——都在配置文件里
 tags: [统计, 配置]
 lang: zh
 ---

@@ -41,3 +41,24 @@ Files go in `public/` and are referenced from the site root:
 ```
 
 The prose styles add a border and rounded corners. There is no image pipeline; compress before committing.
+
+## Covers
+
+Any post can carry a cover image; nothing breaks when it does not.
+
+```yaml
+cover: /og/posts/en/my-post.png
+coverAlt: The dashboard after the rewrite
+```
+
+Put the file in `public/` and reference it by path. Chinese posts live in `src/content/posts-zh/` and their images belong under `public/og/posts/zh/` — keeping each language's pictures in its own folder stops a translated page from showing the other language's artwork.
+
+Display is configured in `site.config.yaml`:
+
+```yaml
+covers:
+  list: true      # thumbnails on the archive
+  article: true   # large image at the top of the post
+```
+
+Covers keep their natural aspect ratio and are capped to the reading column, so a tall or square image is never cropped. `coverAlt` should describe the picture; an empty alt on a decorative card is acceptable, but a screenshot is not decorative.

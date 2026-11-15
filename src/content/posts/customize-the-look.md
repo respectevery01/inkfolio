@@ -2,6 +2,8 @@
 title: Change the look without breaking it
 description: Accent colour, dark mode, typography and spacing — where each one lives.
 date: 2026-11-14
+cover: /og/posts/en/customize-the-look.png
+coverAlt: Change the look without breaking it
 tags: [design]
 ---
 

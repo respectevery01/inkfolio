@@ -2,6 +2,8 @@
 title: Start here — run the theme in three commands
 description: Install, preview locally, and put Inkfolio online. No build config to touch.
 date: 2026-11-10
+cover: /og/posts/en/getting-started.png
+coverAlt: Start here — run the theme in three commands
 tags: [setup, deploy]
 ---
 

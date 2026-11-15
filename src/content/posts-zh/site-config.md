@@ -2,6 +2,8 @@
 title: site.config.yaml 里每个设置的作用
 description: 站名、导航、配色、顶部横幅，全在这一个 YAML 文件里。
 date: 2026-11-11
+cover: /og/posts/zh/site-config.png
+coverAlt: site.config.yaml 里每个设置的作用
 tags: [配置]
 lang: zh
 ---

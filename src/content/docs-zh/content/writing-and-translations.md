@@ -41,3 +41,24 @@ src/content/posts-zh/hello.md   ← 同名，已配对
 ```
 
 正文样式会自动加边框和圆角。没有图片管线，提交前自己压。
+
+## 封面图
+
+任何文章都可以带封面；不写也不会破坏布局。
+
+```yaml
+cover: /og/posts/zh/my-post.png
+coverAlt: 重写之后的看板
+```
+
+图片放 `public/` 下，用路径引用。中文文章在 `src/content/posts-zh/`，配图就该放在 `public/og/posts/zh/`——每种语言的图各放各的目录，翻译页才不会显示另一种语言的画面。
+
+显示位置在 `site.config.yaml` 里配：
+
+```yaml
+covers:
+  list: true      # 列表页缩略图
+  article: true   # 文章页顶部大图
+```
+
+封面保持原图比例，宽度以阅读栏为上限，细长或方图都不会被裁。`coverAlt` 要描述图片内容；纯装饰的卡片可以留空，但截图不算装饰。

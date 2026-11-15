@@ -2,6 +2,8 @@
 title: Turn the MCP page on without touching code
 description: One config block adds an MCP landing page with your endpoint, tools and sources — off by default, noindex while it is off.
 date: 2026-11-16
+cover: /og/posts/en/mcp-page.png
+coverAlt: Turn the MCP page on without touching code
 tags: [mcp, configuration]
 ---
 

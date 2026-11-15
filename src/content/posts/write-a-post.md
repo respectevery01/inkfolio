@@ -2,6 +2,8 @@
 title: Write a post, in two languages if you want
 description: Post files, frontmatter fields, drafts, and how the bilingual pairing works.
 date: 2026-11-13
+cover: /og/posts/en/write-a-post.png
+coverAlt: Write a post, in two languages if you want
 tags: [writing]
 ---
 

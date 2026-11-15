@@ -2,6 +2,8 @@
 title: 不改代码，把 MCP 页面打开
 description: 一个配置块就多出一个 MCP 落地页：端点、工具、内容源。默认关闭，关闭时带 noindex。
 date: 2026-11-16
+cover: /og/posts/zh/mcp-page.png
+coverAlt: 不改代码，把 MCP 页面打开
 tags: [mcp, 配置]
 lang: zh
 ---

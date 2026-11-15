@@ -2,6 +2,8 @@
 title: 一行关掉顶部横幅
 description: 顶部那条 ZensInk 横幅可以关掉，也可以改文案，全程不碰代码。
 date: 2026-11-12
+cover: /og/posts/zh/turn-off-the-banner.png
+coverAlt: 一行关掉顶部横幅
 tags: [配置, 横幅]
 lang: zh
 ---

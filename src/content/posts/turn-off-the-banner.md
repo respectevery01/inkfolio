@@ -2,6 +2,8 @@
 title: Turn the banner off in one line
 description: The ZensInk banner at the top of this theme is optional, dismissible, and removable without touching code.
 date: 2026-11-12
+cover: /og/posts/en/turn-off-the-banner.png
+coverAlt: Turn the banner off in one line
 tags: [configuration, banner]
 ---
 
