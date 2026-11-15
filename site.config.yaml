@@ -252,11 +252,15 @@ footer:
 # endpoint the widget calls Open-Meteo, which needs no API key.
 # -----------------------------------------------------------------------------
 weather:
-  enabled: true
+  enabled: true # the on/off switch for the whole widget
+  mode: visitor   # visitor = the reader's own location · fixed = the address below
+  units: celsius # celsius | fahrenheit
+  geoEndpoint: '' # only used in visitor mode; '' uses ipwho.is
+  fallbackLatitude: 31.2304 # visitor mode only, when the lookup fails
+  fallbackLongitude: 121.4737
+  # fixed mode only — flip mode to `fixed` and edit these
   label: Shanghai
   labelZh: 上海
   latitude: 31.2304
   longitude: 121.4737
   timezone: Asia/Shanghai
-  units: celsius # celsius | fahrenheit
-  endpoint: ''
