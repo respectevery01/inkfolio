@@ -1,44 +1,9 @@
-# Blogroll. `avatar` is optional — omit it and the first letter is used.
-# The demo lists the author's own sites; replace with whoever you actually read.
-- name: ZensInk
-  url: https://zens.ink
-  author: Jask
-  avatar: /friends/zensink.svg
-  desc:
-    en: SEO workflow toolkit for indie builders. 20 free CLI tools, GEO score, MCP server.
-    zh: 面向独立开发者的 SEO 工作流工具箱。20 个免费 CLI 工具、GEO 评分、MCP server。
-- name: Onchain Diary
-  url: https://theonchaindiary.com
-  author: Jask
-  avatar: /friends/onchaindiary.svg
-  desc:
-    en: Web3 security research — investigations with primary sources, a bilingual glossary, an MCP server.
-    zh: Web3 安全教育——一手源调查、双语词条，还有一个 AI 引擎会来查的 MCP server。
-- name: LiteInk
-  url: https://liteink.co
-  author: Jask
-  avatar: /friends/liteink.svg
-  desc:
-    en: Astro templates for non-technical businesses, plus an open-source CMS.
-    zh: 给非技术商家的 Astro 模板，外加一套开源 CMS。
-- name: Revolutio
-  url: https://revolutio.si
-  author: Jask
-  avatar: /friends/revolutio.svg
-  desc:
-    en: AI disruption intelligence — monthly employment data across 12 industries.
-    zh: AI 颠覆情报——12 个行业的月度就业数据。
-- name: Valdos
-  url: https://valdos.xyz
-  author: Jask
-  avatar: /friends/valdos.svg
-  desc:
-    en: An original sci-fi novel, complete and free, with a codex and full worldbuilding.
-    zh: 原创科幻小说，完结免费，配档案与完整世界观。
+# Blogroll. One entry per site. `avatar` is optional — omit it and the first
+# letter of the name is used instead.
 - name: jask.dev
   url: https://jask.dev
   author: Jask
-  avatar: /friends/jask.svg
+  avatar: /avatar.jpg
   desc:
-    en: The site this theme came from — weekly dispatches, notes and build logs.
-    zh: 这个主题的出处：周更、随手记和构建日志。
+    en: Weekly dispatches, notes and build logs — the site this theme came from.
+    zh: 周更、随手记和构建日志——这个主题就是从这里长出来的。
