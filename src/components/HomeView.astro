@@ -45,6 +45,7 @@ const liveProjects = projects.filter((p: any) => p.status !== 'archived').slice(
   <section class="home-hero">
     <div>
       <h1>{greeting}</h1>
+      <p class="home-sub">{lang === 'zh' ? site.taglineZh : site.tagline}</p>
       <div class="intro prose">
         <p>{lang === 'zh' ? site.descriptionZh : site.description}</p>
       </div>
