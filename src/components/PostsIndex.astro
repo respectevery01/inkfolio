@@ -1,6 +1,7 @@
 ---
 import { pickTrad } from '../lib/trad';
 import Base from '../layouts/Base.astro';
+import { covers } from '../lib/config';
 import Icon from './Icon.astro';
 import { t } from '../i18n/ui';
 import type { Lang } from '../lib/config';
@@ -51,7 +52,7 @@ for (let n = 1; n <= totalPages; n++) {
     {entries.map((entry: any) => (
       <li class="pf-row">
         <article class={`pf-item${entry.cover ? '' : ' noimg'}`}>
-          {entry.cover && <img class="pf-cover" src={entry.cover} alt={entry.coverAlt ?? ''} loading="lazy" decoding="async" />}
+          {covers.list && entry.cover && <img class="pf-cover" src={entry.cover} alt={entry.coverAlt ?? ''} loading="lazy" decoding="async" />}
           <div class="pf-body">
             <h3 class="pf-rt">
               <a href={`${base}${entry.id}/`}>{entry.title}</a>

@@ -280,3 +280,11 @@ i18n:
   defaultLanguage: en # en | zh | zh-hant
   languages: [en, zh, zh-hant]
   detectBrowserLanguage: false # true = first visit follows Accept-Language
+
+# -----------------------------------------------------------------------------
+# Cover images on posts. `list` shows them on the archive, `article` shows them
+# at the top of the post. Turn one off without touching any template.
+# -----------------------------------------------------------------------------
+covers:
+  list: true
+  article: true

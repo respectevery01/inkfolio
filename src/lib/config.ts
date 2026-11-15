@@ -261,3 +261,8 @@ export function siteText(field: 'name' | 'tagline' | 'description', lang: Lang):
   if (zhRaw && lang !== 'en') return String(zhRaw);
   return String(raw ?? '');
 }
+
+export const covers = {
+  list: (parsed as any).covers?.list !== false,
+  article: (parsed as any).covers?.article !== false,
+};

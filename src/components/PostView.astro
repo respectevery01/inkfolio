@@ -2,6 +2,7 @@
 import { getCollection, render, type CollectionEntry } from 'astro:content';
 import { existsSync } from 'node:fs';
 import Base from '../layouts/Base.astro';
+import { covers } from '../lib/config';
 import { langPath, site, type Lang } from '../lib/config';
 import { t } from '../i18n/ui';
 
@@ -50,7 +51,7 @@ const ogImage = existsSync(`public${ogPath}`) ? ogPath : undefined;
       </div>
       <h1>{entry.data.title}</h1>
       {entry.data.description && <p class="post-lede">{entry.data.description}</p>}
-      {entry.data.cover && (
+      {covers.article && entry.data.cover && (
         <img class="post-cover" src={entry.data.cover} alt={entry.data.coverAlt ?? ''} loading="eager" decoding="async" />
       )}
       <div class="byline">
