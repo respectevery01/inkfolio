@@ -89,6 +89,8 @@ const requireConsent = consent.enabled && (gaOn || clarityOn);
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{pageTitle}</title>
     <meta name="description" content={pageDescription} />
+    {i18nDisabledForLang && <meta name="robots" content="noindex, follow" />}
+    {i18nDisabledForLang && <meta http-equiv="refresh" content="0;url=/" />}
     <meta name="robots" content={noindex ? 'noindex,follow' : seo.robots} />
     <link rel="canonical" href={canonical} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -247,6 +249,23 @@ const requireConsent = consent.enabled && (gaOn || clarityOn);
       });
     });
   });
+</script>
+<script is:inline define:vars={{ detect: i18nCfg.detectBrowserLanguage === true, dflt: defaultLang }}>
+  if (detect) {
+    try {
+      if (!localStorage.getItem('inkfolio:lang-choice') && (dflt === 'en' ? location.pathname === '/' : false)) {
+        const p = (navigator.languages || [navigator.language]).map((x) => String(x).toLowerCase());
+        const wantsHant = p.some((x) => /zh-(hant|tw|hk|mo)/.test(x));
+        const wantsHans = p.some((x) => /^zh(-|$)/.test(x)) && !wantsHant;
+        const target = wantsHant ? '/zh-Hant/' : wantsHans ? '/zh/' : null;
+        if (target) location.replace(target);
+      }
+    } catch {}
+  }
+  document.addEventListener('click', (e) => {
+    const a = e.target && e.target.closest ? e.target.closest('[data-switch-lang]') : null;
+    if (a) { try { localStorage.setItem('inkfolio:lang-choice', a.getAttribute('data-switch-lang')); } catch {} }
+  }, true);
 </script>
 </body>
 </html>
