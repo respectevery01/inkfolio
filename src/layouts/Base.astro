@@ -1,5 +1,5 @@
 ---
-import { siteText } from '../lib/config';
+import { siteText, icons } from '../lib/config';
 import Banner from '../components/Banner.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
@@ -221,6 +221,9 @@ const requireConsent = consent.enabled && (gaOn || clarityOn);
         });
       })();
     </script>}
+  {icons.mode === 'iconfont' && icons.iconfont?.jsUrl && (
+      <script is:inline src={icons.iconfont.jsUrl}></script>
+    )}
   </head>
   <body>
     <Banner lang={lang} />

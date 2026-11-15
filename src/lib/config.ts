@@ -266,3 +266,8 @@ export const covers = {
   list: (parsed as any).covers?.list !== false,
   article: (parsed as any).covers?.article !== false,
 };
+
+export const icons = ((parsed as any).icons ?? { mode: 'fontawesome', iconfont: {} }) as {
+  mode: 'fontawesome' | 'iconfont';
+  iconfont?: { jsUrl?: string; prefix?: string };
+};

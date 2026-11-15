@@ -288,3 +288,15 @@ i18n:
 covers:
   list: true
   article: true
+
+# -----------------------------------------------------------------------------
+# Icons. Default is the bundled Font Awesome. To use an Alibaba Iconfont project
+# instead, set mode: iconfont and paste the symbol JS from your project page
+# (at.alicdn.com/t/c/font_xxx.js). The script is loaded in the head, so icons
+# marked up as <svg class="icon"><use href="#icon-name"/></svg> resolve.
+# -----------------------------------------------------------------------------
+icons:
+  mode: fontawesome # fontawesome | iconfont
+  iconfont:
+    jsUrl: '' # e.g. //at.alicdn.com/t/c/font_1234567_abcdef.js
+    prefix: icon # symbol prefix in that project
