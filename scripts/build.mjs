@@ -21,3 +21,10 @@ try {
 } catch (err) {
   console.warn('sitemap mirror skipped:', err.message);
 }
+
+try {
+  const { execFileSync } = await import('node:child_process');
+  execFileSync('node', ['scripts/seo-check.mjs', 'dist'], { stdio: 'inherit' });
+} catch {
+  console.warn('seo-check reported problems (see above) — build kept');
+}

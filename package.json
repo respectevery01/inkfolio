@@ -16,7 +16,8 @@
     "format:check": "node scripts/bin.mjs prettier --check .",
     "lint": "node scripts/bin.mjs eslint .",
     "og": "node scripts/build-og.mjs",
-    "log": "node scripts/fetch-log.mjs"
+    "log": "node scripts/fetch-log.mjs",
+    "seo": "node scripts/seo-check.mjs dist"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.12",
