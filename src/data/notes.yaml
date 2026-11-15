@@ -1,0 +1,13 @@
+# Short notes — the “moments” stream. One line each, newest first.
+- date: 2026-11-14
+  text: Deleted a feature today. Three sessions in ninety days, all mine.
+  textZh: 今天删了一个功能。九十天里三次会话，全是我自己。
+- date: 2026-11-12
+  text: The banner on this theme can be turned off with one line of YAML. That was the whole design brief.
+  textZh: 这个主题顶部的横幅一行 YAML 就能关掉。整个设计brief就这一条。
+- date: 2026-11-09
+  text: Rewrote three page titles to put the search phrase first. Two click-through rates improved, no rankings moved.
+  textZh: 把三个页面标题改写成搜索词前置。两个点击率变好，排名一个没动。
+- date: 2026-11-04
+  text: Cost review done. Domains, one VPS, object storage. Everything else sits inside free tiers.
+  textZh: 成本复盘做完了。域名、一台 VPS、对象存储，其余都在免费额度里。
