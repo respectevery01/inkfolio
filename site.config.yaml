@@ -48,7 +48,24 @@ nav:
 social:
   - label: GitHub
     href: https://github.com/yourname
+
+# Extra pages that are not in the top bar. They are linked from the footer,
+# which keeps the navigation short without orphaning anything.
+footerLinks:
+  - label: Tool shelf
+    labelZh: 工具箱
+    href: /nav/
+  - label: Friends
+    labelZh: 友链
+    href: /friends/
+  - label: Contact
+    labelZh: 联系
+    href: /contact/
+  - label: Newsletter
+    labelZh: 订阅
+    href: /newsletter/
   - label: RSS
+    labelZh: RSS
     href: /rss.xml
 
 # -----------------------------------------------------------------------------

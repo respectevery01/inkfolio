@@ -47,6 +47,12 @@ export const social = ((parsed.social ?? []) as { label: string; href: string }[
   href: item.href,
 }));
 
+export const footerLinks = ((parsed.footerLinks ?? []) as NavItem[]).map((item) => ({
+  label: item.label,
+  labelZh: item.labelZh ?? null,
+  href: item.href,
+}));
+
 export const banner: BannerConfig = {
   enabled: parsed.promoBanner?.enabled !== false,
   dismissible: parsed.promoBanner?.dismissible !== false,
