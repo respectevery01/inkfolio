@@ -12,3 +12,12 @@ run(['node_modules/astro/bin/astro.mjs', 'check']);
 run(['node_modules/astro/bin/astro.mjs', 'build']);
 run(['node_modules/pagefind/lib/runner/bin.cjs', '--site', 'dist']);
 console.log('search index written to dist/pagefind');
+
+// Mirror the sitemap index at /sitemap.xml — crawlers and SEO tools ask for it by name.
+try {
+  const { copyFileSync } = await import('node:fs');
+  copyFileSync('dist/sitemap-index.xml', 'dist/sitemap.xml');
+  console.log('sitemap.xml mirrored');
+} catch (err) {
+  console.warn('sitemap mirror skipped:', err.message);
+}
