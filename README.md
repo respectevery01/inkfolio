@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/readme/hero.svg" width="1200" height="420" alt="Inkfolio: an editorial Astro theme. Posts, docs, weekly, research, log, nav and search on warm paper with one orange accent." />
+  <img src="assets/readme/hero-devices.png" width="1200" alt="Inkfolio homepage shown across desktop, tablet and mobile screens." />
 </p>
 
 <h1 align="center">Inkfolio</h1>

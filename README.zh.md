@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/readme/hero.svg" width="1200" height="420" alt="Inkfolio：一套编辑风的 Astro 主题。文章、文档、周刊、研究、日志、工具页与搜索，暖纸底加一点橙。" />
+  <img src="assets/readme/hero-devices.png" width="1200" alt="Inkfolio 首页在桌面、平板和手机上的三端实机截图。" />
 </p>
 
 <h1 align="center">Inkfolio</h1>
