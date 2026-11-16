@@ -7,6 +7,7 @@
 // never breaks a deploy.
 import { readFileSync, mkdirSync, existsSync, readdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
+import { parse as parseYaml } from 'yaml';
 import { chromium } from 'playwright';
 import { globSync } from 'node:fs';
 
@@ -16,8 +17,17 @@ const localChrome =
   globSync(`${process.env.HOME}/.cache/ms-playwright/chromium-*/chrome-linux*/chrome`)[0] ||
   undefined;
 
-const SITE = 'Inkfolio';
-const ACCENT = '#ff6b01';
+// Cards carry the site's own name and host, never the demo's. SITE_URL wins,
+// then site.config.yaml, then the example placeholder.
+const cfg = existsSync('site.config.yaml') ? parseYaml(readFileSync('site.config.yaml', 'utf8')) : {};
+const configured = typeof cfg?.site?.name === 'string' ? cfg.site.name : 'Inkfolio';
+const SITE = process.env.SITE_NAME || configured;
+const siteUrl = process.env.SITE_URL || cfg?.site?.url || 'https://example.com';
+let HOST = 'example.com';
+try {
+  HOST = new URL(siteUrl).host;
+} catch {}
+const ACCENT = cfg?.theme?.accent || '#ff6b01';
 const FONT = '"Noto Sans CJK SC", "Noto Sans SC", "Source Han Sans SC", system-ui, sans-serif';
 
 function frontmatter(file) {
@@ -65,7 +75,7 @@ const html = (title, date, lang) => `<!doctype html><html><head><meta charset="u
     <div class="top"><span class="dot"></span>${SITE}${lang === 'zh' ? ' · 中文' : ''}</div>
     <h1>${title.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')}</h1>
   </div>
-  <div class="bottom"><span>${date}</span><span>inkfolio.jask.dev</span></div>
+  <div class="bottom"><span>${date}</span><span>${HOST}</span></div>
   <div class="ring"></div>
 </body></html>`;
 
