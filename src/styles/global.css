@@ -2037,12 +2037,16 @@ main.page > * {
   font-size: 14.5px;
 }
 .promo-inner {
+  position: relative;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 12px;
   max-width: var(--nav-w);
   margin: 0 auto;
-  padding: 9px 24px;
+  /* symmetrical padding keeps the text optically centred, the close button floats over the right edge */
+  padding: 9px 56px;
+  text-align: center;
 }
 .promo-text {
   margin: 0;
@@ -2058,7 +2062,10 @@ main.page > * {
   color: var(--accent);
 }
 .promo-close {
-  margin-left: auto;
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
   display: grid;
   place-items: center;
   width: 26px;
@@ -2076,13 +2083,13 @@ main.page > * {
 }
 @media (max-width: 640px) {
   .promo-inner {
-    padding: 9px 16px;
+    padding: 9px 40px;
     gap: 8px;
     font-size: 13.5px;
     flex-wrap: wrap;
   }
   .promo-close {
-    margin-left: 0;
+    right: 10px;
   }
 }
 
