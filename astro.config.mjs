@@ -3,7 +3,8 @@ import sitemap from '@astrojs/sitemap';
 import { readFileSync } from 'node:fs';
 import { parse } from 'yaml';
 import remarkCallouts from './src/lib/remark-callouts.mjs';
-import transformerFilename from './src/lib/shiki-filename.mjs';
+import transformerCodeMeta from './src/lib/shiki-code-meta.mjs';
+import rehypeCodeShell from './src/lib/rehype-code-shell.mjs';
 import { transformerNotationDiff, transformerNotationHighlight } from '@shikijs/transformers';
 
 const config = parse(readFileSync(new URL('./site.config.yaml', import.meta.url), 'utf8'));
@@ -15,11 +16,15 @@ export default defineConfig({
   trailingSlash: 'always',
   markdown: {
     remarkPlugins: [remarkCallouts],
+    rehypePlugins: [rehypeCodeShell],
     shikiConfig: {
+      // Two themes, applied through CSS variables so the shell can switch palettes.
+      themes: { light: 'github-light', dark: 'github-dark' },
+      defaultColor: false,
       // ```yaml title="site.config.yaml"  → labelled block
       // // [!code highlight]              → highlighted line
       // // [!code ++] / // [!code --]     → diff lines
-      transformers: [transformerFilename(), transformerNotationHighlight(), transformerNotationDiff()],
+      transformers: [transformerCodeMeta(), transformerNotationHighlight(), transformerNotationDiff()],
     },
   },
   integrations: [sitemap()],

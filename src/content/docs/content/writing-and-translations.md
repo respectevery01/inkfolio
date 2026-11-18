@@ -62,3 +62,46 @@ covers:
 ```
 
 Covers keep their natural aspect ratio and are capped to the reading column, so a tall or square image is never cropped. `coverAlt` should describe the picture; an empty alt on a decorative card is acceptable, but a screenshot is not decorative.
+
+
+## Code blocks
+
+Every fenced block gets a frame: a header with the language (or the file name you
+give it) and a copy button.
+
+```bash title="Install"
+npm install
+```
+
+Give consecutive blocks the same `group` and they become tabs — one card, one place
+to switch between package managers, shells, or before/after versions. These two are
+one card:
+
+```bash title="npm" group="install"
+npm install
+```
+
+```bash title="pnpm" group="install"
+pnpm install
+```
+
+The syntax:
+
+````md
+```bash title="npm" group="install"
+npm install
+```
+```bash title="pnpm" group="install"
+pnpm install
+```
+````
+
+Add `showLineNumbers` when the line count matters (diffs, config files):
+
+```ts showLineNumbers
+const theme = 'inkfolio';
+```
+
+Highlighting and diff markers come from Shiki: `// [!code highlight]` marks a line,
+`// [!code ++]` and `// [!code --]` mark additions and removals.
+

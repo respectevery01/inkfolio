@@ -62,3 +62,44 @@ covers:
 ```
 
 封面保持原图比例，宽度以阅读栏为上限，细长或方图都不会被裁。`coverAlt` 要描述图片内容；纯装饰的卡片可以留空，但截图不算装饰。
+
+
+## 代码块
+
+每个围栏代码块都会套一层框：头部是语言标签（或你给的文件名）和复制按钮。
+
+```bash title="安装"
+npm install
+```
+
+给相邻的几个代码块同一个 `group`，它们会合并成标签页——换包管理器、换 shell、
+前后对比版本都放一张卡里。下面两个就是同一张卡：
+
+```bash title="npm" group="install"
+npm install
+```
+
+```bash title="pnpm" group="install"
+pnpm install
+```
+
+写法：
+
+````md
+```bash title="npm" group="install"
+npm install
+```
+```bash title="pnpm" group="install"
+pnpm install
+```
+````
+
+需要行号时加 `showLineNumbers`（配置文件、diff 这类场景）：
+
+```ts showLineNumbers
+const theme = 'inkfolio';
+```
+
+高亮和 diff 标记由 Shiki 提供：`// [!code highlight]` 标一行，`// [!code ++]` 与
+`// [!code --]` 标新增与删除。
+

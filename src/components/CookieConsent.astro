@@ -12,7 +12,7 @@ const linkLabel = zh ? consent.linkLabelZh : consent.linkLabel;
 
 <div class="consent" id="consent-card" hidden>
   <p class="consent-text">
-    {text}
+    {text}{' '}
     {consent.link && linkLabel && <a href={consent.link}>{linkLabel}</a>}
   </p>
   <div class="consent-actions">

@@ -2417,3 +2417,39 @@ main.page > * {
   text-underline-offset: 4px;
 }
 .link-wavy:hover, main .link-wavy:hover { color: var(--accent); }
+
+/* shiki dual themes: token colours follow the page theme, not a fixed dark slab */
+.cb-body pre, .cb-body pre code { background: transparent !important; }
+.cb-body pre code span { color: var(--shiki-light); }
+html[data-theme='dark'] .cb-body pre code span { color: var(--shiki-dark); }
+
+/* stronger separation from the page: white card, tinted header strip */
+.cb { background: var(--card, var(--bg)); }
+.cb-body { background: var(--card, var(--bg)); }
+.cb-head { background: var(--chip); border-bottom: 1px solid var(--line); }
+
+/* ---------- code shell (v2): name label, tabs, panels ---------- */
+.cb { margin: 1.4em 0; border: 1px solid var(--line); border-radius: var(--radius); background: var(--card, var(--bg)); overflow: hidden; }
+.cb-head { display: flex; align-items: center; gap: 10px; padding: 7px 12px 7px 14px; border-bottom: 1px solid var(--line); background: var(--chip); }
+.cb-name { font-family: var(--mono); font-size: 11.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-right: auto; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cb-copy { appearance: none; border: 1px solid var(--line); background: transparent; color: var(--muted); font: inherit; font-size: 11.5px; padding: 3px 9px; border-radius: 999px; cursor: pointer; transition: color .15s, border-color .15s; }
+.cb-copy:hover { color: var(--ink); border-color: var(--accent); }
+.cb-copy.is-done { color: var(--accent); border-color: var(--accent); }
+.cb-body { background: var(--card, var(--bg)); overflow: visible; }
+.cb-body pre { margin: 0; border: 0; border-radius: 0; padding: 14px 16px; font-size: 13px; line-height: 1.65; overflow-x: auto; overscroll-behavior-x: contain; }
+.cb-tabs { display: flex; gap: 2px; padding: 6px 8px 0; border-bottom: 1px solid var(--line); overflow-x: auto; scrollbar-width: none; }
+.cb-tabs::-webkit-scrollbar { display: none; }
+.cb-tab { appearance: none; border: 0; background: transparent; cursor: pointer; font: inherit; font-family: var(--mono); font-size: 11.5px; letter-spacing: .04em; color: var(--muted); padding: 6px 10px 8px; border-radius: 8px 8px 0 0; border-bottom: 2px solid transparent; white-space: nowrap; }
+.cb-tab:hover { color: var(--ink); }
+.cb-tab.is-active { color: var(--ink); border-bottom-color: var(--accent); }
+.cb-panel { display: none; }
+.cb-panel.is-active { display: block; }
+.cb-panel pre { margin: 0; }
+@media (max-width: 640px) { .cb-body pre { padding: 12px 12px; font-size: 12.5px; } }
+
+/* tabs row also hosts the copy button */
+.cb-tabs { align-items: center; }
+.cb-tabs .cb-copy { margin-left: auto; margin-bottom: 6px; }
+
+/* the shell header already shows the filename; kill the old ::before caption */
+.cb pre[data-filename]::before, .cb-panel pre[data-filename]::before { content: none; display: none; }

@@ -234,29 +234,8 @@ const requireConsent = consent.enabled && (gaOn || clarityOn);
     <Footer lang={lang} />
     <BackToTop lang={lang} />
     {consent.enabled && <CookieConsent lang={lang} />}
-  <script>
-  document.querySelectorAll('.prose pre, .docs-prose pre').forEach(function (pre) {
-    if (pre.parentElement && pre.parentElement.classList.contains('cb-body')) return;
-    var code = pre.querySelector('code');
-    var parent = pre.parentNode; if (!parent) return;
-    var name = pre.getAttribute('data-filename') || pre.getAttribute('data-language') || (code && code.getAttribute('data-language')) || 'code';
-    var wrap = document.createElement('div'); wrap.className = 'cb';
-    var head = document.createElement('div'); head.className = 'cb-head';
-    var title = document.createElement('span'); title.className = 'cb-title'; title.textContent = name;
-    var btn = document.createElement('button'); btn.type = 'button'; btn.className = 'cb-copy'; btn.textContent = 'Copy';
-    head.appendChild(title); head.appendChild(btn);
-    var body = document.createElement('div'); body.className = 'cb-body';
-    parent.insertBefore(wrap, pre);
-    body.appendChild(pre); wrap.appendChild(head); wrap.appendChild(body);
-    btn.addEventListener('click', function () {
-      var text = code ? (code.textContent || '') : (pre.textContent || '');
-      navigator.clipboard.writeText(text).then(function () {
-        btn.textContent = 'Copied'; btn.classList.add('is-done');
-        setTimeout(function () { btn.textContent = 'Copy'; btn.classList.remove('is-done'); }, 1600);
-      });
-    });
-  });
-</script>
+  <!-- Code blocks are wrapped at build time by rehype-code-shell.mjs; the copy and
+       tab behaviour lives in the inline script at the end of <body>. -->
 <script is:inline define:vars={{ detect: i18nCfg.detectBrowserLanguage === true, dflt: defaultLang }}>
   if (detect) {
     try {
@@ -273,6 +252,49 @@ const requireConsent = consent.enabled && (gaOn || clarityOn);
     const a = e.target && e.target.closest ? e.target.closest('[data-switch-lang]') : null;
     if (a) { try { localStorage.setItem('inkfolio:lang-choice', a.getAttribute('data-switch-lang')); } catch {} }
   }, true);
+</script>
+<script is:inline>
+  // Code shell: copy button + tab panels. Delegated once, idempotent on navigation.
+  (function () {
+    function init() {
+      document.querySelectorAll('.cb').forEach(function (fig) {
+        if (fig.dataset.ready) return;
+        fig.dataset.ready = '1';
+
+        var btn = fig.querySelector('.cb-copy');
+        if (btn) {
+          btn.addEventListener('click', function () {
+            var panel = fig.querySelector('.cb-panel.is-active') || fig;
+            var code = panel.querySelector('pre code') || panel.querySelector('pre');
+            var text = code ? code.innerText : '';
+            var done = function () {
+              var label = btn.textContent;
+              btn.textContent = 'Copied';
+              btn.classList.add('is-done');
+              setTimeout(function () { btn.textContent = label; btn.classList.remove('is-done'); }, 1600);
+            };
+            if (navigator.clipboard) navigator.clipboard.writeText(text).then(done, done);
+          });
+        }
+
+        fig.querySelectorAll('.cb-tab').forEach(function (tab) {
+          tab.addEventListener('click', function () {
+            var index = tab.dataset.tab;
+            fig.querySelectorAll('.cb-tab').forEach(function (t) {
+              var on = t === tab;
+              t.classList.toggle('is-active', on);
+              t.setAttribute('aria-selected', on ? 'true' : 'false');
+            });
+            fig.querySelectorAll('.cb-panel').forEach(function (panel) {
+              panel.classList.toggle('is-active', panel.dataset.panel === index);
+            });
+          });
+        });
+      });
+    }
+    init();
+    document.addEventListener('astro:page-load', init);
+  })();
 </script>
 </body>
 </html>
