@@ -103,3 +103,31 @@ const theme = 'inkfolio';
 高亮和 diff 标记由 Shiki 提供：`// [!code highlight]` 标一行，`// [!code ++]` 与
 `// [!code --]` 标新增与删除。
 
+
+## 数学公式
+
+行内公式用 `$…$`，独立成行用 `$$`，都由 KaTeX 在构建时渲染——页面不带数学相关的 JS。
+
+行内：$E = mc^2$ 直接写在句子里。
+
+$$
+\int_0^1 x^2\,dx = \frac{1}{3}
+$$
+
+## 图表
+
+标了 `mermaid` 的围栏代码块会在页面加载后渲染成 SVG 图。读者切换明暗主题时会重新渲染，
+不会出现「深色图落在浅色页面上」的情况。
+
+```mermaid
+flowchart LR
+  A[写内容] --> B[构建]
+  B --> C[部署]
+```
+
+## 图片与灯箱
+
+文章里的图片点击即全屏查看：左右方向键在本文图片之间切换，Esc 关闭。
+不想进灯箱的图片可以加 HTML 属性 `data-no-lightbox`。
+
+![Inkfolio 封面](/og/posts/en/getting-started.png)

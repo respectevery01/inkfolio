@@ -2453,3 +2453,34 @@ html[data-theme='dark'] .cb-body pre code span { color: var(--shiki-dark); }
 
 /* the shell header already shows the filename; kill the old ::before caption */
 .cb pre[data-filename]::before, .cb-panel pre[data-filename]::before { content: none; display: none; }
+
+/* ---------- lightbox ---------- */
+.lb {
+  position: fixed; inset: 0; z-index: 90;
+  display: grid; place-items: center;
+  background: rgba(8, 8, 8, 0.9);
+  padding: 4vh 3vw;
+}
+.lb[hidden] { display: none; }
+.lb img { max-width: 100%; max-height: 90vh; border-radius: 10px; box-shadow: 0 24px 70px rgba(0, 0, 0, 0.55); }
+.lb button {
+  position: absolute; appearance: none; border: 1px solid rgba(255, 255, 255, 0.28);
+  background: rgba(20, 20, 20, 0.6); color: #fff; cursor: pointer;
+  width: 44px; height: 44px; border-radius: 999px; font-size: 22px; line-height: 1;
+}
+.lb button:hover { background: rgba(255, 255, 255, 0.16); }
+.lb-close { top: 18px; right: 18px; }
+.lb-prev { left: 16px; top: 50%; transform: translateY(-50%); }
+.lb-next { right: 16px; top: 50%; transform: translateY(-50%); }
+.prose img { cursor: zoom-in; }
+
+/* ---------- mermaid ---------- */
+.mmd {
+  margin: 1.4em 0; padding: 18px; overflow-x: auto;
+  border: 1px solid var(--line); border-radius: var(--radius);
+  background: var(--card, var(--bg)); text-align: center;
+}
+.mmd svg { max-width: 100%; height: auto; }
+
+/* ---------- katex ---------- */
+.katex-display { margin: 1.2em 0; overflow-x: auto; overflow-y: hidden; }

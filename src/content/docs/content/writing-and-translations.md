@@ -105,3 +105,34 @@ const theme = 'inkfolio';
 Highlighting and diff markers come from Shiki: `// [!code highlight]` marks a line,
 `// [!code ++]` and `// [!code --]` mark additions and removals.
 
+
+## Math
+
+Inline math uses `$…$`, display math uses `$$` on its own lines — both render with
+KaTeX at build time, so the page ships no math JavaScript.
+
+Inline: $E = mc^2$ sits in the line.
+
+$$
+\int_0^1 x^2\,dx = \frac{1}{3}
+$$
+
+## Diagrams
+
+A fenced block tagged `mermaid` becomes an SVG diagram when the page loads. The
+diagram re-renders when the reader flips the theme, so it never ends up dark on a
+light page.
+
+```mermaid
+flowchart LR
+  A[Write] --> B[Build]
+  B --> C[Deploy]
+```
+
+## Images and the lightbox
+
+Every image inside a post opens full size on click: arrows walk the other images in
+the same article, Escape closes. Mark an image `data-no-lightbox` (HTML) if it should
+stay inert.
+
+![Inkfolio covers](/og/posts/en/getting-started.png)

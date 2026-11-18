@@ -3,6 +3,8 @@ import sitemap from '@astrojs/sitemap';
 import { readFileSync } from 'node:fs';
 import { parse } from 'yaml';
 import remarkCallouts from './src/lib/remark-callouts.mjs';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
 import transformerCodeMeta from './src/lib/shiki-code-meta.mjs';
 import rehypeCodeShell from './src/lib/rehype-code-shell.mjs';
 import { transformerNotationDiff, transformerNotationHighlight } from '@shikijs/transformers';
@@ -15,8 +17,8 @@ export default defineConfig({
   site: process.env.SITE_URL || config.site.url,
   trailingSlash: 'always',
   markdown: {
-    remarkPlugins: [remarkCallouts],
-    rehypePlugins: [rehypeCodeShell],
+    remarkPlugins: [remarkCallouts, remarkMath],
+    rehypePlugins: [rehypeCodeShell, rehypeKatex],
     shikiConfig: {
       // Two themes, applied through CSS variables so the shell can switch palettes.
       themes: { light: 'github-light', dark: 'github-dark' },
