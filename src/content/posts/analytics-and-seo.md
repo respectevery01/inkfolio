@@ -5,6 +5,7 @@ date: 2026-11-15
 cover: /og/posts/en/analytics-and-seo.png
 coverAlt: Add analytics — Umami, GA4 or Clarity — from the config file
 tags: [analytics, configuration]
+categories: ['Setup']
 ---
 
 Inkfolio ships with no tracking at all. When you want numbers, open `site.config.yaml` and fill in the provider you use. The scripts are injected only when `enabled: true` **and** the id is present, so an unfinished config never ships a broken request.

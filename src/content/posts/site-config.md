@@ -5,6 +5,7 @@ date: 2026-11-11
 cover: /og/posts/en/site-config.png
 coverAlt: Cover card for this article
 tags: [configuration]
+categories: ['Setup']
 ---
 
 Everything visitors see as _structure_ comes from `site.config.yaml` in the project root. You do not need to open a component to rename the site or add a menu item.

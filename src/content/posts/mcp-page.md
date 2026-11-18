@@ -5,6 +5,7 @@ date: 2026-11-16
 cover: /og/posts/en/mcp-page.png
 coverAlt: Turn the MCP page on without touching code
 tags: [mcp, configuration]
+categories: ['Extend']
 ---
 
 This demo ships with the MCP page on. Set `mcp.enabled: false` and the opposite happens: the page stops being indexable and its nav entry disappears.

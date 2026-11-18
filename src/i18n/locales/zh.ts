@@ -8,6 +8,7 @@ export const zh = {
     updated: '更新于',
     backToPosts: '全部文章',
     related: '相关文章',
+    categories: '分类',
     toc: '本页目录',
     home: '首页',
     about: '关于',

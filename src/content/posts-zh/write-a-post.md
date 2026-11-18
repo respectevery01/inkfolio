@@ -5,6 +5,7 @@ date: 2026-11-13
 cover: /og/posts/zh/write-a-post.png
 coverAlt: 写一篇稿子，需要的话写两种语言
 tags: [写作]
+categories: ['写作']
 lang: zh
 ---
 

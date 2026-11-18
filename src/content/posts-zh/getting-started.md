@@ -6,6 +6,7 @@ cover: /og/posts/zh/getting-started.png
 pinned: 1
 coverAlt: 从这三条命令开始
 tags: [上手, 部署]
+categories: ['配置']
 lang: zh
 ---
 

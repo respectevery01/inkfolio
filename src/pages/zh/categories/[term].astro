@@ -1,0 +1,21 @@
+---
+import { getCollection } from 'astro:content';
+import TaxonomyTerm from '../../../components/TaxonomyTerm.astro';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('postsZh');
+  const counts = new Map<string, number>();
+  for (const p of entries as any[])
+    for (const term of (p.data.categories ?? []))
+      counts.set(term, (counts.get(term) ?? 0) + 1);
+  return [...counts.keys()].map(term => ({ params: { term }, props: { term } }));
+}
+
+const { term } = Astro.props;
+const entries = await getCollection('postsZh');
+const posts = (entries as any[])
+  .filter(p => (p.data.categories ?? []).includes(term))
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
+  .map(p => ({ id: p.id, title: p.data.title, description: p.data.description ?? '', date: p.data.date }));
+---
+<TaxonomyTerm lang="zh" kind="categories" term={term} posts={posts} />

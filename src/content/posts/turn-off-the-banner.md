@@ -5,6 +5,7 @@ date: 2026-11-12
 cover: /og/posts/en/turn-off-the-banner.png
 coverAlt: Turn the banner off in one line
 tags: [configuration, banner]
+categories: ['Setup']
 ---
 
 Inkfolio is free and open source. To keep it maintained, the theme ships with a small banner that mentions [ZensInk](https://zens.ink), the SEO toolkit this site was built alongside. You are not stuck with it.

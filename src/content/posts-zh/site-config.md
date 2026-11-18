@@ -5,6 +5,7 @@ date: 2026-11-11
 cover: /og/posts/zh/site-config.png
 coverAlt: site.config.yaml 里每个设置的作用
 tags: [配置]
+categories: ['配置']
 lang: zh
 ---
 

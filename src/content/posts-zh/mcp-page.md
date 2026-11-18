@@ -5,6 +5,7 @@ date: 2026-11-16
 cover: /og/posts/zh/mcp-page.png
 coverAlt: 不改代码，把 MCP 页面打开
 tags: [mcp, 配置]
+categories: ['扩展']
 lang: zh
 ---
 

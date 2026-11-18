@@ -8,6 +8,7 @@ export const zhHant = {
     updated: '更新于',
     backToPosts: '全部文章',
     related: '相關文章',
+    categories: '分類',
     toc: '本頁目錄',
     home: '首頁',
     about: '關于',

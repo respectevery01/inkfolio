@@ -8,6 +8,7 @@ export const en = {
     updated: 'Updated',
     backToPosts: 'All posts',
     related: 'Related',
+    categories: 'Categories',
     toc: 'On this page',
     home: 'Home',
     about: 'About',

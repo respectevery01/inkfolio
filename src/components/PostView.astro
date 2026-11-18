@@ -70,13 +70,6 @@ const ogImage = existsSync(`public${ogPath}`) ? ogPath : undefined;
           </div>
         </div>
       </div>
-      {entry.data.tags.length > 0 && (
-        <div class="tags">
-          {entry.data.tags.map((tag: any) => (
-            <span class="tag">{tag}</span>
-          ))}
-        </div>
-      )}
     </header>
 
     <div class:list={['post-body', { 'no-toc': !showToc }]}>
@@ -129,6 +122,26 @@ const ogImage = existsSync(`public${ogPath}`) ? ogPath : undefined;
     </div>
 
     <div class="post-end">
+      {((entry.data.categories?.length ?? 0) > 0 || entry.data.tags.length > 0) && (
+        <div class="post-tax">
+          {(entry.data.categories?.length ?? 0) > 0 && (
+            <div class="tags">
+              <span class="tax-label">{t(lang, 'categories')}</span>
+              {entry.data.categories.map((c: string) => (
+                <a class="tag" href={langPath(`/categories/${encodeURIComponent(c)}/`, lang)}>{c}</a>
+              ))}
+            </div>
+          )}
+          {entry.data.tags.length > 0 && (
+            <div class="tags">
+              <span class="tax-label">{t(lang, 'tags')}</span>
+              {entry.data.tags.map((tag: string) => (
+                <a class="tag" href={langPath(`/tags/${encodeURIComponent(tag)}/`, lang)}>#{tag}</a>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
       <a class="backlink" href={langPath('/posts/', lang)}>
         ← {t(lang, 'backToPosts')}
       </a>

@@ -1,0 +1,36 @@
+---
+import Base from '../layouts/Base.astro';
+import { langPath, site, type Lang } from '../lib/config';
+import { t } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+  kind: 'categories' | 'tags';
+  terms: { name: string; count: number }[];
+  alt?: string;
+}
+
+const { lang, kind, terms, alt } = Astro.props;
+const label = t(lang, kind);
+const other = kind === 'categories' ? 'tags' : 'categories';
+const otherLabel = t(lang, other);
+const zh = lang !== 'en';
+---
+<Base title={`${label} — ${site.name}`} description={`${label}: browse posts by ${kind === 'categories' ? (zh ? '方向' : 'category') : (zh ? '主题' : 'topic')}.`} lang={lang} alt={alt}>
+  <section class="art-head">
+    <h1>{label}</h1>
+    <p class="meta">
+      <span class="pf-count">{terms.length}</span>
+      <a href={langPath(`/${other}/`, lang)}>{otherLabel}</a>
+    </p>
+  </section>
+  <ul class="tag-index">
+    {terms.map((term) => (
+      <li>
+        <a href={langPath(`/${kind}/${encodeURIComponent(term.name)}/`, lang)}>
+          {term.name}<span class="n">{term.count}</span>
+        </a>
+      </li>
+    ))}
+  </ul>
+</Base>

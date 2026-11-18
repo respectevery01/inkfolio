@@ -5,6 +5,7 @@ date: 2026-11-13
 cover: /og/posts/en/write-a-post.png
 coverAlt: Write a post, in two languages if you want
 tags: [writing]
+categories: ['Writing']
 ---
 
 Posts are Markdown files in `src/content/posts/`. Create `my-post.md` and it becomes `/posts/my-post/`. The filename is the URL; renaming it later changes the URL, so pick a slug you can live with.

@@ -5,6 +5,7 @@ date: 2026-11-12
 cover: /og/posts/zh/turn-off-the-banner.png
 coverAlt: 一行关掉顶部横幅
 tags: [配置, 横幅]
+categories: ['配置']
 lang: zh
 ---
 

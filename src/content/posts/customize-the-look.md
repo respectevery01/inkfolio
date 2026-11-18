@@ -5,6 +5,7 @@ date: 2026-11-14
 cover: /og/posts/en/customize-the-look.png
 coverAlt: Change the look without breaking it
 tags: [design]
+categories: ['Design']
 ---
 
 Inkfolio is deliberately plain: warm paper background, near-black text, one accent colour, a system font stack, and no web font requests. That is a design decision, not an unfinished part.

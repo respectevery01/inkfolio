@@ -5,6 +5,7 @@ date: 2026-11-14
 cover: /og/posts/zh/customize-the-look.png
 coverAlt: 改外观，但别把它改坏
 tags: [设计]
+categories: ['设计']
 lang: zh
 ---
 

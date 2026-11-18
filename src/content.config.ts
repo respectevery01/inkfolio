@@ -13,6 +13,7 @@ const postSchema = ({ defaultLang }: { defaultLang?: 'en' | 'zh' } = {}) =>
     date: z.coerce.date(),
     updated: z.coerce.date().optional(),
     tags: z.array(z.string()).default([]),
+    categories: z.array(z.string()).default([]),
     draft: z.boolean().default(false),
     /** show the sticky table of contents on wide screens (on by default) */
     /** optional cover image, shown on the list and at the top of the article */

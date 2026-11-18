@@ -44,6 +44,9 @@ nav:
   - label: Posts
     labelZh: 文章
     href: /posts/
+  - label: Categories
+    labelZh: 分类
+    href: /categories/
   - label: Projects
     labelZh: 项目
     href: /projects/

@@ -1,0 +1,14 @@
+---
+import { getCollection } from 'astro:content';
+import TaxonomyIndex from '../../../components/TaxonomyIndex.astro';
+
+const entries = await getCollection('postsZh');
+const counts = new Map<string, number>();
+for (const p of entries as any[])
+  for (const term of (p.data.categories ?? []))
+    counts.set(term, (counts.get(term) ?? 0) + 1);
+const terms = [...counts.entries()]
+  .map(([name, count]) => ({ name, count }))
+  .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name));
+---
+<TaxonomyIndex lang="zh" kind="categories" terms={terms} alt="/categories/" />

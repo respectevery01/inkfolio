@@ -6,6 +6,7 @@ cover: /og/posts/en/getting-started.png
 pinned: 1
 coverAlt: Start here — run the theme in three commands
 tags: [setup, deploy]
+categories: ['Setup']
 ---
 
 Inkfolio is a static Astro theme. You need Node.js 20 or newer and nothing else.
