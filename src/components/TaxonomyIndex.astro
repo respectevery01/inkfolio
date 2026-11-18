@@ -26,7 +26,7 @@ const link = (name: string) => langPath(`/${kind}/${encodeURIComponent(name)}/`,
     <h1>{label}</h1>
     <p class="meta">
       <span class="pf-count">{terms.length}</span>
-      <a href={langPath(`/${other}/`, lang)}>{otherLabel}</a>
+      <a class="link-wavy" href={langPath(`/${other}/`, lang)}>{otherLabel}</a>
     </p>
   </section>
 

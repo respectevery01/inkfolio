@@ -22,3 +22,16 @@ export const tagMeta: Record<string, TermMeta> = {
   configuration: { cover: '/og/posts/en/site-config.png' },
   deploy: { cover: '/og/posts/en/turn-off-the-banner.png' },
 };
+
+// Same category under a different name per language: the language toggle should
+// treat 配置 and Setup as the same place.
+export const categoryAliases: Record<string, string[]> = {
+  Setup: ['配置'],
+  配置: ['Setup'],
+  Writing: ['写作'],
+  写作: ['Writing'],
+  Design: ['设计'],
+  设计: ['Design'],
+  Extend: ['扩展'],
+  扩展: ['Extend'],
+};

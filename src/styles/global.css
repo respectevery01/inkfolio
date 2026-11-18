@@ -2406,3 +2406,14 @@ main.page > * {
   .tag-list a { flex-direction: column !important; align-items: flex-start; }
   .tag-list img { width: 100%; height: 160px; }
 }
+
+/* inline links that keep the wavy underline at rest (taxonomy headers) */
+.link-wavy, main .link-wavy {
+  color: var(--ink);
+  text-decoration-line: underline;
+  text-decoration-style: wavy;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 4px;
+}
+.link-wavy:hover, main .link-wavy:hover { color: var(--accent); }
