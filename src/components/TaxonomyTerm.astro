@@ -21,7 +21,7 @@ const fmt = (d: Date) =>
     year: 'numeric',
   });
 ---
-<Base title={`${term} — ${site.name}`} description={`${label}: ${term}, ${posts.length} ${zh ? '篇' : 'posts'}.`} lang={lang} alt={alt}>
+<Base title={`${term} · ${label}`} description={`${label}: ${term}, ${posts.length} ${zh ? '篇' : 'posts'}.`} lang={lang} alt={alt}>
   <section class="art-head">
     <h1>{term}</h1>
     <p class="meta"><span class="pf-count">{posts.length}</span>{zh ? '篇' : 'posts'} · {label}</p>

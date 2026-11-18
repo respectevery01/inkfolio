@@ -21,7 +21,7 @@ const zh = lang !== 'en';
 const maxCount = Math.max(1, ...cloud.map((c) => c.count));
 const link = (name: string) => langPath(`/${kind}/${encodeURIComponent(name)}/`, lang);
 ---
-<Base title={`${label} — ${site.name}`} description={`${label}: browse posts by ${kind === 'categories' ? (zh ? '方向' : 'category') : (zh ? '主题' : 'topic')}.`} lang={lang} alt={alt}>
+<Base title={label} description={`${label}: browse posts by ${kind === 'categories' ? (zh ? '方向' : 'category') : (zh ? '主题' : 'topic')}.`} lang={lang} alt={alt}>
   <section class="art-head">
     <h1>{label}</h1>
     <p class="meta">

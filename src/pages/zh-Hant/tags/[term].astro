@@ -16,7 +16,7 @@ const entries = (await getCollection('postsZh')) as any[];
 // Language toggle only when the same term exists in the other language.
 const otherEntries = (await getCollection('posts')) as any[];
 const names = new Set([term, ...(categoryAliases[term] ?? [])]);
-const hasAlt = otherEntries.some(p => (p.data.tags ?? []).some(x => names.has(x)));
+const hasAlt = otherEntries.some(p => (p.data.tags ?? []).some((x: string) => names.has(x)));
 const altHref = hasAlt ? '/tags/' + encodeURIComponent(term) + '/' : undefined;
 
 const posts = entries
