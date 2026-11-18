@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import { langPath, site, type Lang } from '../lib/config';
 import { t } from '../i18n/ui';
+import { categoryMeta, tagMeta } from '../data/taxonomy';
 
 interface Props {
   lang: Lang;
@@ -12,6 +13,7 @@ interface Props {
 }
 
 const { lang, kind, terms, cloud = [], alt } = Astro.props;
+const meta = kind === 'categories' ? categoryMeta : tagMeta;
 const label = t(lang, kind);
 const other = kind === 'categories' ? 'tags' : 'categories';
 const otherLabel = t(lang, other);
@@ -31,11 +33,12 @@ const link = (name: string) => langPath(`/${kind}/${encodeURIComponent(name)}/`,
   <div class="taxonomy-grid">
     {terms.map((term) => (
       <a class="taxonomy-card" href={link(term.name)}>
-        {term.cover
-          ? <img class="taxonomy-cover" src={term.cover} alt="" width="64" height="64" loading="lazy" decoding="async" />
+        {(meta[term.name]?.cover ?? term.cover)
+          ? <img class="taxonomy-cover" src={meta[term.name]?.cover ?? term.cover} alt="" width="64" height="64" loading="lazy" decoding="async" />
           : <span class="taxonomy-cover taxonomy-cover-empty" aria-hidden="true">{term.name.slice(0, 1)}</span>}
         <div class="taxonomy-body">
           <h2>{term.name}</h2>
+          {meta[term.name]?.description && <p>{meta[term.name]!.description}</p>}
           <p class="taxonomy-count">{term.count} {zh ? '篇' : 'posts'}</p>
         </div>
         <svg class="taxonomy-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
