@@ -2375,3 +2375,34 @@ main.page > * {
 .tag-list b { font-size: 16px; font-weight: 600; }
 .tag-list small { font-size: 13.5px; color: var(--muted); }
 .tag-list .meta2 { font-size: 12.5px; color: var(--faint); }
+
+/* ---------- Taxonomy cards + tag cloud (blogGPT layout) ---------- */
+.taxonomy-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 26px; }
+@media (max-width: 640px) { .taxonomy-grid { grid-template-columns: 1fr; } }
+.taxonomy-card {
+  display: flex; align-items: center; gap: 14px;
+  padding: 14px 16px; border: 1px solid var(--line); border-radius: var(--radius);
+  background: var(--card); color: var(--ink); text-decoration: none;
+  transition: border-color .15s, transform .15s;
+}
+.taxonomy-card:hover { border-color: var(--accent); }
+.taxonomy-cover { width: 64px; height: 64px; border-radius: 10px; object-fit: cover; flex: none; background: var(--chip); }
+.taxonomy-cover-empty { display: grid; place-items: center; font-size: 22px; font-weight: 600; color: var(--muted); }
+.taxonomy-body { min-width: 0; }
+.taxonomy-body h2 { margin: 0; font-size: 16.5px; font-weight: 600; }
+.taxonomy-body p { margin: 2px 0 0; font-size: 13px; color: var(--muted); }
+.taxonomy-count { margin-top: 4px !important; font-size: 12.5px; color: var(--faint); }
+.taxonomy-arrow { margin-left: auto; color: var(--faint); flex: none; }
+.tag-cloud-section { margin-top: 46px; }
+.tag-cloud-section h2 { font-size: 19px; font-weight: 600; margin: 0 0 16px; }
+.tag-cloud { display: flex; align-items: baseline; flex-wrap: wrap; gap: 10px 20px; }
+.tag-cloud a { color: var(--muted); font-size: var(--tag-size, 14px); text-decoration: none; line-height: 1.8; }
+.tag-cloud a:hover { color: var(--accent); }
+.tag-cloud small { font-size: 11px; color: var(--faint); margin-left: 4px; vertical-align: super; }
+.tag-list a { flex-direction: row !important; align-items: center; gap: 14px; }
+.tag-list img { width: 156px; height: 98px; border-radius: 10px; object-fit: cover; flex: none; background: var(--chip); }
+.tag-list .txt { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+@media (max-width: 560px) {
+  .tag-list a { flex-direction: column !important; align-items: flex-start; }
+  .tag-list img { width: 100%; height: 160px; }
+}

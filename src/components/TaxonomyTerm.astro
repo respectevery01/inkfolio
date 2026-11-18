@@ -7,35 +7,37 @@ interface Props {
   lang: Lang;
   kind: 'categories' | 'tags';
   term: string;
-  posts: { id: string; title: string; description: string; date: Date }[];
+  posts: { id: string; title: string; description: string; date: Date; cover?: string }[];
   alt?: string;
 }
 
 const { lang, kind, term, posts, alt } = Astro.props;
 const label = t(lang, kind);
+const zh = lang !== 'en';
 const fmt = (d: Date) =>
-  new Date(d).toLocaleDateString(lang === 'en' ? 'en-GB' : 'zh-CN', {
+  new Date(d).toLocaleDateString(zh ? 'zh-CN' : 'en-GB', {
     day: 'numeric',
     month: 'short',
     year: 'numeric',
   });
 ---
-<Base title={`${term} — ${site.name}`} description={`${label}: ${term}, ${posts.length} ${lang === 'en' ? 'posts' : '篇'}.`} lang={lang} alt={alt}>
+<Base title={`${term} — ${site.name}`} description={`${label}: ${term}, ${posts.length} ${zh ? '篇' : 'posts'}.`} lang={lang} alt={alt}>
   <section class="art-head">
-    <span class="kicker"><a href={langPath(`/${kind}/`, lang)}>{label}</a></span>
     <h1>{term}</h1>
-    <p class="meta">
-      <span class="pf-count">{posts.length}</span>
-      <a href={langPath(`/${kind}/`, lang)}>{label}</a>
-    </p>
+    <p class="meta"><span class="pf-count">{posts.length}</span>{zh ? '篇' : 'posts'} · {label}</p>
   </section>
   <ul class="tag-list">
     {posts.map((post) => (
       <li>
         <a href={langPath(`/posts/${post.id}/`, lang)}>
-          <b>{post.title}</b>
-          {post.description && <small>{post.description.slice(0, 110)}</small>}
-          <span class="meta2">{fmt(post.date)}</span>
+          {post.cover && (
+            <img src={post.cover} alt="" width="156" height="98" loading="lazy" decoding="async" />
+          )}
+          <span class="txt">
+            <b>{post.title}</b>
+            {post.description && <small>{post.description.slice(0, 110)}</small>}
+            <span class="meta2">{fmt(post.date)}</span>
+          </span>
         </a>
       </li>
     ))}
